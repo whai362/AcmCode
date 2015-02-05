@@ -6,7 +6,6 @@
 #include<vector>
 using namespace std;
 #define LL __int64
-vector<LL> a;
 LL Ext_gcd(LL a,LL b,LL &x,LL &y){
     if(b==0) { x=1, y=0; return a; }
     LL ret= Ext_gcd(b,a%b,y,x);
@@ -31,6 +30,8 @@ LL a_b_MOD_c(LL a,LL b,LL mod){
 	}
 	return ret;
 }
+
+vector<LL> a;
 bool g_test(LL g,LL p){
 	for(LL i=0;i<a.size();++i)
 		if(a_b_MOD_c(g,(p-1)/a[i],p)==1)
