@@ -70,7 +70,7 @@ LL log_mod(LL a, LL b, LL m){
 		if(hs.find(cur)==-1) hs.insert(cur,i);	//记得先判重，在插入
 		cur = cur * a % m;
 	}
-	LL v = a_b_MOD_c(a, m - s - 1, m);
+	LL v = a_b_MOD_c(a, (m - s - 1 + m) % m, m);
 	for(int i = 0; i < s; ++i){
 		LL tmp = hs.find(b);
 		if(tmp!=-1)
