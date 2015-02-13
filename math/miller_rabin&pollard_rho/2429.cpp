@@ -1,3 +1,12 @@
+/*poj 2429
+  题意：
+  给出两个数的lcm和gcd，求这两个数。
+  限制：
+  0 < lcm,gcd < 2^63
+  思路：
+  pollard_rho O(log(n))分解质因数。
+  可以考虑到2^63不同的质因数只有20左右个，而相同的质数不可能分在不同的数里，所以可以暴力。
+ */
 #include<iostream>
 #include<cstdio>
 #include<cstdlib>
@@ -83,24 +92,39 @@ void init(){
 	//ans=n;
 	tot=0;
 }
+int f[105],t[105],cnt;
 void gao(LL m,LL n){
-	LL ans_x,ans_y,_min=-1;
-	int lim=(1<<tot);
-	//cout<<tot<<endl;
-	//for(int i=0;i<tot;++i){
-	//	cout<<fac[i]<<' ';
+	sort(fac,fac+tot);
+	cnt=0;
+	f[cnt]=fac[0];
+	t[cnt]=1;
+	for(int i=1;i<tot;++i){
+		if(fac[i]!=fac[i-1]){
+			++cnt;
+			f[cnt]=fac[i];
+			t[cnt]=1;
+		}
+		else ++t[cnt];
+	}
+	++cnt;
+	//for(int i=0;i<cnt;++i){
+	//	cout<<f[i]<<' '<<t[i]<<endl;
 	//}
-	//cout<<endl;
+	LL ans_x,ans_y,_min=-1;
+	int lim=(1<<cnt);
 	for(int i=1;i<lim;++i){
 		int tmp=i,p=0;
 		LL x=1,y;
 		while(tmp){
-			if(tmp&1) x*=fac[p];
+			if(tmp&1){
+				for(int i=0;i<t[p];++i)
+					x*=f[p];
+			}
 			++p;
 			tmp>>=1;
 		}
 		y=n/x;
-		if(__gcd(x,y)==1 && (_min==-1 || _min>=x+y)){ _min=x+y; ans_x=x; ans_y=y; }
+		if(_min==-1 || _min>=x+y){ _min=x+y; ans_x=x; ans_y=y; }
 	}
 	if(ans_x>ans_y) swap(ans_x,ans_y);
 	printf("%I64d %I64d\n",m*ans_x,m*ans_y);
@@ -108,8 +132,6 @@ void gao(LL m,LL n){
 int main(){
 	LL a,b;
 	srand(12345);
-	//cout<<__gcd(15728640LL,12884901888LL)<<endl;
-	//cout<<67553994410557440LL/3<<endl;
 	while(scanf("%I64d%I64d",&a,&b)!=EOF){
 		if(a==b){ printf("%I64d %I64d\n",a,b); continue; }
 		init();

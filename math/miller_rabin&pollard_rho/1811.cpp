@@ -1,3 +1,13 @@
+/*poj 1811
+  题意：
+  给出一个整数n，判断n是不是素数，如果不是素数，输出最小的质因子。
+  限制；
+  2 <= N < 2^54
+  思路：
+  miller_rabin算法判素数
+  pollard_rho算法求质因子
+  复杂度O(log(n))
+ */
 #include<iostream>
 #include<cstdio>
 #include<cstdlib>
@@ -65,7 +75,7 @@ LL pollard_rho(LL n,LL c){
 //要注意1的情况
 LL ans;
 //LL fac[105];
-int tot;
+//int tot;
 void find_fac(LL n,int c){
 	if(n==1) return ;
 	if(Miller_Rabin(n)){
