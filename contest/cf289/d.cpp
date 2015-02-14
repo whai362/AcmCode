@@ -1,3 +1,14 @@
+/*cf 509D Restoring Numbers
+  题意：
+  v[i][j]=(a[i]+b[j])%k
+  现在给出n*m矩阵v[][], 求a[],b[]和k, 任意一种情况都行。
+  限制：
+  1 <= n,m <= 100; 0 <= v[i][j] <= 100
+  思路：
+  对于数组a[], 无论怎么变, 数组之间的差始终不变, b[]也同理
+  利用这个求出k
+  再设a[0]=0,b[0]=0,求出剩下的东西。
+ */
 #include<iostream>
 #include<cstdio>
 #include<vector>
