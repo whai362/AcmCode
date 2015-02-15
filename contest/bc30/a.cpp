@@ -6,7 +6,7 @@
 using namespace std;
 #define LL __int64
 const int INT=2147483647;
-int a[1005];
+LL a[1005];
 map<LL,int> mp;
 int main(){
 	int n;
