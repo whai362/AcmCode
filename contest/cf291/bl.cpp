@@ -1,13 +1,22 @@
 #include<iostream>
 #include<string>
+#include<algorithm>
 using namespace std;
 int main(){
-	cout<<1<<' '<<1<<endl;
+	const int L=1000;
+	int c=300000/L;
+	cout<<c<<' '<<c<<endl;
 	string str="";
-	for(int i=0;i<3*1e5;++i){
+	for(int i=0;i<L-9;++i)
 		str=str+'a';
+	string nx="aaabbbccc";
+	for(int i=0;i<c;++i){
+		cout<<str+nx<<endl;
+		next_permutation(nx.begin(),nx.end());
 	}
-	cout<<str<<endl;
-	str[0]='b';
-	cout<<str<<endl;
+	for(int i=0;i<9;++i)
+		str=str+'a';
+	for(int i=0;i<c;++i){
+		cout<<str<<endl;
+	}
 }
