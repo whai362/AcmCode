@@ -44,8 +44,6 @@ lty双向dp
 最小支配集
 最小边覆盖
 sprague grundy
-求质因子 注意例如：10
-欧拉函数 phi 3696
 拟阵
 兰道函数
 梅森素数
@@ -62,7 +60,6 @@ sg
 Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 新trie
 顺序通过指定点
-C++ hashmap
 稳定婚姻问题 http://www.cnblogs.com/vongang/archive/2013/03/10/2952978.html
 大素数判断 http://blog.csdn.net/niushuai666/article/details/7372567
 最大密集子图
