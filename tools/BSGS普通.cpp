@@ -64,7 +64,7 @@ LL a_b_MOD_c(LL a,LL b,LL mod){
 //复杂度O(sqrt(m))
 LL log_mod(LL a, LL b, LL m){
 	hs.init();
-	LL s = ceil(sqrt(m + 0.5));
+	LL s = ceil(sqrt(m));
 	LL cur = 1;
 	for (int i = 0; i < s; ++i){
 		if(hs.find(cur)==-1) hs.insert(cur,i);	//记得先判重，在插入

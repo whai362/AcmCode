@@ -56,6 +56,7 @@ LL ext_gcd(LL a,LL b,LL &x,LL &y){
 //(A^x)%C=B
 //×¢Òâ0 < A < C; 0 <= B < C
 //a*x+Cy=B
+//¸´ÔÓ¶ÈO(sqrt(C))
 LL ext_log_mod(LL A,LL B,LL C){
 	LL ret = 1;
     for(int i=0; i<=50; i++){

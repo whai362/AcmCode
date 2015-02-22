@@ -1,5 +1,4 @@
 算法：
-原根 now 3696
 扩展kmp	5
 极角排序	4
 2-sat
@@ -15,7 +14,7 @@ lca 倍增法求lca	ac自动机 now
 fwt
 二维树状数组
 二维线段树
-容斥
+容斥 http://acm.hdu.edu.cn/showproblem.php?pid=1695
 筛法
 求树上任意两点的距离
 三分
@@ -103,6 +102,9 @@ LCT
 leagal path 如tools
 递推求逆元
 hdu 拓栈
+如何求一个二分图有多少个不同的最大匹配呢
+poj 1091 总结
+SGU155(笛卡尔树的构造)
 
 题目：
 leetcode
