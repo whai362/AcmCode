@@ -18,7 +18,7 @@ using namespace std;
 const LL MOD=3814697265625LL; //5^18
 const int Q=18;
 const int P=5;
-//const LL MOD=33232930569601; //7^16
+//const LL MOD=33232930569601LL; //7^16
 //const int Q=16;
 //const int P=7;
 LL mul(LL a,LL b,LL m){

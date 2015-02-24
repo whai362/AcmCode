@@ -24,3 +24,8 @@ LL inv(LL a,LL m){
 	return p<0?p+m:p;
 }
 
+//Ô¤´¦ÀíÄæÔª  
+Inv[1] = 1;  
+for(int i=2; i<N; i++)  
+	Inv[i] = (MOD - MOD / i) * Inv[MOD % i] % MOD;
+

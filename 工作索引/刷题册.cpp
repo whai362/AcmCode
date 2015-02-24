@@ -93,16 +93,19 @@ http://blog.csdn.net/jiangyuze831/article/details/43450387 拟阵+线性基
 贝祖定理
 剩余类
 树剖+splay hdu 5173, http://www.tsinsen.com/A1354
-跳蚤
 尺取法
 LCT
 leagal path 如tools
 递推求逆元
-hdu 拓栈
 如何求一个二分图有多少个不同的最大匹配呢
-poj 1091 总结
 SGU155(笛卡尔树的构造)
 n个序列的LCS应该如何求呢，记得CF上某场比赛中就有这个题目
+SAP
+H-K http://blog.csdn.net/u013582254/article/details/43467173
+波动数列
+多项式除法
+多项式求逆元
+http://www.cnblogs.com/oldmanren/p/3607987.html
 
 题目：
 leetcode
