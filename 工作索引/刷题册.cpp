@@ -9,7 +9,7 @@ lca 倍增法求lca	ac自动机 now
 一般图匹配带花树
 模拟退火 now
 树链剖分	6
-莫比乌斯反演
+莫比乌斯反演 zoj 3435,poj 3904 hdu 5072
 莫队算法
 fwt
 二维树状数组
@@ -106,6 +106,14 @@ H-K http://blog.csdn.net/u013582254/article/details/43467173
 多项式除法
 多项式求逆元
 http://www.cnblogs.com/oldmanren/p/3607987.html
+Fib数模n的循环节
+关于方程x^2+y^2=n的解的问题
+容斥 http://acm.hdu.edu.cn/showproblem.php?pid=5072
+http://oeis.org/wiki/Index_to_OEIS:_Section_Ne#necklaces
+polya定理
+burnside引理 2154
+二分匹配的Hopcroft-Carp算法
+旋转卡壳
 
 题目：
 leetcode
