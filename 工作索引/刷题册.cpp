@@ -9,7 +9,7 @@ lca 倍增法求lca	ac自动机 now
 一般图匹配带花树
 模拟退火 now
 树链剖分	6
-莫比乌斯反演 zoj 3435,poj 3904 hdu 5072
+莫比乌斯反演 zoj 3435,poj 3904 hdu 5072 hdu 5153
 莫队算法
 fwt
 二维树状数组
@@ -114,6 +114,10 @@ polya定理
 burnside引理 2154
 二分匹配的Hopcroft-Carp算法
 旋转卡壳
+POJ3222 图分治
+POJ1228 单调链
+单调队列和简单斜率优化小结
+插头dp quartergeek
 
 题目：
 leetcode
