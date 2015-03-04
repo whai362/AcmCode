@@ -1,3 +1,6 @@
+/*素数筛
+  一个有用的性质：1~n的素数只需要用1~sqrt(n)的素数来筛，这个性质在局部筛的情况下很有用。
+ */
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -26,7 +29,7 @@ void get_pri(int n){
 //		if(is_pri[i]) pri[tot++] = i;
 //		for(int j = 0; j < tot && i * pri[j] <= n; ++j){
 //			is_pri[i * pri[j]] = 0;
-//			if(i % pri[j] == 0) break;
+//			if(i % pri[j] == 0) break;	//这里break掉是因为pri[j]可以把i后面的覆盖掉
 //		}
 //	}
 //}
