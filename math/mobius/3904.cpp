@@ -1,3 +1,17 @@
+/*poj 3904
+  题目：
+  给出n个数字a1,a2,...an, 求从中选出一个四元组(a,b,c,d), 使得gcd(a,b,c,d)=1，求符合条件的四元组的数目。
+  限制：
+  1 <= n <= 1e4; 1 <= ai <= 1e4
+  思路：
+  莫比乌斯反演入门题
+  设f(k)为gcd(a,b,c,d)=k的四元组的数目，
+  设F(k)为gcd(a,b,c,d)为k的倍数的四元组的数目，
+  F(k)可以通过这个方式得到：
+  先通过对每个ai分解因数预处理处理出来，对于每个k，有多少个ai是它的倍数，假设为m，然后F(k)=C(m,4)。
+  令lim=max(a1,a2,...,an)
+  最后f(1)=mu[1]*F(1) + mu[2]*F(2) + ... + mu[lim]*F(lim)
+ */
 #include<iostream>
 #include<cstdio>
 #include<cmath>

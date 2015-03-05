@@ -1,3 +1,7 @@
+/*spoj 7001
+  ЬтвтЃК
+
+ */
 #include<iostream>
 #include<cstdio>
 #include<algorithm>
