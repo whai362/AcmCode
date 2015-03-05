@@ -4,7 +4,7 @@
 #include<ctime>
 using namespace std;
 #define LL long long
-const int N=1e2+5;
+const int N=1e7+5;
 const int MOD=1000000007; 
 int mu[N],pri[N],pcnt;
 bool vis[N];

@@ -1,7 +1,3 @@
-/*spoj 7001
-  Ã‚“‚£∫
-
- */
 #include<iostream>
 #include<cstdio>
 #include<algorithm>
@@ -55,7 +51,7 @@ int main(){
 	getMu();
 	predo();
 	int T;
-	LL x,y,z;
+	LL x;
 	scanf("%d",&T);
 	while(T--){
 		scanf("%lld",&x);
