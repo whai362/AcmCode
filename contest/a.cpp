@@ -1,33 +1,31 @@
 #include<iostream>
 #include<cstdio>
 #include<algorithm>
-#include<cstdlib>
-#include<map>
 using namespace std;
 #define LL __int64
-const int INT=2147483647;
-int a[1005];
-map<LL,int> mp;
+const int N=1e5+5;
+int a[N];
 int main(){
-	int n;
-	int ans;
-	int cas=0;
-	while(scanf("%d",&n)!=EOF){
-		mp.clear();
-		for(int i=0;i<n;++i){
-			scanf("%I64d",&a[i]);
-			++mp[a[i]];
-		}
+	int T;
+	int n,k;
+	scanf("%d",&T);
+	while(T--){
+		scanf("%d%d",&n,&k);
+		for(int i=0;i<n;++i)
+			scanf("%d",&a[i]);
 		sort(a,a+n);
-		n=unique(a,a+n)-a;
-		ans=0;
-		//cout<<n<<endl;
-		//cout<<INT_MAX<<endl;
-		for(int i=0;i<n;++i){
-			if((a[i]+a[(i-1+n)%n])%INT==a[(i+1)%n]) ans+=mp[a[i]];
+		int p=0,q=0;
+		//n==1
+		LL ans=0;
+		while(p<n){
+			LL lim=(LL)a[p]+k;
+			while(q+1<n && a[q+1]<=lim){
+				++q;
+			}
+			ans=ans+(q-p);
+			++p;
 		}
-		if(n==1) ans=-1;
-		printf("Case #%d: %d\n",++cas,ans);
+		printf("%I64d\n",ans);
 	}
 	return 0;
 }

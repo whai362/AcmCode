@@ -118,6 +118,9 @@ POJ3222 图分治
 POJ1228 单调链
 单调队列和简单斜率优化小结
 插头dp quartergeek
+炫酷的反演魔术
+https://www.oxoo.org/?tag=中途相遇法
+https://www.oxoo.org/?tag=三维前缀和
 
 题目：
 leetcode

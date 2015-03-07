@@ -7,8 +7,8 @@
 #include<algorithm>
 using namespace std;
 #define mp make_pair
-const int N=10005,
-	  M=20005;
+const int N=40005,
+	  M=50005;
 int n,m,cnt,mg,mg_cnt;
 int a[N],
 	sorted[N],

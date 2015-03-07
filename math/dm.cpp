@@ -45,34 +45,42 @@ void init(){
 }
 
 int tab[100];
+char tmp[10];
 
 void jy(){
 	int pp=0;
-	for(int i=0;i<10;++i)
-		tab[i+'0']=pp++;
-	for(int i=0;i<26;++i)
-		tab[i+'a']=pp++;
-	for(int i=0;i<26;++i)
-		tab[i+'A']=pp++;
-	tab['-']=pp++;
-	tab['+']=pp++;
-	string tmp;
-	LL sum;
+	for(int i=0;i<10;++i){
+		tab[int(i+'0')]=i;
+	}
+	for(int i=0;i<26;++i){
+		tab[int(i+'a')]=i+10;
+	}
+	for(int i=0;i<26;++i){
+		tab[int(i+'A')]=i+10+26;
+	}
+	tab['-']=62;
+	tab['+']=63;
+	//string tmp;
+	int sum;
 	int p=0;
 	for(int i=N;p<ys.length() && i<MAXN;++i){
-		tmp="";
+		//cout<<i<<endl;
+		if(i&1) continue;
+		//tmp="";
+		int len=0;
 		sum=0;
 		while(ys[p]!=','){
-			tmp=tmp+ys[p];
+			tmp[len++]=ys[p];
 			++p;
 		}
 		++p;
-		for(int j=tmp.length()-1;j>0;--j){
+		for(int j=len-1;j>=0;--j){
 			sum=sum*10+tab[tmp[j]];
 		}
 		B[i]=sum;
 	}
 }
+
 
 LL p[MAXN];
 void gao(LL n,LL k){
