@@ -1,3 +1,8 @@
+/*hdu 5180
+  表1：
+  tab[a][b]表示a*b的棋盘王的放置情况的种数。
+  由于只有15*15，所以可以用状态压缩dp来解决。
+ */
 #include<iostream>
 #include<cstdio>
 #include<cstring>
@@ -25,14 +30,8 @@ int main(){
 				for(int l=0;l<cnt;++l){
 					if((a[k] & a[l]) || (a[k] & (a[l]<<1)) || (a[k] & (a[l]>>1))) continue;
 
-					//if(i==3 && j==1) cout<<a[k]<<' '<<a[l]<<endl;
 					dp[j][a[k]]=(dp[j][a[k]]+dp[j-1][a[l]])%MOD;
 				}
-				//if(i==3 && j==1){
-				//	cout<<dp[j][a[k]];
-				//	if(k!=cnt-1) cout<<' ';
-				//	else cout<<endl;
-				//}
 				sum=(sum+dp[j][a[k]])%MOD;
 			}
 			tab[j+1][i]=sum;

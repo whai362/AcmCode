@@ -121,6 +121,9 @@ POJ1228 单调链
 炫酷的反演魔术
 https://www.oxoo.org/?tag=中途相遇法
 https://www.oxoo.org/?tag=三维前缀和
+二维线段树
+逆波兰表达式
+开关问题
 
 题目：
 leetcode

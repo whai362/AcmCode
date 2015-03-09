@@ -1,7 +1,7 @@
 //手写哈希表
-const int HASH_MOD=9876543;	//看题目，调大小
+const int HASH_MOD=1876543;	//看题目，调大小
 LL key[HASH_MOD], val[HASH_MOD];
-int head[HASH_MOD], next[HASH_MOD];
+int head[HASH_MOD], nxt[HASH_MOD];	//next为系统关键字
 struct Hash{
     int tot;
     void init(){
@@ -9,15 +9,15 @@ struct Hash{
         tot = 0;
     }
     LL insert(LL x, LL y){
-        int k = x % HASH_MOD;
+        int k = (x % HASH_MOD + HASH_MOD) % HASH_MOD;
         key[tot] = x;
         val[tot] = y;
-        next[tot] = head[k];
+        nxt[tot] = head[k];
         head[k] = tot++;
     }
     LL find(LL x){
-        int k = x % HASH_MOD;
-        for(int i = head[k]; i != -1; i = next[i])
+        int k = (x % HASH_MOD + HASH_MOD) % HASH_MOD;
+        for(int i = head[k]; i != -1; i = nxt[i])
             if(key[i] == x)
                 return val[i];
         return -1;

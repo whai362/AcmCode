@@ -1,3 +1,9 @@
+/*hdu 5180
+  表2：
+  基于表1然后打出表2，
+  表2是答案表。
+  因为问题只有15*16，对于每种情况：(n,k)，先之间考虑k辆车的情况，可以用两个二进制数表示k辆车在棋盘上的分布，然后可以发现车的本质是把棋盘分割成若干部分，每部分的王的放置情况在表1中已经打出，剩下的部分可以很容易算出来。
+ */
 #include<iostream>
 #include<cstdio>
 #include<map>
@@ -5,7 +11,6 @@
 using namespace std;
 #define LL __int64
 const int MOD=1000000007;
-int ans[20][20];
 int a[1<<16],cnt;
 int tab[16][16]={
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -33,7 +38,6 @@ bool ok(int x,int b){
 	}
 	return (cnt==b);
 }
-//普通
 LL a_b_MOD_c(LL a,LL b,LL mod){
 	LL ret = 1;
 	a %= mod;
@@ -44,20 +48,9 @@ LL a_b_MOD_c(LL a,LL b,LL mod){
 	}
 	return ret;
 }
-void print(int x){
-	while(x>0){
-		cout<<((x&1)==0?0 : 1);
-		x/=2;
-	}
-	cout<<endl;
-}
 map< pair<pair<int,int>,int >,int> mp;
 LL p[20];
 LL gao(int x,int y,int L,int b){
-	int X=x,Y=y;
-	////cout<<x<<' '<<y<<' '<<L<<' '<<mp[make_pair(make_pair(x,y),L)]<<endl;
-	//if(x==y && mp[make_pair(make_pair(x,y),L)]!=0) return 0;
-	
 	int C[20],R[20],cc=0,cr=0;
 	memset(C,0,sizeof(C));
 	memset(R,0,sizeof(R));
@@ -66,7 +59,6 @@ LL gao(int x,int y,int L,int b){
 		++r;
 		if(x & 1){
 			if(r-l-1) C[r-l-1]++;
-			//if(r-l-1) C[cc++]=r-l-1;
 			l=r;
 		}
 		x/=2;
@@ -77,22 +69,18 @@ LL gao(int x,int y,int L,int b){
 	int tmp=0,rec=0,pp;
 	for(int i=1;i<=15;++i){
 		for(int j=0;j<C[i];++j){
-			//cout<<i<<endl;
 			pp=(1<<(rec+i));
 			rec+=i+1;
 			tmp |= pp;
 		}
 	}
-	//tmp ^= pp;
 	x=tmp;
-	//print(x);
 
 	l=r=0;
 	while(y>0){
 		++r;
 		if(y & 1){
 			if(r-l-1) R[r-l-1]++;
-			//if(r-l-1) R[cr++]=r-l-1;
 			l=r;
 		}
 		y/=2;
@@ -103,15 +91,12 @@ LL gao(int x,int y,int L,int b){
 	tmp=0,rec=0;
 	for(int i=1;i<=15;++i){
 		for(int j=0;j<R[i];++j){
-			//cout<<i<<endl;
 			pp=(1<<(rec+i));
 			rec+=i+1;
 			tmp |= pp;
 		}
 	}
-	//tmp ^= pp;
 	y=tmp;
-	//print(y);
 	
 	if(x>y) swap(x,y);
 	tmp=mp[make_pair(make_pair(x,y),L)];
@@ -126,7 +111,6 @@ LL gao(int x,int y,int L,int b){
 		}
 	ret=ret*p[b]%MOD;
 	mp[make_pair(make_pair(x,y),L)]=ret;
-	//cout<<x<<' '<<y<<' '<<L<<' '<<mp[make_pair(make_pair(x,y),L)]<<endl;
 	return ret;
 }
 int tt[]={3,5,6,9,10,12};
@@ -135,39 +119,6 @@ int main(){
 	for(int i=1;i<=15;++i){
 		p[i]=p[i-1]*i%MOD;
 	}
-	//gao(13,1,5,2);
-	//LL sum=0;
-	//LL tmp;
-	//for(int i=0;i<6;++i){
-	//	for(int j=0;j<6;++j){
-	//		cout<<tt[i]<<' '<<tt[j]<<endl;
-	//		tmp=gao(tt[i],tt[j],4,2);
-	//		cout<<tmp<<endl;
-	//		sum=(sum+tmp)%MOD;
-	//	}
-	//}
-	//cout<<sum<<endl;
-	//LL sum=0;
-	//LL tmp;
-	//for(int i=0;i<2;++i){
-	//	for(int j=0;j<2;++j){
-	//		cout<<tt[i]<<' '<<tt[j]<<endl;
-	//		tmp=gao(tt[i],tt[j],4,2);
-	//		cout<<tmp<<endl;
-	//		sum=(sum+tmp)%MOD;
-	//	}
-	//}
-	//sum=sum*4%MOD;
-	//for(int i=0;i<6;++i){
-	//	if(i!=2) sum=(sum+gao(6,tt[i],4,2)*2)%MOD;
-	//	else sum=(sum+gao(6,6,4,2))%MOD;
-	//}
-	//for(int i=0;i<6;++i){
-	//	if(i!=2 && i!=3) sum=(sum+gao(9,tt[i],4,2)*2)%MOD;
-	//	else if(i==3) sum=(sum+gao(9,9,4,2))%MOD;
-	//}
-	//cout<<sum<<endl;
-	//cout<<gao(0,0,2,0)<<endl;
 	for(int i=1;i<=15;++i){
 		for(int j=0;j<=15;++j){
 			mp.clear();
@@ -175,39 +126,11 @@ int main(){
 			cnt=0;
 			for(int k=0;k<(1<<i);++k)
 				if(ok(k,j)) a[cnt++]=k;
-			//if(i==1 && j==1){
-			//	cout<<endl;
-			//	for(int i=0;i<cnt;++i)
-			//		cout<<a[i]<<' ';
-			//	cout<<endl;
-			//}
 			LL sum=0;
 			for(int k=0;k<cnt;++k)
 				for(int l=0;l<cnt;++l)
 					sum=(sum+gao(a[k],a[l],i,j))%MOD;
-			////int lim=(cnt+1)/2-1;
-			//int lim;
-			//if(cnt&1) lim=cnt/2;
-			//else lim=cnt/2-1;
-			//for(int k=0;k<lim;++k)
-			//	for(int l=0;l<lim;++l)
-			//		sum=(sum+gao(a[k],a[l],i,j))%MOD;
-			//sum=sum*4%MOD;
-			//int p=lim;
-			//for(int k=0;k<cnt;++k){
-			//	if(k!=p) sum=(sum+gao(a[p],a[k],i,j)*2)%MOD;
-			//	else sum=(sum+gao(a[p],a[k],i,j))%MOD;
-			//}
-			//if((cnt&1)==0){
-			//	p=lim+1;
-			//	for(int k=0;k<cnt;++k){
-			//		if(k!=lim && k!=p) sum=(sum+gao(a[p],a[k],i,j)*2)%MOD;
-			//		else if(k==p) sum=(sum+gao(a[p],a[k],i,j))%MOD;
-			//	}
-			//}
-			
-			//ans[i][j]=sum;
-			cerr<<i<<' '<<j<<endl;
+			//cerr<<i<<' '<<j<<endl;
 			cout<<sum<<',';
 		}
 		cout<<endl;
