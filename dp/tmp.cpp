@@ -1,99 +1,18 @@
-#include <stdio.h>
-#include <iostream>
-#include<map>
-#include <set>
-#include <stack>
-#include <vector>
-#include <math.h>
-#include <string.h>
-#include <queue>
-#include <string>
-#include <stdlib.h>
-#define LL long long
-#define _LL __int64
-#define eps 1e-8
-#define PI acos(-1.0)
-using namespace std;
- 
-const int maxn = 231;
- 
-double a[235][235],p;
-int equ,var;
-double x[235];
-int flag[235][235];
- 
-double Gauss(){
-    int row,col,max_r;
-    int i,j;
-    row = col = 0;
-    while(row < equ && col < var){
-        max_r = row;
-        for(i = row+1; i < equ; i++)
-            if(fabs(a[i][col])-fabs(a[max_r][col]) > eps)
-                max_r = i;
-		
-        if(max_r != row){
-            for(j = col; j <= var; j++)
-                swap(a[row][j],a[max_r][j]);
-        }
-        if(fabs(a[row][col]) < eps){
-            col++;
-            continue;
-        }
- 
-        for(i = row+1; i < equ; i++)
-        {
-            if(fabs(a[i][col]) > eps)
-            {
-                double t = a[i][col]/a[row][col];
-                a[i][col] = 0.0;
- 
-                for(j = col+1; j <= var; j++)
-                    a[i][j] -= a[row][j]*t;
-            }
-        }
-        row++;
-        col++;
-    }
- 
-    for(i = equ-1; i >= 0; i--)
-    {
-        if(fabs(a[i][i]) < eps) continue;
-        double tmp = a[i][var];
-        for(j = i+1; j < var; j++)
-            tmp -= a[i][j]*x[j];
-        x[i] = tmp/a[i][i];
-    }
-    return x[0];
-}
- 
-int main(){
-	int cnt=0;
-	for(int i=0;i<20;++i){
-		for(int j=0;j<=i;++j){
-			flag[i][j]=cnt++;
-		}
-	}
-	while(~scanf("%lf",&p)){
-		memset(a,0,sizeof(a));
-		memset(x,0,sizeof(x));
-		for(int i=0;i<20;++i){
-			for(int j=0;j<i;++j){
-				int u=flag[i][j];
-				a[u][u]=1;
-				a[u][210]=1;
-				a[u][flag[i][max(0,j-2)]]-=1-p;
-				a[u][flag[i][j+1]]-=p;
-			}
-			int u=flag[i][i];
-			a[u][u]=1;
-			a[u][210]=1;
-			a[u][flag[i][max(0,i-2)]]-=1-p;
-			if(i+1<20) a[u][flag[i+1][i]]-=p;
-		}
-		equ=var=210;
-		Gauss();
-		printf("%.6lf\n",x[0]);
-	}
-	return 0;
-}
+hdu 5185 dp
+题目：
+x[1]+x[2]+x[3]+...+x[n]=n, 这里 
+0 <= x[i] <= n && 1 <= i <= n
+x[i] <= x[i+1] <= x[i]+1 && 1 <= i <= n-1
+对于一个给定的n,Gorwin想要知道有多少xi的组合满足上述等式。由于结果比较大，输出答案对m取余的结果就行。
+限制；
+T组数据：1 <= T <=20
+1 <= n <= 50000
+1 <= m <= 1e9
+思路：
+类似背包的dp，只是稍微变一下而已。
+dp[i][j] 表示装满容量为i的背包，背包中体积最大的物品为j的方法数
+dp[i][j]=dp[i-j][j-1]+dp[i-j][j]
+
+需要注意的一点是由于题目限制，设最大的物品的体积为x，则有：
+(x+1)*x/2=n，所以x最大值小于sqrt(2*n)。
+所以每组数据时空复杂度都为O(50000*320)。
