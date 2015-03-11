@@ -1,28 +1,33 @@
-#include<cstdio>
-#include<algorithm>
+#include <iostream>
+#include <string.h>
+#include <stdio.h>
 using namespace std;
-#define N 100005
-struct data{
-	int id,value;
-}a[N];
-bool cmp(data a,data b){
-	return a.value<b.value;
+typedef __int64 ll;  
+const ll MOD=2015LL;  
+const int MAXN=1000001;
+int T,n,k;
+ll ans,f[MAXN]={1LL};
+ll Pow(ll a, int n)  
+{  
+   ll ans = 1LL;  
+   while (n)  
+   {  
+       if (n & 1) 
+		   ans=(ans*a)%MOD;
+       a=(a*a)%MOD;
+       n>>=1;
+   }
+   return ans;
+}  
+int main()  
+{
+   for (int i=1;i<MAXN;++i)  
+       f[i]=(f[i-1]*i)%MOD;
+   scanf("%d",&T);  
+   while (T--)
+   {
+	   scanf("%d%d",&n,&k);  
+       printf("%I64d\n",f[k]*((Pow(k+1,n-k)-Pow(k,n-k)+MOD)%MOD)%MOD);  
+   }  
+   return 0;
 }
-int main(){
-	int i,n;
-	scanf("%d",&n);
-	for(i=0;i<n;++i){
-		scanf("%d",&a[i].value);
-		a[i].id=i;
-	}
-	sort(a,a+n,cmp);
-	for(i=0;i<n;++i){
-		a[a[i].id].value=i;
-	}
-	for(i=0;i<n;++i){
-		printf("%d ",a[i].value);
-	}
-	printf("\n");
-	return 0;
-}
-
