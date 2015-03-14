@@ -80,7 +80,7 @@ http://tieba.baidu.com/p/3487637350
 西尔维斯特
 仙人掌图，树
 贾志鹏线性筛
-poj2187 最远点对
+poj2187 最远点对 最近点对
 插值法
 fft http://www.cnblogs.com/kuangbin/p/3210389.html
 NTT
@@ -125,6 +125,11 @@ https://www.oxoo.org/?tag=三维前缀和
 逆波兰表达式
 开关问题
 01分数规划
+小球与箱问题
+微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
+lucas
+组合数求模
+POJ3608(旋转卡壳--求两凸包的最近点对距离)
 
 题目：
 leetcode
