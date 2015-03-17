@@ -1,3 +1,11 @@
+/*zoj 2107
+  题意：
+  给出n个点，求最近点对的距离/2。
+  限制：
+  2 <= n <= 1e5
+  思路：
+  点分治
+ */
 #include<iostream>
 #include<cstdio>
 #include<cmath>
@@ -19,7 +27,7 @@ const int N=100005;
 Point p[N];
 int t[N];
 double dist(Point a,Point b){
-	return (a-b).dot(a-b);
+	return sqrt((a-b).dot(a-b));
 }
 bool cmpxy(Point a,Point b){
 	if(a.x==b.x) return a.y<b.y;
@@ -36,7 +44,7 @@ double gao(int l,int r){
 	d=min(gao(l,mid),gao(mid+1,r));
 	int cnt=0;
 	for(int i=l;i<=r;++i){
-		if(fabs(p[mid].x-p[i].x) <= d)
+		if(fabs(p[mid].x-p[i].x)<d)
 			t[cnt++]=i;
 	}
 	sort(t,t+cnt,cmpy);
@@ -55,7 +63,7 @@ int main(){
 		//for(int i=0;i<n;++i){
 		//	cout<<p[i].x<<' '<<p[i].y<<endl;
 		//}
-		printf("%.2f\n",sqrt(gao(0,n-1))/2);
+		printf("%.2f\n",gao(0,n-1)/2);
 	}
 	return 0;
 }

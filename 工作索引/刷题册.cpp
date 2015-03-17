@@ -129,7 +129,6 @@ https://www.oxoo.org/?tag=三维前缀和
 微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
 lucas
 组合数求模
-POJ3608(旋转卡壳--求两凸包的最近点对距离)
 
 题目：
 leetcode
