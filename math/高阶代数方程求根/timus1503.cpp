@@ -47,6 +47,18 @@ vector<double> gao(vector<double> coef,int n){
 	}
 	return ret;
 }
+vector<double> coef,ans;
 int main(){
+	int n;
+	int a;
+	scanf("%d",&n);
+	coef.clear();
+	for(int i=0;i<n+1;++i){
+		scanf("%d",&a);
+		coef.PB(a);
+	}
+	ans=gao(coef,n);
+	for(int i=0;i<ans.size();++i)
+		printf("%d%c",ans[i],i==ans.size()-1?'\n':' ');
 	return 0;
 }
