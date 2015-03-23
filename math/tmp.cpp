@@ -63,7 +63,6 @@ LL quick_mod(LL a,LL b,LL m)
 
 const int N = 1000005;
 
-/**以下为求原根部分 */
 bitset<N> prime;
 int p[N],pri[N];
 int k,cnt;
