@@ -1,5 +1,5 @@
 算法：
-问关于"图的知识"
+最大密度子图
 扩展kmp	5
 极角排序	4
 2-sat
@@ -15,8 +15,6 @@ lca 倍增法求lca	ac自动机 now
 fwt
 二维树状数组
 二维线段树
-容斥 http://acm.hdu.edu.cn/showproblem.php?pid=1695
-筛法
 求树上任意两点的距离
 三分
 数论
