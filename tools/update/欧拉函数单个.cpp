@@ -1,3 +1,6 @@
+﻿//欧拉函数phi(n)表示比n小且与n互质的数有多少个。
+//有一个有意思的性质：n=sigma(d|n,phi(d))
+
 #define LL __int64
 LL mul(LL a,LL b,LL m){
     LL ret = 0;
