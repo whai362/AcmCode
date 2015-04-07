@@ -1,3 +1,9 @@
+//系统自带的反序
+#include<algorithm>
+int a[10];
+int n;
+reverse(a,a+n);
+
 //各种好用的stl
 //1. 全排列
 #include<algorithm>

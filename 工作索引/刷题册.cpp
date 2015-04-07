@@ -53,7 +53,7 @@ sprague grundy
 n皇后快速解法
 圆的反演变换
 网络赛看楼的题
-拓扑排序(个数)
+拓扑排序(个数),字典序最大
 各种定理
 sg
 Palindromic Tree——回文树【处理一类回文串问题的强力工具】
@@ -129,6 +129,7 @@ https://www.oxoo.org/?tag=三维前缀和
 lucas
 组合数求模
 双调欧几里得
+http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
 
 题目：
 leetcode

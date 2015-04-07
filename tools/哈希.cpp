@@ -26,6 +26,8 @@ struct Hash{
 
 //c++中的hash
 //unordered_map 在某些oj上不能用
+//注意unordered_map不能用pair
+#include <iostream>
 #include <string>
 #include <tr1/unordered_map>
 using namespace std;
