@@ -1,7 +1,14 @@
+/*poj 2406
+  题意：
+  给出一个字符串，问这个字符串最多由多少个重复的子串构成。
+  限制：
+  1 <= len <= 1e6
+ */
 #include<iostream>
-#include<cstdio>
 #include<cstring>
+#include<cstdio>
 using namespace std;
+
 const int N = 1000005;
 int nxt[N];
 char S[N], T[N];
@@ -19,20 +26,17 @@ void getNext(){
         else
             k = nxt[k];
 }
-int ans[N],cnt;
+
 int main(){
 	while(scanf("%s",T)!=EOF){
+		if(T[0]=='.') break;
 		tlen=strlen(T);
 		getNext();
-		cnt=0;
-		int i=tlen;
-		while(i>0){
-			ans[cnt++]=i;
-			i=nxt[i];
-		}
-		for(int i=cnt-1;i>=0;--i){
-			printf("%d%c",ans[i],i==0?'\n':' ');
-		}
+		int zq=tlen-nxt[tlen];
+		if(tlen%zq==0)
+			printf("%d\n",tlen/zq);
+		else 
+			puts("1");
 	}
 	return 0;
 }

@@ -1,57 +1,13 @@
-#include<iostream>
-#include<cstdio>
-#include<algorithm>
-#include<vector>
-#include<map>
-using namespace std;
-const int N=1000000;
-#define LL __int64
-map<LL,int> mp;
-int a[N],r[N],cnt;
-int main(){
-	LL c,Hr,Hb,Wr,Wb;
-	int T;
-	cin>>T;
-	int cas=0;
-	while(T--){
-		mp.clear();
-		cin>>c>>Wr>>Hr>>Wb>>Hb;
-		if(Wr<Wb){
-			swap(Hr,Hb);
-			swap(Wr,Wb);
-		}
-		cnt=0;
-		LL lim=min(Wb+1,c/Wr+1);
-		//cout<<lim<<endl;
-		for(int i=0;i<=lim;++i){
-			LL tmp=((c-Wr*i)%Wb+Wb)%Wb;
-			//cout<<tmp<<endl;
-			if(mp.find(tmp)==mp.end()){
-				r[cnt]=tmp;
-				a[cnt++]=i;
-				mp[tmp]=1;
-			}
-		}
-		LL ans=0;
-		if(Hr*Wb<=Hb*Wr){
-			for(int i=0;i<cnt;++i){
-				LL tmp=Wr*a[i];
-				if(tmp>c) continue;
-				ans=max(ans,Hr*a[i]+(c-tmp)/Wb*Hb);
-			}
-		}
-		else{
-			for(int i=0;i<cnt;++i){
-				LL d=__gcd(Wr,Wb);
-				LL nn=(c/Wr-a[i])/(Wb/d);
-				nn=nn*Wb/d+i;
-				LL tmp=nn*Wr;
-				if(tmp>c) continue;
-				ans=max(ans,Hr*nn+(c-tmp)/Wb*Hb);
-			}
-		}
-
-		cout<<"Case #"<<++cas<<": "<<ans<<endl;
-	}
-	return 0;
-}
+codeforces 526 e
+题意：
+给出n个数a1,a2,...,an，这n个数首尾相接形成一个环。
+如：1 2 3
+(1,2) (2,3) (3,1) 相连
+现在再给出q个询问，每个询问为一个b，求把这n个数分成相连的m段，使得每段的和不超过b，求m的最小值。
+限制：
+2 <= n <= 1e6
+1 <= q <= 50
+1 <= ai <= 1e9
+max(ai) <= b <= 1e15
+思路：
+先找出一个最小的段，从最小的段中枚举起点，取最小值即为答案。

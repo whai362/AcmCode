@@ -130,6 +130,11 @@ lucas
 组合数求模
 双调欧几里得
 http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
+可持久化字典树
+浮点数的gcd
+马尔可夫方程的解
+牛顿迭代法
+最小环
 
 题目：
 leetcode
