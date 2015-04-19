@@ -1,7 +1,6 @@
 算法：
 最大密度子图
-扩展kmp	5
-极角排序	4
+扩展kmp
 2-sat
 lca 倍增法求lca	ac自动机 now
 后缀自动机
@@ -9,7 +8,7 @@ lca 倍增法求lca	ac自动机 now
 划分树
 一般图匹配带花树
 模拟退火 now
-树链剖分	6
+树链剖分
 莫比乌斯反演 zoj 3435,poj 3904 hdu 5072 hdu 5153
 莫队算法
 fwt
@@ -89,10 +88,7 @@ NTT
 http://hihocoder.com/contest/challenge8/problem/2
 生成树计数
 http://blog.csdn.net/jiangyuze831/article/details/43450387 拟阵+线性基
-贝祖定理
-剩余类
 树剖+splay hdu 5173, http://www.tsinsen.com/A1354
-尺取法
 LCT
 leagal path 如tools
 递推求逆元

@@ -43,3 +43,5 @@ int main(){
 	}
 	return 0;
 }
+6. 叉积的意义：
+a * b = |a| * |b| * sin<a,b>
