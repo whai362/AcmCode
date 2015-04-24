@@ -1,9 +1,10 @@
 #include<iostream>
 #include<cstdio>
 #include<cstring>
+#include<map>
 using namespace std;
 //手写哈希表
-const int HASH_MOD=3876543;	//看题目，调大小
+/*const int HASH_MOD=3876543;	//看题目，调大小
 int key[HASH_MOD], val[HASH_MOD];
 int head[HASH_MOD], nxt[HASH_MOD];	//next为系统关键字
 struct Hash{
@@ -26,7 +27,27 @@ struct Hash{
                 return val[i];
         return -1;
     }
-}hs;
+}hs;*/
+//const int HASH_MOD=1171717;
+//map<int,int> val[HASH_MOD];
+//struct Hash{
+//	void init(){
+//		for(int i=0;i<HASH_MOD;++i) val[i].clear();
+//	}
+//	void insert(int x){
+//		int bl=x%HASH_MOD;
+//		++val[bl][x];
+//	}
+//	void set_val(int x,int v){
+//		int bl=x%HASH_MOD;
+//		val[bl][x]=v;
+//	}
+//	int find(int x){
+//		int bl=x%HASH_MOD;
+//		return val[bl][x];
+//	}
+//}hs;
+map<int,int> mp;
 void In(int &x){
 	char c; x=0; c=getchar();
 	int sign=1;
@@ -50,26 +71,38 @@ int main(){
 	int n,m;
 	int a;
 	while(scanf("%d%d",&n,&m)!=EOF){
-		hs.init();
+		//hs.init();
+		mp.clear();
 		for(int i=0;i<n;++i){
 			In(a);
-			int tmp=hs.find(a);
-			if(tmp==-1){
-				hs.insert(a,1);
-			}
-			else{
-				hs.insert(a,tmp+1);
-			}
+			++mp[a];
+			//hs.insert(a);
+			//int tmp=hs.find(a);
+			//if(tmp==-1){
+			//	hs.insert(a,1);
+			//}
+			//else{
+			//	hs.insert(a,tmp+1);
+			//}
 		}
 		for(int i=0;i<m;++i){
 			In(a);
-			int tmp=hs.find(a);
-			if(tmp==-1 || tmp==0) puts("0");
+			//int tmp=hs.find(a);
+			int tmp=mp[a];
+			if(tmp==0) puts("0");
 			else{
 				Out(tmp);
 				puts("");
-				hs.insert(a,0);
+				//hs.set_val(a,0);
+				mp[a]=0;
 			}
+			//int tmp=hs.find(a);
+			//if(tmp==-1 || tmp==0) puts("0");
+			//else{
+			//	Out(tmp);
+			//	puts("");
+			//	hs.insert(a,0);
+			//}
 		}
 	}
 	return 0;

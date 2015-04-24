@@ -1,4 +1,5 @@
 算法：
+威佐夫博奕
 最大密度子图
 扩展kmp
 2-sat
@@ -8,6 +9,7 @@ lca 倍增法求lca	ac自动机 now
 划分树
 一般图匹配带花树
 模拟退火 now
+调和级数
 树链剖分
 莫比乌斯反演 zoj 3435,poj 3904 hdu 5072 hdu 5153
 莫队算法
@@ -68,14 +70,11 @@ Bell数
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
 link cut tree
-裴蜀定理
-大素数判断
 斯特林数
 高斯消元（判断是否有解，快）
 树上的博弈
 最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html
 http://tieba.baidu.com/p/3487637350
-西尔维斯特
 仙人掌图，树
 贾志鹏线性筛
 poj2187 最远点对 最近点对
@@ -91,7 +90,6 @@ http://blog.csdn.net/jiangyuze831/article/details/43450387 拟阵+线性基
 树剖+splay hdu 5173, http://www.tsinsen.com/A1354
 LCT
 leagal path 如tools
-递推求逆元
 如何求一个二分图有多少个不同的最大匹配呢
 SGU155(笛卡尔树的构造)
 n个序列的LCS应该如何求呢，记得CF上某场比赛中就有这个题目
@@ -108,7 +106,6 @@ http://oeis.org/wiki/Index_to_OEIS:_Section_Ne#necklaces
 polya定理
 burnside引理 2154
 二分匹配的Hopcroft-Carp算法
-旋转卡壳
 POJ3222 图分治
 POJ1228 单调链
 单调队列和简单斜率优化小结
