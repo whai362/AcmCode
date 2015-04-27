@@ -42,7 +42,6 @@ zkw费用流
 lty双向dp
 网络流 输出路径
 最小支配集
-最小边覆盖
 sprague grundy
 拟阵
 兰道函数
@@ -128,6 +127,11 @@ http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
 马尔可夫方程的解
 牛顿迭代法
 最小环
+表为平方和初级版
+关于丢番图方程x^2-dy^2=-1
+Fib数模n的循环节
+Fibonacci数列的幂和
+POJ1228(稳定凸包问题)
 
 题目：
 leetcode
