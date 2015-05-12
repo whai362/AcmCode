@@ -131,6 +131,8 @@ http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
 Fib数模n的循环节
 Fibonacci数列的幂和
 POJ1228(稳定凸包问题)
+田忌赛马
+oi刊
 
 题目：
 leetcode

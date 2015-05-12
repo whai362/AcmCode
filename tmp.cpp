@@ -1,82 +1,50 @@
-#include <cstdio>
-#include <algorithm>
-#include <iostream>
-#include <cstring>
+# include <iostream>
 using namespace std;
-int n, a[100], flag[100];
-int cmp(int x, int y)
+
+# define N 6
+
+void listInput(int a[],int n)
 {
-	return x > y;
+	int i=0;
+	for(i=0;i<n;i++)
+    	cin>>a[i];
 }
-int dfs(int len, int k, int s)
+
+int calNum(int a[],int n)
 {
-	if(s == len)
-		return 1;
-	if(k == n && s != len)
-		return 0;
-	for(int i = k;i < n;i++)
-	{
-		if(len - s >= a[i] && !flag[i])
-		{
-			flag[i] = a[i];
-			if(dfs(len, i+1, s+a[i]))
-			{
-				printf("%d ", a[i]);
-				return 1;
-			}
-			else
-				flag[i] = 0;
-		}
-	}
-	return 0;
+	int b1=0;//b1为2*2的空箱位
+	int b0=0;//b0为1*1的空箱位
+
+	int num=0;
+	num+=a[5]+a[4]+a[3]+(a[2]+3)/4;//4*4,5*5,6*6,3*3都需要开箱子
+	int x=a[2]%4;
+
+	if(x==0) b1=a[3]*5;
+	if(x==1) b1=a[3]*5+a[2]*5; 
+	if(x==2) b1=a[3]*5+a[2]*3;
+	if(x==3) b1=a[3]*5+a[2];
+
+	if(b1<a[1])  //还需要开箱子
+    	num+=(a[1]-b1+8)/9;
+    	//b0=a[4]*11+a[3]*0+a[2]*5+(36-(a[1]-b1)%8*4);
+
+		b0=36*num-(a[5]*36+a[4]*25+a[3]*16+a[2]*9+a[1]*4);
+
+	if(b0<a[0])
+			num+=(a[0]-b0+35)/36;
+
+	return num;
 }
+
 int main()
 {
-	while(scanf("%d", &n), n)
+	int a[6];
+	while(1)
 	{
-		int sum = 0;
-		memset(a, 0, sizeof(a));
-		memset(flag, 0, sizeof(flag));
-		for(int i = 0;i < n;i++)
-		{
-			scanf("%d", &a[i]);
-			sum += a[i];
-		}
-		printf("sum%d\n", sum);
-		sort(a, a+n, cmp);
-		for(int i = 0;i < n;i++)
-			printf("%d%c", a[i], " \n"[i==n-1]);
-		for(int ans = a[0]; ans <= sum;ans++)
-		{
-			if(ans == sum)
-			{
-				printf("%d\n", ans);
-				break;
-			}
-			if(sum % ans)
-				continue;
-			memset(flag, 0, sizeof(flag));
-			int v = 0;
-			for(int i = 0;i < sum/ans;i++)
-			{
-				if(!dfs(ans, 0, 0))
-				{
-					v = 1;
-					printf("\n");
-					for(int j = 0;j < n;j++)
-						if(flag[j]==0)
-							printf("%d ", a[j]);
-					printf("\n");
-					break;
-				}
-				printf("\n");
-			}
-			if(!v)
-			{
-				printf("%d\n", ans);
-				break;
-			}
-		}
+		listInput(a,N);
+		if(!a[0]&&!a[1]&&!a[2]&&!a[3]&&!a[4]&&!a[5])
+			break; 
+		cout<<calNum(a,N)<<endl;
 	}
 	return 0;
 }
