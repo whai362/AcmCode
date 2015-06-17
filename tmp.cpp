@@ -1,23 +1,13 @@
 #include<iostream>
 #include<cstdio>
+#include<map>
+#include<vector>
+#include<string>
 using namespace std;
+map< string,map<string,vector<string> > > mp;
 int main(){
-	cout<<"'_' | ";
-	for(int i=0;i<26;++i){
-		cout<<"'"<<(char)(i+'a')<<"'"<<" | '"<<(char)(i+'A')<<"' | ";
-	}
-	
-	for(int i=0;i<10;++i){
-		cout<<"'"<<(char)(i+'0')<<"' | ";
-	}
-
-	cout<<"'_'A | ";
-	for(int i=0;i<26;++i){
-		cout<<"'"<<(char)(i+'a')<<"'A | "<<"'"<<(char)(i+'A')<<"'A | ";
-	}
-	for(int i=0;i<10;++i){
-		cout<<"'"<<(char)(i+'0')<<"'A | ";
-	}
-
-	cout<<endl;
+	vector<string> v;
+	v.push_back("A");
+	mp["A"]["a"]=v;
+	cout<<mp["A"]["a"].size()<<endl;
 }

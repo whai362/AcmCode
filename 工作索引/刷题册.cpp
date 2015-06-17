@@ -1,4 +1,5 @@
 算法：
+bzoj 2186
 威佐夫博奕
 最大密度子图
 扩展kmp
@@ -64,7 +65,6 @@ Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 康托展开
 自然数幂和取模问题
 广义Fibonacci数列找循环节
-Bell数
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
 link cut tree
@@ -117,8 +117,6 @@ https://www.oxoo.org/?tag=三维前缀和
 01分数规划
 小球与箱问题
 微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
-lucas
-组合数求模
 双调欧几里得
 http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
 可持久化字典树

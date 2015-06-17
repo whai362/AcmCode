@@ -1,57 +1,14 @@
-#include<iostream>
-#include<cstdio>
-#include<cstdlib>
-#include<cstring>
-#include<cmath>
-#include<algorithm>
-#define maxn 200010
-using namespace std;
-typedef long long LL;
-typedef unsigned long long ULL;
-int fact[maxn],inv[maxn],mod;
-int Power(int p,int n)
-{
-    int ans=1;
-    for(;n;n>>=1,p=(LL)p*p%mod)
-        if(n&1)
-            ans=(LL)ans*p%mod;
-    return ans;
-}
-void Prepare(int n)
-{
-    fact[0]=1,inv[0]=1;
-    for(int i=1;i<=n&&i<mod;++i)
-        fact[i]=(LL)fact[i-1]*i%mod,inv[i]=Power(fact[i],mod-2);
-}
-int C(int n,int m)
-{
-    if(n<m)
-        return 0;
-    return (LL)fact[n]*inv[m]%mod*inv[n-m]%mod;
-}
-int Lucas(int n,int m)
-{
-    if(n<mod&&m<mod)
-        return C(n,m);
-    return (LL)Lucas(n/mod,m/mod)*Lucas(n%mod,m%mod)%mod;
-}
-int work(int lx,int ly,int rx,int ry)
-{
-    LL ans=0,now=0;
-    for(int i=ly;i<=ry;++i)
-        now=(now+Lucas(lx,i))%mod;
-    ans=now;
-    for(int i=lx+1;i<=rx;++i)
-        now=(now*2-Lucas(i-1,ly)-Lucas(i-1,ry)+Lucas(i,ly)+mod+mod)%mod,ans=(ans+now)%mod;
-    return ans;
-}
-int main()
-{
-    int xa,ya,xb,yb;
-    while(cin>>xa>>ya>>xb>>yb>>mod)
-    {
-        Prepare(100005);
-        cout<<work(xa,ya,xb,yb)<<endl;
-    }
-    return 0;
-}
+hdu 5226 Tom and matrix
+  题意：
+  Tom放学回家的路上，看到天空中出现一个矩阵。Tom发现，如果矩阵的行、列从0开始标号，第i行第j列的数记为a[i][j]，那么a[i][j]=C(i,j)
+  如果i < j，那么a[i][j]=0
+  Tom突发奇想，想求一个矩形范围((x1,y1),(x2,y2))内所有数的和。Tom急着回家，当然不会自己算，所以就把任务交给你了。
+  因为数可能很大，答案对一个质数p取模。
+  限制：
+  0 <= x1 <= x2 <=1e5
+  0 <= y1 <= y2 <=1e5
+  2 <= p <= 1e9
+  思路：
+  sigma(i=a~b,C(i,k)) = C(b+1,k+1) - C(a,k+1)
+  还有注意模的时候注意要消除除数要与p消除公因子，再计算。也可以用lucas定理。
+
