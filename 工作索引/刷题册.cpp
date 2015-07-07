@@ -1,4 +1,9 @@
 算法：
+树的分治
+位图
+mod4最优路径问题
+set_intersection
+丑数 usaco
 bzoj 2186
 威佐夫博奕
 最大密度子图

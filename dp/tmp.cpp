@@ -1,18 +1,64 @@
-hdu 5185 dp
-题目：
-x[1]+x[2]+x[3]+...+x[n]=n, 这里 
-0 <= x[i] <= n && 1 <= i <= n
-x[i] <= x[i+1] <= x[i]+1 && 1 <= i <= n-1
-对于一个给定的n,Gorwin想要知道有多少xi的组合满足上述等式。由于结果比较大，输出答案对m取余的结果就行。
-限制；
-T组数据：1 <= T <=20
-1 <= n <= 50000
-1 <= m <= 1e9
-思路：
-类似背包的dp，只是稍微变一下而已。
-dp[i][j] 表示装满容量为i的背包，背包中体积最大的物品为j的方法数
-dp[i][j]=dp[i-j][j-1]+dp[i-j][j]
-
-需要注意的一点是由于题目限制，设最大的物品的体积为x，则有：
-(x+1)*x/2=n，所以x最大值小于sqrt(2*n)。
-所以每组数据时空复杂度都为O(50000*320)。
+#include<iostream>
+#include<cstdio>
+using namespace std;
+#define LL long long
+const int MOD=1000000007;
+const int N=50005;
+int f[N],cnt[N],tot;
+LL a_b_MOD_c(LL a,LL b,LL mod){
+	LL ret = 1;
+	a %= mod;
+	while(b){
+		if(b & 1) ret = ret * a % mod;
+		a = a * a % mod;
+		b >>= 1;
+	}
+	return ret;
+}
+//等比数列求和
+//留意a=0的情况
+LL dbsum(LL a,LL b,LL mod){
+	if(b==0)
+		return 1;
+	if(b&1)
+		return (a_b_MOD_c(a,(b+1)/2,MOD)+1)*dbsum(a,b/2,MOD)%MOD;
+	else
+		return ((a_b_MOD_c(a,b/2,MOD)+1)*dbsum(a,(b-1)/2,MOD)%MOD + a_b_MOD_c(a,b,MOD))%MOD;
+}
+void gao(int n,int m){
+	//if(n==0){ puts("0"); return ; }
+	tot=0;
+	for(int i=2;i*i<=n;++i){
+		if(n%i==0){
+			f[tot]=i;
+			cnt[tot]=0;
+			while(n%i==0){
+				++cnt[tot];
+				n/=i;
+			}
+			++tot;
+		}
+	}
+	if(n>1){
+		f[tot]=n;
+		cnt[tot]=1;
+		++tot;
+	}
+	for(int i=0;i<tot;++i){
+		cnt[i]*=m;
+	}
+	LL ans=1;
+	for(int i=0;i<tot;++i){
+		//cout<<f[i]<<' '<<cnt[i]/23<<endl;
+		//cout<<dbsum(i)<<endl;
+		ans=ans*dbsum(f[i],cnt[i],MOD)%MOD;
+	}
+	printf("%lld\n",ans);
+}
+int main(){
+	int n,m;
+	while(scanf("%d%d",&n,&m)!=EOF){
+		gao(n,m);
+	}
+	return 0;
+}

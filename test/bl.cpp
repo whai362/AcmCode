@@ -18,11 +18,12 @@ int gao(string a){
 }
 int o[20];
 int main(){
-	string a="12345678";
+	string a="1234";
 	o[0]=1;
 	while(next_permutation(a.begin(),a.end())){
 		int cnt=gao(a);
 		++o[cnt];
+		if(cnt==2) cout<<a<<endl;
 	}
 	for(int i=0;i<10;++i)
 		cout<<o[i]<<' ';
