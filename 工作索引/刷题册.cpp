@@ -1,11 +1,16 @@
 算法：
+染色问题
+usaco 5.4.1
 树的分治
-位图
 mod4最优路径问题
 set_intersection
-丑数 usaco
-bzoj 2186
 威佐夫博奕
+斐波那契博弈
+Ferguson 博弈
+博弈 SG函数
+nim 博弈
+阶梯博弈
+最小环，最大环
 最大密度子图
 扩展kmp
 2-sat
@@ -13,7 +18,6 @@ lca 倍增法求lca	ac自动机 now
 后缀自动机
 后缀数组
 划分树
-一般图匹配带花树
 模拟退火 now
 调和级数
 树链剖分
@@ -24,8 +28,6 @@ fwt
 二维线段树
 求树上任意两点的距离
 三分
-数论
-费用流
 分数规划
 朱刘算法
 树套树
@@ -59,13 +61,10 @@ n皇后快速解法
 圆的反演变换
 网络赛看楼的题
 拓扑排序(个数),字典序最大
-各种定理
-sg
 Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 新trie
 顺序通过指定点
 稳定婚姻问题 http://www.cnblogs.com/vongang/archive/2013/03/10/2952978.html
-大素数判断 http://blog.csdn.net/niushuai666/article/details/7372567
 最大密集子图
 康托展开
 自然数幂和取模问题
@@ -73,18 +72,15 @@ Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
 link cut tree
-斯特林数
 高斯消元（判断是否有解，快）
 树上的博弈
 最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html
 http://tieba.baidu.com/p/3487637350
 仙人掌图，树
-贾志鹏线性筛
-poj2187 最远点对 最近点对
 插值法
 fft http://www.cnblogs.com/kuangbin/p/3210389.html
 NTT
-最小表示法
+最小表示法 (关于字符串的)
 复习图的连通性
 归并排序求逆序对,置换群
 http://hihocoder.com/contest/challenge8/problem/2
@@ -120,7 +116,6 @@ https://www.oxoo.org/?tag=三维前缀和
 逆波兰表达式
 开关问题
 01分数规划
-小球与箱问题
 微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
 双调欧几里得
 http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
