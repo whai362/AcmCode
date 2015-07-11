@@ -1,3 +1,49 @@
+/*sg(Sprague-Grundy)函数
+  sg值：一个点的SG值就是一个不等于它的后继点的SG的且大于等于零的最小整数。
+  后继点：也就是按照题目要求的走法，能够走一步达到的那个点。
+
+  sg函数值的性质：
+  sg(x)==0 必败点
+  sg(x)>0 必胜点
+ */
+
+//求单个sg函数值
+int sg[MAXN];
+int get_sg(int x, int n){
+	if(sg[x]!=-1)
+		return sg[x];
+	bool vis[105]={0};
+	for(int i=0;i<n;++i){
+		int tmp = a[i]; //tmp是转移的下一个状态的步数
+		if(x >= tmp){
+			sg[x - tmp] = get_sg(x - tmp, n);
+			vis[sg[x - tmp]] = 1;
+		}
+	}
+	for(int i=0;;++i)
+		if(!vis[i]) return sg[x]=i;
+}
+void init(){
+	memset(sg,-1,sizeof(sg));
+	sg[0]=0;
+}
+
+//预处理sg值
+void get_sg(){
+	sg[0]=0;
+	for(int i=1;i<N;++i){
+		set<int> s;
+		for(int j=0;j<10;++j){
+			int tmp=(1<<j); //tmp是转移的下一个状态的步数
+			if(i >= tmp)
+				s.insert(sg[i - tmp]);
+		}
+		int g=0;
+		while(s.count(g)!=0) ++g;
+		sg[i]=g;
+	}
+}
+
 /*hdu 1847
   题意：
   1. 总共n张牌;

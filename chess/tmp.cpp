@@ -1,51 +1,53 @@
-#include <stdio.h>
-#include <string.h>
 #include<iostream>
+#include<cstdio>
+#include<set>
 using namespace std;
-int s[11] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
-int sg[1010];
+const int N=105;
+const int MAXN=1e4+5;
+int a[N];
+int sg[MAXN];
 
-int getsg(int x)
-{
-	int i;
-	if(sg[x] != -1)
-		return sg[x];
-	bool hash[110];
-	memset(hash, 0, sizeof(hash));
-	for(i = 0; i < 11; i++)
-	{
-		if(x >= s[i])
-		{
-			sg[x - s[i]] = getsg(x - s[i]);
-			hash[sg[x - s[i]]] = 1;
+void get_sg(int n){
+	sg[0]=0;
+	for(int i=1;i<MAXN;++i){
+		set<int> s;
+		for(int j=0;j<n;++j){
+			if(i >= a[j])
+				s.insert(sg[i - a[j]]);
 		}
+		int g=0;
+		while(s.count(g)!=0) ++g;
+		sg[i]=g;
 	}
-	for(i = 0; i < 110; i++)
-	{
-		if(hash[i] == 0)
-			break;
-	}
-	return i;
 }
 
-int main (void)
-{
-	int i;
-	memset(sg, -1, sizeof(sg));
-	sg[0] = 0;
-	for(i = 1; i < 1010; i++)
-		sg[i] = getsg(i);
-	for(int i=0;i<10;++i){
-		cout<<sg[i]<<' ';
-	}
-	cout<<endl;
+
+int main(){
 	int n;
-	while(scanf("%d", &n) != EOF)
-	{
-		if(sg[n] == 0)
-			printf("Cici\n");
-		else
-			printf("Kiki\n");		
+	while(scanf("%d",&n) && n){
+		for(int i=0;i<n;++i){
+			scanf("%d",&a[i]);
+		}
+		get_sg(n);
+		int m;
+		scanf("%d",&m);
+		int h_cnt;
+		char ans[N];
+		for(int i=0;i<m;++i){
+			scanf("%d",&h_cnt);
+			int h;
+			int tmp=0;
+			for(int j=0;j<h_cnt;++j){
+				scanf("%d",&h);
+				cout<<sg[h]<<' ';
+				tmp ^= sg[h];
+			}
+			cout<<endl;
+			if(tmp==0) ans[i]='L';
+			else ans[i]='W';
+		}
+		ans[m]=0;
+		puts(ans);
 	}
 	return 0;
 }
