@@ -1,30 +1,7 @@
 #include<iostream>
 #include<cstdio>
+#include<cstring>
 using namespace std;
 int main(){
-	/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	 */
-	cout<<"²»»á×ö"<<endl;
-	return 0;
+	
 }
