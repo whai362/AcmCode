@@ -11,14 +11,14 @@ int root,n;
 int ind[N],
 	depth[N],
 	fa[N][LOGN];
-vector<int> _map[N];
+vector<int> tree[N];
 
 void dfs(int u,int p,int d){
 	depth[u]=d;
 	fa[u][0]=p;
-	for(int i=0;i<_map[u].size();++i){
-		if(_map[u][i]!=p)
-			dfs(_map[u][i],u,d+1);
+	for(int i=0;i<tree[u].size();++i){
+		if(tree[u][i]!=p)
+			dfs(tree[u][i],u,d+1);
 	}
 }
 int lca(int u,int v){
@@ -55,10 +55,10 @@ int main(){
 		scanf("%d",&n);
 		memset(ind,0,sizeof(ind));
 		for(int i=0;i<=n;++i)
-			_map[i].clear();
+			tree[i].clear();
 		for(int i=0;i<n-1;++i){
 			scanf("%d%d",&a,&b);
-			_map[a].pb(b);
+			tree[a].pb(b);
 			++ind[b];
 		}
 		init();

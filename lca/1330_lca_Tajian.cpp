@@ -44,6 +44,7 @@ void LCA(int u){
 	for(int i=0;i<tree[u].size();++i){
 		LCA(tree[u][i]);
 		merge(u,tree[u][i]);
+		cout<<u<<' '<<tree[u][i]<<' '<<find(u)<<endl;
 		ancestor[find(u)]=u;
 	}
 	vis[u]=true;

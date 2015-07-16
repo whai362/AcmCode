@@ -1,12 +1,12 @@
 算法：
+构造那道题
+水果那道题
 染色问题
-usaco 5.4.1
 树的分治
 mod4最优路径问题
 set_intersection
 set_union
 string.erase
-威佐夫博奕
 斐波那契博弈
 Ferguson 博弈
 nim 博弈
@@ -15,20 +15,19 @@ nim 博弈
 最大密度子图
 扩展kmp
 2-sat
-lca 倍增法求lca	ac自动机 now
+lca 倍增法求lca	now
+ac自动机
 后缀自动机
 后缀数组
 划分树
-模拟退火 now
+模拟退火 三分
 调和级数
 树链剖分
-莫比乌斯反演 zoj 3435,poj 3904 hdu 5072 hdu 5153
 莫队算法
 fwt
 二维树状数组
 二维线段树
 求树上任意两点的距离
-三分
 分数规划
 朱刘算法
 树套树
@@ -131,7 +130,6 @@ Fib数模n的循环节
 Fibonacci数列的幂和
 POJ1228(稳定凸包问题)
 构造
-oi刊
 
 题目：
 leetcode

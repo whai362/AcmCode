@@ -1,3 +1,7 @@
+//关闭流同步
+//注意用了这个，就不要用puts，scanf，printf等东西了。
+ios_base::sync_with_stdio(false);
+
 #include<iostream>
 #include<cstdio>
 using namespace std;
