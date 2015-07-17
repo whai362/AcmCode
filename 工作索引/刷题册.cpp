@@ -4,9 +4,6 @@
 染色问题
 树的分治
 mod4最优路径问题
-set_intersection
-set_union
-string.erase
 斐波那契博弈
 Ferguson 博弈
 nim 博弈

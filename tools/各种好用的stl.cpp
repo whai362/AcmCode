@@ -1,11 +1,10 @@
-//系统自带的反序
+/*****1. 系统自带的反序*****/
 #include<algorithm>
 int a[10];
 int n;
 reverse(a,a+n);
 
-//各种好用的stl
-//1. 全排列
+/*****2. 全排列*****/
 #include<algorithm>
 int a[n];
 sort(a,a+n);
@@ -14,7 +13,7 @@ while(next_permutation(a,a+len)){
 	print(a);
 }
 
-//2. set set是用红黑树实现的
+/*****3. set set是用红黑树实现的*****/
 #include<set>
 set<int> _set;
 _set.clear();
@@ -36,7 +35,7 @@ int sz=_set.size();
 set<int>::iterator it=_set.find(10);
 cout<<*(--it)<<endl;
 
-//3. map
+/*****4. map*****/
 #include<iostream>
 #include<map>
 using namespace std;
@@ -79,7 +78,7 @@ int main(){
 	cout<<it->first<<' '<<it->second<<endl;
 }
 
-//4.双向队列 deque
+/*****5.双向队列 deque*****/
 #include <deque>
 #include <cstdio>
 #include <algorithm>
@@ -136,12 +135,44 @@ int main()
 	return 0;
 }
 
-//5.string
+/*****6.string*****/
 string str="123456";
-str.substr(2,2);
-输出34
+str.substr(2,2); //输出34
 
-//关于java
+string str="1243454";
+string tmp="4";
+cout<<str.find(tmp)<<endl; //输出2, find输出的是第一个找到的下标, 如果没有找到则输出一个<0 或者>len的数
+cout<<str.find(tmp,3)<<endl; //输出4, 从下标3开始找
+cout<<str.rfind(tmp)<<endl; //输出6
+
+//find_first_of函数返回flag中任意字符在str中第一次出现的下标位置
+string str="123456";
+string flag = "43";
+cout<<str.find_first_of(flag)<<endl; //输出2
+//查找flag中与str第一个不匹配的位置
+cout<<str.find_first_not_of(flag)<<endl; //输出0
+
+string str="12345678";
+//str.erase(1,2); //输出145678, 删除从pos开始的n个字符，比如erase(0,1)就是删除第一个字符
+//str.erase(str.begin()); //输出2345678, 删除position处的一个字符(position是个string类型的迭代器)
+str.erase(str.begin()+1,str.end()); //输出1, 删除从first到last之间的字符(first和last都是迭代器), 左闭右开
+
+string str="to be question";
+string str2="the ";
+string str3="or not to be";
+string::iterator it;
+
+// used in the same order as described above:
+str.insert(6,str2);                 // to be (the )question
+str.insert(6,str3,3,4);             // to be (not )the question
+str.insert(10,"that is cool",8);    // to be not (that is )the question
+str.insert(10,"to be ");            // to be not (to be )that is the question
+str.insert(15,1,':');               // to be not to be(:) that is the question
+it = str.insert(str.begin()+5,','); // to be(,) not to be: that is the question
+str.insert (str.end(),3,'.');       // to be, not to be: that is the question(...)
+str.insert (it+2,str3.begin(),str3.begin()+3); // (or )
+
+/*****7. 关于java*****/
 import java.util.*;
 Set<String> hash=new HashSet<String>();
 Map<String,Integer> hash=new HashMap<String,Integer>();
@@ -150,29 +181,27 @@ String str="123456";
 System.out.println(str.substring(2,5));
 输出345
 
-vector
+/*****8. vector*****/
 push_back();
 pop_back();
 erase(这里写指向那个元素的迭代器);
 
-unordered_map
+/*****9. unordered_map*****/
 #include <string>
 #include <tr1/unordered_map>
 using namespace std;
 using namespace std::tr1;
-int main ()
-{
+int main (){
   unordered_map<string,int> mp;
   mp["asd"]=1;
   cout<<mp["as"]<<' '<<mp["asd"]<<endl;
   return 0;
 }
 
-struct node
-{
+/*****10. 运算符重载*****/
+struct node{
     int x, y;
-    friend bool operator < (node a, node b)
-    {
+    friend bool operator < (node a, node b){
         return a.x > b.x; //结构体中，x小的优先级高
     }
 };
@@ -181,7 +210,7 @@ priority_queue<node>q;//定义方法
 //通过自定义operator<操作符来比较元素中的优先级。
 //在重载"<"时，最好不要重载">"，可能会发生编译错误
 
-//位图
+/*****11. 位图*****/
 #include<iostream>
 #include<bitset>
 using namespace std;
@@ -196,3 +225,23 @@ int main(){
 	return 0;
 }
 
+/*****set_union/set_intersection*****/
+vector<int> vec1;
+vector<int> vec2;
+vector<int> vec12;
+for(int i=0;i<=4;++i)
+vec1.push_back(4-i);
+for(int i=3;i<=5;++i)
+vec2.push_back(i);
+sort(vec1.begin(),vec1.end());
+sort(vec2.begin(),vec2.end());
+set_union(vec1.begin(),vec1.end(),
+		vec2.begin(),vec2.end(),
+		inserter(vec12,vec12.begin()));	//求并集，要另外开一个vector
+set_intersection(vec1.begin(),vec1.end(),
+			vec2.begin(),vec2.end(),
+			inserter(vec12,vec12.begin()));	//求交集，要另外开一个vector
+for(int i=0;i<vec12.size();++i)
+cout<<vec12[i]<<' ';
+cout<<endl;
+//set也是同样的用法
