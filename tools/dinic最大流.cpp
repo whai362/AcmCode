@@ -1,4 +1,5 @@
 //dinic最大流
+//复杂度O(|E||V|^2) //E指边数，V代表点数
 struct Edge{
 	int to,cap,rev;
 };

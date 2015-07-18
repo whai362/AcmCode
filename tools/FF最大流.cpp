@@ -1,5 +1,5 @@
-//FF最大流
-//复杂度o(F|E|)
+//Ford-Fulkerson最大流
+//复杂度o(F|E|)	//F指流量，|E|指边数
 //G要清零
 const int MAX_V=405,
 	  INF=0x3f3f3f3f;
