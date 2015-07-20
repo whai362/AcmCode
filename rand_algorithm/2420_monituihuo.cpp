@@ -1,3 +1,11 @@
+/*poj 2420 模拟退火
+  题意：
+  平面上给出n个点(xi,yi)，让你求一个点，到这n点的距离和最小。
+  限制：
+  0 <= n <= 100; 0 <= xi, yi <= 10000
+  思路：
+  模拟退火
+ */
 #include<iostream>
 #include<cstdio>
 #include<cstdlib>

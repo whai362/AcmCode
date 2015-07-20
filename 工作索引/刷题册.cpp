@@ -75,7 +75,6 @@ http://tieba.baidu.com/p/3487637350
 fft http://www.cnblogs.com/kuangbin/p/3210389.html
 NTT
 最小表示法 (关于字符串的) !
-复习图的连通性 !
 归并排序求逆序对,置换群
 http://hihocoder.com/contest/challenge8/problem/2
 生成树计数 !
@@ -122,6 +121,12 @@ Fib数模n的循环节
 Fibonacci数列的幂和
 POJ1228(稳定凸包问题)
 构造
+
+强化训练专题：
+插头dp
+网络流
+连通性
+字符串
 
 题目：
 leetcode
