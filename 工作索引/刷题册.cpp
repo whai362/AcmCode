@@ -11,41 +11,39 @@ nim 博弈
 最小环，最大环
 最大密度子图
 扩展kmp
-2-sat
-ac自动机
-后缀自动机
-后缀数组
+2-sat !
+ac自动机 !
+后缀自动机 !
+后缀数组 !
 划分树
-模拟退火 三分
+模拟退火 三分 !
 调和级数
 树链剖分
-莫队算法
+莫队算法 !
 fwt
-二维树状数组
-二维线段树
-求树上任意两点的距离
+二维树状数组 !
+二维线段树 !
+求树上任意两点的距离 !
 分数规划
-朱刘算法
-树套树
-树上的倍增
-zkw 线段树
+朱刘算法 !
+树套树 !
+树上的倍增 !
+zkw 线段树 !
 决策的单调性
-差分约束
-K-Dtree
+差分约束 !
+K-Dtree !
+二维rmq !
 prufer编码
-ST表
-莫比乌斯反演
-替罪羊树
+替罪羊树 !
 三角剖分
-cdq分治
+cdq分治 !
 法雷数列
 treap
 恺撒密码
-zkw费用流
-区间动规
+zkw费用流 !
 lty双向dp
-网络流 输出路径
-最小支配集
+网络流 输出路径 !
+最小支配集 !
 sprague grundy
 拟阵
 梅森素数
@@ -56,9 +54,9 @@ sprague grundy
 n皇后快速解法
 圆的反演变换
 网络赛看楼的题
-拓扑排序(个数),字典序最大
+拓扑排序(个数),字典序最大 !
 Palindromic Tree——回文树【处理一类回文串问题的强力工具】
-新trie
+新trie !
 顺序通过指定点
 稳定婚姻问题 http://www.cnblogs.com/vongang/archive/2013/03/10/2952978.html
 最大密集子图
@@ -67,25 +65,24 @@ Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 广义Fibonacci数列找循环节
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
-link cut tree
-高斯消元（判断是否有解，快）
+link cut tree !
+高斯消元（判断是否有解，快） !
 树上的博弈
-最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html
+最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html !
 http://tieba.baidu.com/p/3487637350
-仙人掌图，树
+仙人掌图，树 !
 插值法
 fft http://www.cnblogs.com/kuangbin/p/3210389.html
 NTT
-最小表示法 (关于字符串的)
-复习图的连通性
+最小表示法 (关于字符串的) !
+复习图的连通性 !
 归并排序求逆序对,置换群
 http://hihocoder.com/contest/challenge8/problem/2
-生成树计数
+生成树计数 !
 http://blog.csdn.net/jiangyuze831/article/details/43450387 拟阵+线性基
 树剖+splay hdu 5173, http://www.tsinsen.com/A1354
-LCT
 leagal path 如tools
-如何求一个二分图有多少个不同的最大匹配呢
+如何求一个二分图有多少个不同的最大匹配呢 !
 SGU155(笛卡尔树的构造)
 n个序列的LCS应该如何求呢，记得CF上某场比赛中就有这个题目
 SAP
@@ -100,25 +97,25 @@ Fib数模n的循环节
 http://oeis.org/wiki/Index_to_OEIS:_Section_Ne#necklaces
 polya定理
 burnside引理 2154
-二分匹配的Hopcroft-Carp算法
+二分匹配的Hopcroft-Carp算法 !
 POJ3222 图分治
 POJ1228 单调链
-单调队列和简单斜率优化小结
+单调队列和简单斜率优化小结 !
 插头dp quartergeek
 炫酷的反演魔术
 https://www.oxoo.org/?tag=中途相遇法
 https://www.oxoo.org/?tag=三维前缀和
 逆波兰表达式
-开关问题
+开关问题 !
 01分数规划
 微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
-双调欧几里得
+双调欧几里得 !
 http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
-可持久化字典树
+可持久化字典树 !
 浮点数的gcd
 马尔可夫方程的解
 牛顿迭代法
-最小环
+最小环 !
 表为平方和初级版
 关于丢番图方程x^2-dy^2=-1
 Fib数模n的循环节
