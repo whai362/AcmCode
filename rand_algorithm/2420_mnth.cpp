@@ -7,6 +7,7 @@
   思路：
   模拟退火
 
+  模拟退火基本知识：
   其伪代码如下：
   Let s = s0
   For k = 0 through k_max (exclusive):
