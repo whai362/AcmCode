@@ -28,7 +28,7 @@ struct acm{
 		que[0]=1;
 		fail[1]=0;
 		while(head!=tail){
-			int now=que[head];head++;
+			int now=que[head]; ++head;
 			for(int i=0;i<26;++i){
 				int ch=next[now][i];
 				if(!ch) continue;
@@ -44,15 +44,30 @@ struct acm{
 		}
 		//cout<<endl;
 	}
+	void debug(){
+		for(int i=0;i<=cnt;++i){
+			printf("id=%3d,fail=%3d,sum=%3d,chi=[",i,fail[i],sum[i]);
+			puts("");
+			for(int j=0;j<26;++j)
+				printf("%2c",j+'a');
+			puts("");
+			for(int j=0;j<26;j++)
+				printf("%2d",next[i][j]);
+			puts("");
+			printf("]\n");
+		}
+	}
+
 }acm;
 int main(){
 	scanf("%d",&n);
 	for(int i=1;i<=n;++i){
 		acm.insert(pos[i]);
-		cout<<pos[i]<<' ';
+		//cout<<pos[i]<<' ';
 	}
-	cout<<endl;
+	//cout<<endl;
 	acm.buildFail();
+	acm.debug();
 	for(int i=1;i<=n;++i)
 		printf("%d\n",acm.sum[pos[i]]);
 	return 0;

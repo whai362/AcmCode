@@ -1,119 +1,190 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<string>
-#include<queue>
-#include<vector>
-using namespace std;
+#include <algorithm>
+#include <cstring>
+#include <vector>
+#include <queue>
+#include <cstdio>
 
-int n;
-
-struct Edge{
-	int to,cap,rev;
-};
-const int MAX_V=405,
-	  INF=0x3f3f3f3f;
-vector<Edge> G[MAX_V];
-int level[MAX_V];	//顶点到源点的距离标号
-int iter[MAX_V];	//当前弧，在其之前的边已经没有用了
-void addEdge(int from,int to,int cap){
-	G[from].push_back((Edge){to,cap,G[to].size()});
-	G[to].push_back((Edge){from,0,G[from].size()-1});
-}
-//通过bfs计算从源点出发的距离标号
-void bfs(int s){
-	memset(level,-1,sizeof(level));
-	queue<int> que;
-	level[s]=0;
-	que.push(s);
-	while(!que.empty()){
-		int v=que.front();
-		que.pop();
-		for(int i=0;i<G[v].size();++i){
-			Edge &e=G[v][i];
-			if(e.cap>0 && level[e.to]<0){
-				level[e.to]=level[v]+1;
-				que.push(e.to);
-			}
-		}
-	}
-}
-//通过dfs寻找增广路
-int dfs(int v,int t,int f){
-	if(v==t) return f;
-	for(int &i=iter[v];i<G[v].size();++i){
-		Edge &e=G[v][i];
-		if(e.cap>0 && level[v]<level[e.to]){
-			int d=dfs(e.to,t,min(f,e.cap));
-			if(d>0){
-				e.cap-=d;
-				G[e.to][e.rev].cap+=d;
-				return d;
-			}
-		}
-	}
-	return 0;
-}
-//求解从s到t的最大流
-int maxFlow(int s,int t){
-	int flow=0;
-	while(1){
-		bfs(s);
-		if(level[t]<0) return flow;
-		memset(iter,0,sizeof(iter));
-		int f;
-		while((f=dfs(s,t,INF))>0){
-			flow+=f;
-		}
-	}
-	return flow;
-}
-
-void init(){
-	for(int i=0;i<=n+6;++i){
-		G[i].clear();
-	}
-}
-
-int size(char c){
-	switch(c){
-		case 'S': return 1;
-		case 'M': return 2;
-		case 'L': return 3;
-		case 'X': return 4;
-		case 'T': return 5;
-	}
-}
-int hash(char c)
+struct edge
 {
-    if (c == 'S') return 1;
-    else if (c == 'M') return 2;
-    else if (c == 'L') return 3;
-    else if (c == 'X') return 4;
-    else return 5;
+    int from, to, index;
+    long long c;
+};
+
+long long const big = 100000;
+int const maxn = 2005;
+int const maxm = 60006;
+int n, m, min_len;
+
+std::vector<std::vector<edge> > graph;
+std::vector<std::vector<edge> > g2;
+
+long long const inf = 1000000000000000LL;
+long long dist[maxn];
+bool visited[maxn];
+
+long long spfa(int source, int target, std::vector<std::vector<edge> > const & g)
+{
+    std::fill(dist, dist+n, inf);
+    std::deque<int> relaxed;
+    relaxed.push_back(source);
+    dist[source] = 0;
+    visited[source] = true;
+    while (!relaxed.empty()) {
+        int x = relaxed.front();
+        relaxed.pop_front();
+
+        for (int i = 0; i < (int)g[x].size(); i++) {
+            int v = g[x][i].to, e = g[x][i].c;
+            if (dist[v] > dist[x] + e) {
+                dist[v] = dist[x] + e;
+                if (!visited[v]) {
+                    if (!relaxed.empty() && dist[v] < dist[relaxed.front()])
+                        relaxed.push_front(v);
+                    else
+                        relaxed.push_back(v);
+                    visited[v] = true;
+                }
+            }
+        }
+        visited[x] = false;
+    }
+    return dist[target];
 }
-char str[105];
-int main(){
-	ios_base::sync_with_stdio(false);
-	while(scanf("%s", str) && strcmp(str, "ENDOFINPUT") != 0){
-		scanf("%d", &n);
-		init();
-        int s = 0, t = n + 5 + 1;
-        for(int i = 1; i <= n ;i++){
-            addEdge(s, i, 1);
-            scanf("%s", str);
-            int from = size(str[0]), to = size(str[1]);
-            for(int j = from; j <= to; j++)
-                addEdge(i, n + j, 1);
+
+
+int const capacity_inf = 1<<27;
+template <class T>
+struct dinic
+{
+    typedef T value_type;
+    typedef int size_type;
+
+    struct dinic_edge {
+        size_type from, to;
+        value_type capacity, flow;
+    };
+
+    dinic(size_type num) : size(num)
+    {
+        graph.resize(num);    //[0, num)
+        dist.resize(num);    //[0, num)
+    }
+
+    void add_edge(int u, int v, value_type cap)
+    {
+        dinic_edge tmp;
+        tmp.from = u; tmp.to = v; tmp.capacity = cap; tmp.flow = 0;
+        edges.push_back(tmp);
+        graph[u].push_back(edges.size() - 1);
+
+        tmp.from = v; tmp.to = u; tmp.capacity = 0; tmp.flow = 0;
+        edges.push_back(tmp);
+        graph[v].push_back(edges.size() - 1);
+    }
+
+    bool bfs_label(size_type source, size_type target)
+    {
+        std::fill(dist.begin(), dist.end(), -1);
+        std::queue<size_type> q;
+        q.push(source);
+        dist[source] = 0;
+        while (!q.empty()) {
+            size_type now = q.front();
+            q.pop();
+            for (std::vector<size_type>::iterator it = graph[now].begin(); it != graph[now].end(); ++it) {
+                dinic_edge e = edges[*it];
+                if (dist[e.to] == -1 && e.capacity > e.flow) {
+                    q.push(e.to);
+                    dist[e.to] = dist[now] + 1;
+                }
+            }
         }
-        for(int i = 1; i <= 5; i++)
-        {
-            int tmp; scanf("%d", &tmp);
-            addEdge(i + n, t, tmp);
+        return dist[target] != -1;
+    }
+
+    value_type dfs(size_type v, size_type target, value_type f)
+    {
+        if (v == target || !f) return f;
+        value_type block_flow = 0;
+        for (std::vector<size_type>::iterator it = graph[v].begin(); it != graph[v].end(); ++it) {
+            dinic_edge & e = edges[*it];
+            if (e.capacity > e.flow && dist[e.to] == dist[v] + 1) {
+                value_type tmp = dfs(e.to, target,
+                        std::min(e.capacity - e.flow, f - block_flow));
+                block_flow += tmp;
+                e.flow += tmp;
+                edges[(*it) ^ 1].flow -= tmp;
+            }
         }
-        if (maxFlow(s, t) != n) printf("I'd rather not wear a shirt anyway...\n");
-        else printf("T-shirts rock!\n");
-        scanf("%s", str);
-	}
-	return 0;
+        if (!block_flow) dist[v] = -1;
+        return block_flow;
+    }
+
+    value_type max_flow(size_type source, size_type target)
+    {
+        value_type flow = 0;
+        for (int tmp; bfs_label(source, target); )
+            while ((tmp = dfs(source, target, capacity_inf))) flow += tmp;
+        return flow;
+    }
+
+//private:
+    size_type size;
+    std::vector<int> dist;
+    std::vector<dinic_edge> edges;
+    std::vector<std::vector<size_type> > graph;
+};
+
+
+bool vis_edge[maxm];
+void init_graph_dfs(dinic<int> & d, int x)
+{
+    if (x == 0) return;
+    for (int i = 0; i < (int)graph[x].size(); i++) {
+        edge t = graph[x][i];
+        if (vis_edge[t.index]) continue;
+        if (dist[x] == dist[t.to] + t.c) {
+            //    std::cerr << "---->" << t.index << ' ' << t.from + 1 << ' ' << x + 1 << '\n';
+            d.add_edge(t.to, x, 1);
+            vis_edge[t.index] = true;
+            init_graph_dfs(d, t.to);
+        }
+    }
+}
+
+int main()
+{
+    for (int x, y, c; std::scanf("%d%d", &n, &m) != EOF; ) {
+        graph.clear(); graph.resize(n);
+        g2.clear(); g2.resize(n);
+        for (int i = 0; i < m; i++) {
+            scanf("%d%d%d", &x, &y, &c);
+            x--; y--;
+            edge tmp; tmp.index = i;
+            tmp.to = y; tmp.c = c;
+            graph[x].push_back(tmp);
+            tmp.to = x; tmp.c = c;
+            graph[y].push_back(tmp);
+
+            tmp.to = y; tmp.c = big * c + 1;
+            g2[x].push_back(tmp);
+            tmp.to = x; tmp.c = big * c + 1;
+            g2[y].push_back(tmp);
+        }
+
+        int ans1, ans2;
+        min_len = spfa(0, n-1, g2) % big;
+        ans2 = m - min_len;
+
+        //int min_path =
+        spfa(0, n-1, graph);
+
+        //init_flow_graph
+        dinic<int> d(n);
+        int s = 0, t = n-1;
+        std::memset(vis_edge, 0, sizeof(vis_edge));
+        init_graph_dfs(d, t);
+        ans1 = d.max_flow(s, t);
+        std::printf("%d %d\n", ans1, ans2);
+    }
 }

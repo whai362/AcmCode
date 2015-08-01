@@ -64,6 +64,12 @@ void gao(){
 	int len2=strlen(S);
 	build_sa(S,sa);
 	build_lcp(S,sa,lcp);
+	for(int i = 0; i <= len2; ++i)
+		cout<<sa[i]<<' ';
+	cout<<endl;
+	for(int i = 0; i <= len2; ++i)
+		cout<<lcp[i]<<' ';
+	cout<<endl;
 	int ans=0;
 	for(int i=0;i<len2;++i){
 		if((sa[i]<len1)!=(sa[i+1]<len1)){

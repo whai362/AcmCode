@@ -44,27 +44,32 @@ struct acm{
 			}
 		}
 	}
-	void debug(){
-        for(int i=0;i<=cnt;i++){
-            printf("id=%3d,fail=%3d,sum=%3d,chi=[",i,fail[i],sum[i]);
-            for(int j=0;j<26;j++)
-                printf("%2d",next[i][j]);
-            printf("]\n");
-        }
-    }
 	void gao(char str[]){
 		int ans=0,now=1,len=strlen(str);
 		for(int i=0;i<len;++i){
 			vis[now]=1;
 			while(!next[now][str[i]-'a']) now=fail[now];
 			now=next[now][str[i]-'a'];
-			if(!vis[now])	//加上这个剪枝，能优化一倍的时间。
+			if(!vis[now]) //加上这个剪枝，能优化一倍的时间。
 				for(int j=now;j;j=fail[j]){
 					ans+=sum[j];
 					sum[j]=0;
 				}
 		}
 		printf("%d\n",ans);
+	}
+	void debug(){
+		for(int i=0;i<=cnt;++i){
+			printf("id=%3d,fail=%3d,sum=%3d,chi=[",i,fail[i],sum[i]);
+			puts("");
+			for(int j=0;j<26;++j)
+				printf("%2c",j+'a');
+			puts("");
+			for(int j=0;j<26;j++)
+				printf("%2d",next[i][j]);
+			puts("");
+			printf("]\n");
+		}
 	}
 }acm;
 int main(){

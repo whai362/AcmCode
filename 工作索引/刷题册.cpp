@@ -1,4 +1,5 @@
 算法：
+最大流唯一
 构造那道题
 水果那道题
 染色问题
@@ -16,7 +17,6 @@ ac自动机 !
 后缀自动机 !
 后缀数组 !
 划分树
-三分 !
 调和级数
 树链剖分
 莫队算法 !
@@ -108,7 +108,7 @@ https://www.oxoo.org/?tag=三维前缀和
 开关问题 !
 01分数规划
 微软编程之美，格格取数 http://hihocoder.com/contest/msbopqual/problem/3
-双调欧几里得 !
+双调欧几里得 usaco那道题!
 http://cojs.tk/cogs/problem/problem.php?pid=426 二分图关键边
 可持久化字典树 !
 浮点数的gcd
@@ -127,6 +127,7 @@ POJ1228(稳定凸包问题)
 网络流
 连通性
 字符串
+高级数据结构
 
 题目：
 leetcode
