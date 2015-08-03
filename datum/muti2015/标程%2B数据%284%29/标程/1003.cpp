@@ -27,7 +27,7 @@ int check(int m){
 		la=i;
 	}
 	return ret;
-}	
+}
 int main(){
 	int x;
 	int S=0; 
