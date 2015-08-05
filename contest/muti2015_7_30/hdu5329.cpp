@@ -1,3 +1,13 @@
+/*hdu 5329 Question for the Leader
+  题意：
+  给出一个有n个点的图，这个图是由一个基环 + 若干外向树组成，问能否把这个图分成 k个 大小为n/k 的 连通的子图，问k有多少种。
+  限制：
+  1 <= n <= 1e5
+  思路：
+  主要是一个性质：
+  对于一棵树，如果可以把这棵树分成大小都为k的n/k份，那子树大小是k的倍数的节点恰好有n/k个。(任意选定一个根)
+  详细见多校官方题解
+ */
 #include <iostream>
 #include <cstdio>
 #include <vector>
@@ -45,7 +55,6 @@ bool ok(int bei, int have, int n) {
 		sum[i] = (sum[i - 1] + tree_sz[cir[i]]) % bei;
 		++sum_cnt[sum[i]];
 	}
-	//if(bei == 7) cout<<'?'<<sum_cnt[0]<<endl;
 	if(sum_cnt[0] + have == n / bei) return true;
 	int last = cir_tot - 1;
 	for(int i = 0; i < cir_tot - 1; ++i) {
@@ -53,7 +62,6 @@ bool ok(int bei, int have, int n) {
 		int tmp = sum[i];
 		sum[i] = (sum[last] + tree_sz[cir[i]]) % bei;
 		++sum_cnt[sum[i]];
-		//cout<<'?'<<sum_cnt[tmp]<<endl;
 		if(sum_cnt[tmp] + have == n / bei) return true;
 		last = i;
 	}
@@ -74,18 +82,13 @@ void gao(int n) {
 		}
 	}
 
-	//cout<<"!"<<' '<<cir[0]<<endl;
-
 	int nxt = a[cir[0]];
 	while(nxt != cir[0]) {
-	//	cout<<nxt<<endl;
 		cir[cir_tot++] = nxt;
 		in_cir[nxt] = 1;
 		nxt = a[nxt];
 	}
 	
-	//cout<<cir_tot<<endl;
-
 	for(int i = 1; i <= n; ++i) {
 		if(in_cir[i]) dfs(i, -1);
 	}
@@ -93,12 +96,6 @@ void gao(int n) {
 	for(int i = 1; i <= n; ++i)
 		if(!in_cir[i]) ++cnt[tree_sz[i]];
 
-
-	//for(int i = 0; i < cir_tot; ++i)
-	//	cout<<cir[i]<<','<<tree_sz[cir[i]]<<' ';
-	//cout<<endl;
-
-	
 	for(int i = 1; i <= n; ++i) {
 		for(int j = 2 * i; j <= n; j += i) {
 			cnt[i] += cnt[j];
@@ -109,7 +106,6 @@ void gao(int n) {
 	for(int i = 1; i <= n; ++i) {
 		if(n % i) continue;
 		if(ok(i, cnt[i], n)){
-			//cout<<'!'<<i<<' '<<cnt[i]<<endl;
 			++ans;
 		}
 	}
@@ -127,17 +123,11 @@ void init(int n) {
 
 int main() {
 	int n;
-	//int cc = 0;
 	while(scanf("%d", &n) != EOF) {
-		//++cc;
-		//if(cc == 25) cout<<n<<endl;
-		//cout<<n<<endl;
 		init(n);
 		for(int i = 1; i <= n; ++i){
 			scanf("%d", &a[i]);
-			//if(cc == 25) cout<<a[i]<<' ';
 		}
-		//if(cc==25) cout<<endl;
 		gao(n);
 	}
 	return 0;

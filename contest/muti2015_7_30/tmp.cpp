@@ -1,59 +1,9 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-const int mo=1e9+7;
-int pow(int a,int b,int c){int ret=1;for(;b;b>>=1,a=1LL*a*a%c)if(b&1)ret=1LL*ret*a%c;return ret;}
-const int N=1e5+10;
-int a[N],tot=1,cir[N],n,f[N],on[N],h[N],p[N*2],n1[N*2],ee,cnt[N],sz[N],b[N],cc[N];
-int gf(int x){return (f[x]==x)?x:(f[x]=gf(f[x]));}
-int un(int x,int y){
-	if(gf(x)==gf(y))return 0;
-	f[gf(x)]=gf(y);return 1;
-}
-void ae(int x,int y){p[ee]=y;n1[ee]=h[x];h[x]=ee++;}
-void dfs(int u){
-	sz[u]=1;
-	for(int i=h[u];~i;i=n1[i])if(!on[p[i]]){dfs(p[i]);sz[u]+=sz[p[i]];}
-}
-bool check(int m, int A, int B){
-	for(int i=0;i<m;i++)cc[i]=0;
-	for(int i=1;i<=tot;i++)cc[b[i]=(b[i-1]+sz[cir[i]])%m]++;
-	int ret=cc[0],la=tot;
-	if(m == 7) cout<<'?'<<cc[0]<<endl;
-	if(ret + A == B) return true;
-	for(int i=1;i<tot;i++){
-		cc[b[i]]--;
-		int t=b[i];
-		cc[b[i]=(b[la]+sz[cir[i]])%m]++;
-		ret=max(ret,cc[t]);
-		cout<<'?'<<cc[t]<<endl;
-		if(cc[t] + A == B) return true;
-		la=i;
-	}
-	return false;
-	//return ret;
-}
-int main(){
-	int x;
-	int S=0; 
-	while(scanf("%d",&n)!=EOF){
-		for(int i=1;i<=n;i++)h[i]=-1;ee=0;
-		for(int i=1;i<=n;i++)scanf("%d",&a[i]),f[i]=i,ae(a[i],i),on[i]=cnt[i]=0;
-		for(int i=1;i<=n;i++)if(!un(a[i],i)){cir[1]=i;break;}
-		on[cir[1]]=1;x=a[cir[1]];tot=1;
-		while(x!=cir[1])on[cir[++tot]=x]=1,x=a[x];
-		for(int i=1;i<=tot;i++)dfs(cir[i]);
-		for(int i = 1; i <= tot; ++i){
-			cout<<cir[i]<<','<<sz[cir[i]]<<' ';
-		}
-		cout<<endl;
-		for(int i=1;i<=n;i++)if(!on[i])cnt[sz[i]]++;
-		for(int i=1;i<=n;i++)for(int j=i+i;j<=n;j+=i)cnt[i]+=cnt[j];
-		int ans=0;
-		//for(int i=1;i<=n;i++)if(n%i==0)if(check(i)+cnt[i]==n/i){ cout<<i<<' '<<cnt[i]<<endl; ans++; }
-		for(int i=1;i<=n;i++)if(n%i==0)if(check(i, cnt[i], n/i)){ cout<<i<<' '<<cnt[i]<<endl; ans++; }
-		printf("%d\n",ans);
-	}
-	return 0;
-}
-
+hdu 5329 Question for the Leader
+题意：
+给出一个有n个点的图，这个图是由一个基环 + 若干外向树组成，问能否把这个图分成 k个 大小为n/k 的 连通的子图，问k有多少种。
+限制：
+1 <= n <= 1e5
+思路：
+主要是一个性质：
+对于一棵树，如果可以把这棵树分成大小都为k的n/k份，那子树大小是k的倍数的节点恰好有n/k个。(任意选定一个根)
+详细见多校官方题解
