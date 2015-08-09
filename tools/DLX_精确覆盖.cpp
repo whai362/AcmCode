@@ -104,7 +104,7 @@ int main(){
         else{
             printf("%d",g.ansd);
             for(int i = 0;i < g.ansd;i++)
-                printf(" %d",g.ans[i]);
+                printf(" %d", g.ans[i]);
             printf("\n");
         }
     }

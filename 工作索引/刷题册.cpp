@@ -14,9 +14,7 @@ nim 博弈
 最大密度子图
 扩展kmp
 2-sat !
-ac自动机 !
 后缀自动机 !
-后缀数组 !
 划分树
 调和级数
 树链剖分
@@ -66,7 +64,6 @@ Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 广义Fibonacci数列找循环节
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
-link cut tree !
 高斯消元（判断是否有解，快） !
 树上的博弈
 最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html !

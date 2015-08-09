@@ -25,8 +25,8 @@
 #include <cstdio>
 using namespace std;
 
-#define LS(n) node[(n)].ch[0]
-#define RS(n) node[(n)].ch[1]
+#define LS(x) node[(x)].ch[0]
+#define RS(x) node[(x)].ch[1]
 
 const int N = 1e5 + 5;
 const int INF = 0x3f3f3f3f;
@@ -43,64 +43,64 @@ struct Splay {
 	} node[N];
 	int root;
 
-	void up(int n) {
-		node[n].maxx = max(node[n].val, max(node[LS(n)].maxx, node[RS(n)].maxx));
-		node[n].size = node[LS(n)].size + node[RS(n)].size + 1;
+	void up(int x) {
+		node[x].maxx = max(node[x].val, max(node[LS(x)].maxx, node[RS(x)].maxx));
+		node[x].size = node[LS(x)].size + node[RS(x)].size + 1;
 	}
 
-	void down(int n) {
-		if(n == 0) return ;
-		if(node[n].add) {
-			if(LS(n)) {
-				node[LS(n)].val += node[n].add;
-				node[LS(n)].maxx += node[n].add;
-				node[LS(n)].add += node[n].add;
+	void down(int x) {
+		if(x == 0) return ;
+		if(node[x].add) {
+			if(LS(x)) {
+				node[LS(x)].val += node[x].add;
+				node[LS(x)].maxx += node[x].add;
+				node[LS(x)].add += node[x].add;
 			}
-			if(RS(n)) {
-				node[RS(n)].val += node[n].add;
-				node[RS(n)].maxx += node[n].add;
-				node[RS(n)].add += node[n].add;
+			if(RS(x)) {
+				node[RS(x)].val += node[x].add;
+				node[RS(x)].maxx += node[x].add;
+				node[RS(x)].add += node[x].add;
 			}
-			node[n].add = 0;
+			node[x].add = 0;
 		}
-		if(node[n].rev) {
-			if(LS(n)) node[LS(n)].rev ^= 1;
-			if(RS(n)) node[RS(n)].rev ^= 1;
-			swap(LS(n), RS(n));
-			node[n].rev = 0;
+		if(node[x].rev) {
+			if(LS(x)) node[LS(x)].rev ^= 1;
+			if(RS(x)) node[RS(x)].rev ^= 1;
+			swap(LS(x), RS(x));
+			node[x].rev = 0;
 		}
 	}
 
-	void rotate(int n, bool kind) {
-		int fn = node[n].fa;
-		int ffn = node[fn].fa;
-		node[fn].ch[!kind] = node[n].ch[kind];
-		node[node[n].ch[kind]].fa = fn;
+	void rotate(int x, bool kind) {
+		int fx = node[x].fa;
+		int ffx = node[fx].fa;
+		node[fx].ch[!kind] = node[x].ch[kind];
+		node[node[x].ch[kind]].fa = fx;
 		
-		node[n].ch[kind] = fn;
-		node[fn].fa = n;
+		node[x].ch[kind] = fx;
+		node[fx].fa = x;
 
-		node[ffn].ch[RS(ffn) == fn] = n;
-		node[n].fa = ffn;
-		up(fn);
+		node[ffx].ch[RS(ffx) == fx] = x;
+		node[x].fa = ffx;
+		up(fx);
 	}
 
-	void splay(int n, int goal) {
-		while(node[n].fa != goal) {
-			int fn = node[n].fa;
-			int ffn = node[fn].fa;
-			down(ffn); down(fn); down(n);
-			bool rotate_n = (LS(fn) == n);
-			bool rotate_fn = (LS(ffn) == fn);
-			if(ffn == goal) rotate(n, rotate_n);
+	void splay(int x, int goal) {
+		while(node[x].fa != goal) {
+			int fx = node[x].fa;
+			int ffx = node[fx].fa;
+			down(ffx); down(fx); down(x);
+			bool rotate_x = (LS(fx) == x);
+			bool rotate_fx = (LS(ffx) == fx);
+			if(ffx == goal) rotate(x, rotate_x);
 			else {
-				if(rotate_n == rotate_fn) rotate(fn, rotate_fn);
-				else rotate(n, rotate_n);
-				rotate(n, rotate_fn);
+				if(rotate_x == rotate_fx) rotate(fx, rotate_fx);
+				else rotate(x, rotate_x);
+				rotate(x, rotate_fx);
 			}
 		}
-		up(n);
-		if(goal == 0) root = n;
+		up(x);
+		if(goal == 0) root = x;
 	}
 
 	int select(int pos) {
