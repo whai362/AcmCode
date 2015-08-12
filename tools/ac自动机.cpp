@@ -69,8 +69,7 @@ struct acm{
 	}
 	void debug(){
 		for(int i=0;i<=cnt;++i){
-			printf("id=%3d,fail=%3d,sum=%3d,chi=[",i,fail[i],sum[i]);
-			puts("");
+			printf("id=%3d,fail=%3d,sum=%3d,ch=[\n",i,fail[i],sum[i]);
 			for(int j=0;j<26;++j)
 				printf("%2c",j+'a');
 			puts("");
