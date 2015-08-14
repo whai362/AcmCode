@@ -1,3 +1,11 @@
+/*poj 3261 Milk Patterns
+  题意：
+  给定一个字符串S，求至少出现k次的最长重复子串，这k个子串可以重叠。
+  限制：
+  1 <= |S| <= 20000
+  思路：
+  二分答案长度用lcp判断
+ */
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -13,7 +21,7 @@ bool cmp_sa(int i, int j) {
 	if (rank[i] != rank[j])
 		return rank[i] < rank[j];
 	else {
-		int ri = i + times <= n ? rank[i + times] : -1;	//可能会有bug
+		int ri = i + times <= n ? rank[i + times] : -1;
 		int rj = j + times <= n ? rank[j + times] : -1;
 		return ri < rj;
 	}
@@ -21,7 +29,7 @@ bool cmp_sa(int i, int j) {
 void build_sa(int *S, int *sa) {
 	for (int i = 0; i <= n; ++i) {
 		sa[i] = i;
-		rank[i] = S[i]; //最小值这里常出bug, 最好保证S为正
+		rank[i] = S[i];
 	}
 	for (times = 1; times <= n; times <<= 1) {
 		sort(sa, sa + n + 1, cmp_sa);
