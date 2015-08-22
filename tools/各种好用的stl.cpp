@@ -141,7 +141,7 @@ str.substr(2,2); //输出34
 
 string str="1243454";
 string tmp="4";
-cout<<str.find(tmp)<<endl; //输出2, find输出的是第一个找到的下标, 如果没有找到则输出一个<0 或者>len的数
+cout<<str.find(tmp)<<endl; //输出2, find输出的是第一个找到的下标, 如果没有找到则输出一个<0 或者>=len的数
 cout<<str.find(tmp,3)<<endl; //输出4, 从下标3开始找
 cout<<str.rfind(tmp)<<endl; //输出6
 
