@@ -135,7 +135,7 @@ int main()
 	return 0;
 }
 
-/*****6.string*****/
+/*****6. string*****/
 string str="123456";
 str.substr(2,2); //Êä³ö34
 
