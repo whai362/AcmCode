@@ -11,7 +11,7 @@
 		 = ( (2n+3)*M[n] + 3n*M[n-1] ) / ( n+3 )
   默慈金数与卡特兰数：
   M[n]=for(int i=0;i<=floor(n/2);++i){
-			+C(n,2i)Catalan(i)	
+			+C(n,2i)Catalan(i)
 	   }
   应用：
   1.一个给定的数的默慈金数是在一个圆上的个点间，画出彼此不相交弦的全部方法的总数。比如为4时，方法数为9
@@ -33,11 +33,11 @@ public class Main {
 		ans[2] = BigInteger.valueOf(2);
 		for (int i = 3; i < N; ++i) {
 			BigInteger a = ans[i - 1].multiply(BigInteger.valueOf(2)
-					.multiply(BigInteger.valueOf(i)).add(BigInteger.ONE));
+			                                   .multiply(BigInteger.valueOf(i)).add(BigInteger.ONE));
 			BigInteger b = ans[i - 2].multiply(BigInteger.valueOf(3).multiply(
-					BigInteger.valueOf(i - 1)));
+			                                       BigInteger.valueOf(i - 1)));
 			ans[i] = a.add(b).divide(
-					BigInteger.valueOf(i).add(BigInteger.valueOf(2)));
+			             BigInteger.valueOf(i).add(BigInteger.valueOf(2)));
 		}
 	}
 

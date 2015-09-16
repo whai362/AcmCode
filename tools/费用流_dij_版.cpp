@@ -23,35 +23,35 @@ const int MAX_V = 1005;
 #define PB push_back
 #define X first
 #define Y second
-struct edge{ int to, cap, cost, rev; };
+struct edge { int to, cap, cost, rev; };
 int V;	//顶点数
 vector<edge> G[MAX_V];
 int h[MAX_V]; //顶点的势
 int dist[MAX_V]; //最短距离
 int prevv[MAX_V], preve[MAX_V]; //最短路中的前驱节点和对应的边
-void add_edge(int fr, int to, int cap, int cost){
-	G[fr].PB((edge){to, cap, cost, G[to].size()});
-	G[to].PB((edge){fr, 0, -cost, G[fr].size()-1});
+void add_edge(int fr, int to, int cap, int cost) {
+	G[fr].PB((edge) {to, cap, cost, G[to].size()});
+	G[to].PB((edge) {fr, 0, -cost, G[fr].size() - 1});
 }
 //求解从s到t流量为f的最小费用流
 //如果没有流量为f的流，则返回-1
-int min_cost_flow(int s, int t, int f){
+int min_cost_flow(int s, int t, int f) {
 	int res = 0;
-	fill(h, h+V, 0);
-	while(f > 0){
+	fill(h, h + V, 0);
+	while (f > 0) {
 		//使用dij更新h
 		priority_queue< PII, vector<PII>, greater<PII> > que;
-		fill(dist, dist+V, INF);
+		fill(dist, dist + V, INF);
 		dist[s] = 0;
 		que.push(PII(0, s));
-		while(!que.empty()){
+		while (!que.empty()) {
 			PII p = que.top(); que.pop();
 			int v = p.Y;
-			if(dist[v] < p.X) continue;
-			for(int i = 0; i < G[v].size(); ++i){
+			if (dist[v] < p.X) continue;
+			for (int i = 0; i < G[v].size(); ++i) {
 				edge &e = G[v][i];
 				int tmp = dist[v] + e.cost + h[v] - h[e.to];
-				if(e.cap > 0 && dist[e.to] > tmp){
+				if (e.cap > 0 && dist[e.to] > tmp) {
 					dist[e.to] = tmp;
 					prevv[e.to] = v;
 					preve[e.to] = i;
@@ -59,43 +59,43 @@ int min_cost_flow(int s, int t, int f){
 				}
 			}
 		}
-		if(dist[t] == INF){
+		if (dist[t] == INF) {
 			//不能再增广
 			return -1;
 		}
-		for(int v = 0; v < V; ++v) h[v] += dist[v];
+		for (int v = 0; v < V; ++v) h[v] += dist[v];
 		//沿s到t最短路尽量增广
 		int d = f;
-		for(int v = t; v != s; v = prevv[v]){
+		for (int v = t; v != s; v = prevv[v]) {
 			d = min(d, G[prevv[v]][preve[v]].cap);
 		}
 		f -= d;
 		res += d * h[t];
-		for(int v = t; v != s; v = prevv[v]){
-			 edge &e = G[prevv[v]][preve[v]];
-			 e.cap -= d;
-			 G[v][e.rev].cap += d;
+		for (int v = t; v != s; v = prevv[v]) {
+			edge &e = G[prevv[v]][preve[v]];
+			e.cap -= d;
+			G[v][e.rev].cap += d;
 		}
 	}
 	return res;
 }
-void init(){
-	for(int i = 0; i < V; ++i) G[i].clear();
+void init() {
+	for (int i = 0; i < V; ++i) G[i].clear();
 }
-int main(){
+int main() {
 	int n, m;
 	scanf("%d%d", &n, &m);
 	V = n + 2;
 	init();
-	while(m--){
+	while (m--) {
 		int u, v, c;
 		scanf("%d%d%d", &u, &v, &c);
 		add_edge(u, v, 1, c);
 		add_edge(v, u, 1, c);
 	}
 	add_edge(0, 1, 2, 0);
-	add_edge(n, n+1, 2, 0);
-	int ans = min_cost_flow(0, n+1, 2);
-	cout<<ans<<endl;
+	add_edge(n, n + 1, 2, 0);
+	int ans = min_cost_flow(0, n + 1, 2);
+	cout << ans << endl;
 	return 0;
 }

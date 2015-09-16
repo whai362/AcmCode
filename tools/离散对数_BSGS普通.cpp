@@ -8,7 +8,7 @@
 
   普通giant-step baby-step过程，要求P为素数：
   令s = ceil(sqrt(P)), 则L = b * s + r (0 <= b, r < s),
-  即B^L = B^(b * s) * B^r。把所有B^r放入hash表中，从小到大枚举b，得到N^(b * s) * B^r = n。
+  即B^L = B^(b * s) * B^r。把所有B^r放入hash表中，从小到大枚举b，得到B^(b * s) * B^r = N。
 
 
   费马小定理a^(m-1)=1(mod m), m为素数, 可得：
@@ -25,68 +25,68 @@
 using namespace std;
 #define LL __int64
 
-const int HASH_MOD=76543;
+const int HASH_MOD = 76543;
 LL key[HASH_MOD], val[HASH_MOD];
 int head[HASH_MOD], next[HASH_MOD];
-struct Hash{
+struct Hash {
 	int tot;
-	void init(){
+	void init() {
 		memset(head, -1, sizeof(head));
 		tot = 0;
 	}
-	LL insert(LL x, LL y){
+	LL insert(LL x, LL y) {
 		int k = x % HASH_MOD;
 		key[tot] = x;
 		val[tot] = y;
 		next[tot] = head[k];
 		head[k] = tot++;
 	}
-	LL find(LL x){
+	LL find(LL x) {
 		int k = x % HASH_MOD;
-		for(int i = head[k]; i != -1; i = next[i])
-			if(key[i] == x)
+		for (int i = head[k]; i != -1; i = next[i])
+			if (key[i] == x)
 				return val[i];
 		return -1;
 	}
-}hs;
+} hs;
 
 
-LL a_b_MOD_c(LL a,LL b,LL mod){
+LL a_b_MOD_c(LL a, LL b, LL mod) {
 	LL ret = 1;
 	a %= mod;
-	while(b){
-		if(b & 1) ret = ret * a % mod;
+	while (b) {
+		if (b & 1) ret = ret * a % mod;
 		a = a * a % mod;
 		b >>= 1;
 	}
 	return ret;
 }
-//求解模方程a^x=b(mod m),n为素数,无解返回-1  
+//求解模方程a^x=b(mod m),n为素数,无解返回-1
 //注意：要求0 < a < m; 0 <= b < m; 否则按题意自己转化。
 //复杂度O(sqrt(m))
-LL log_mod(LL a, LL b, LL m){
+LL log_mod(LL a, LL b, LL m) {
 	hs.init();
 	LL s = ceil(sqrt(m));
 	LL cur = 1;
-	for (int i = 0; i < s; ++i){
-		if(hs.find(cur)==-1) hs.insert(cur,i);	//记得先判重，在插入
+	for (int i = 0; i < s; ++i) {
+		if (hs.find(cur) == -1) hs.insert(cur, i);	//记得先判重，在插入
 		cur = cur * a % m;
 	}
 	LL v = a_b_MOD_c(a, (m - s - 1 + m) % m, m);
-	for(int i = 0; i < s; ++i){
+	for (int i = 0; i < s; ++i) {
 		LL tmp = hs.find(b);
-		if(tmp!=-1)
+		if (tmp != -1)
 			return s * i + tmp;
-		b=b*v%m;
+		b = b * v % m;
 	}
 	return -1;
 }
 
-int main(){
+int main() {
 	int p, b, n;
-	while(scanf("%d%d%d", &p, &b, &n) != EOF){
-		LL ans = log_mod(b,n,p);
-		if(ans == -1) puts("no solution");
+	while (scanf("%d%d%d", &p, &b, &n) != EOF) {
+		LL ans = log_mod(b, n, p);
+		if (ans == -1) puts("no solution");
 		else printf("%I64d\n", ans);
 	}
 	return 0;

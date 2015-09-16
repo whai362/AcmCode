@@ -1,63 +1,100 @@
-/*Problem Description
-Ignatius最近遇到一个难题,老师交给他很多单词(只有小写字母组成,不会有重复的单词出现),现在老师要他统计出以某个字符串为前缀的单词数量(单词本身也是自己的前缀).
-Input
-输入数据的第一部分是一张单词表,每行一个单词,单词的长度不超过10,它们代表的是老师交给Ignatius统计的单词,一个空行代表单词表的结束.第二部分是一连串的提问,每行一个提问,每个提问都是一个字符串.
-注意:本题只有一组测试数据,处理到文件结束.
-Output
-对于每个提问,给出以该字符串为前缀的单词的数量.*/
+/*poj 3764
+  题意：
+  给你一棵树，n个节点（n = 100000），n-1条边每条边i都有一个权值wi。
+  定义任意两点间的权值为：
+  这两点间的路径上的所有边的值的异或。
+  比如a点和b点间有i，j，k三条边，那么ab两点间的权值为：wi^wj^wk
+  求这个最大的权值。
+ */
+#include<iostream>
 #include<cstdio>
 #include<cstring>
+#include<vector>
 using namespace std;
-const int MAXB=26;	//修改处1
-struct Node{
-    struct Node *br[MAXB];
-    int num;
-};
-Node *head;
-void Tree_insert(char str[]){	//插入单词
-    Node *t,*s=head;
-    int i,j;
-    int len=strlen(str);
-    for(i=0;i<len;i++){
-        int id=str[i]-'a'; //修改处2
-        if(s->br[id]==NULL){
-            t=new Node;
-            for(j=0;j<MAXB;j++){
-                t->br[j]=NULL;
-            }    
-            t->num=0;	//修改处3
-            s->br[id]=t;
-        }    
-        s=s->br[id];
-        s->num++;	//修改处4
-    }    
-}    
-int Tree_Find(char str[]){
-    Node *s=head;
-    int count,i;
-    int len=strlen(str);
-    for(i=0;i<len;i++){
-        int id=str[i]-'a';	//修改处5
-        if(s->br[id]==NULL){
-            return 0;
-        }    
-        else{
-            s=s->br[id];
-            count=s->num;	//修改处6
-        }    
-    }    
-    return count;
-}
-int main(){
-    int i;
-    head=new Node;
-    for(i=0;i<MAXB;i++){
-        head->br[i]=NULL;
-        head->num=0;	//修改处7
-    }    
-    char str[12];
-    while(gets(str)&&str[0])  Tree_insert(str);
-    while(gets(str))  printf("%d\n",Tree_Find(str));
-    return 0;
+#define pb push_back
+const int N = 100005;
+struct Edge {
+    int to, w, next;
+} edge[N * 2];
+int head[N], tot;
+void addedge(int u, int v, int w) {
+    edge[tot].to = v, edge[tot].w = w, edge[tot].next = head[u], head[u] = tot++;
+    edge[tot].to = u, edge[tot].w = w, edge[tot].next = head[v], head[v] = tot++;
 }
 
+int n;
+int dis[N];
+
+const int MAXB = 2;
+int Ntot = 0;
+struct Node {
+    int br[MAXB];
+    int num;
+    void clear() {
+        memset(br, -1, sizeof(br));
+        num = 0;
+    }
+} node[N * 33];
+void insert(int x) {
+    int cur = 0;
+    for (int i = 30; i >= 0; --i) {
+        int id = ((1 << i) & x) > 0 ? 1 : 0;
+        if (node[cur].br[id] == -1) {
+            node[Ntot].clear();
+            node[cur].br[id] = Ntot;
+            cur = Ntot++;
+        }
+        else {
+            cur = node[cur].br[id];
+        }
+    }
+    node[cur].num = x;
+}
+int find(int x) {
+    int cur = 0;
+    for (int i = 30; i >= 0; --i) {
+        int id = ((1 << i) & x) > 0 ? 1 : 0;
+        if (node[cur].br[!id] != -1) {
+            cur = node[cur].br[!id];
+        }
+        else if (node[cur].br[id] != -1) {
+            cur = node[cur].br[id];
+        }
+        else break;
+    }
+    return x ^ node[cur].num;
+}
+
+void dfs(int pa, int fa, int xs) {
+    dis[pa] = xs;
+    for (int i = head[pa]; i != -1; i = edge[i].next) {
+        int to = edge[i].to;
+        if (to == fa) continue;
+        dfs(to, pa, xs ^ edge[i].w);
+    }
+}
+void init() {
+    memset(head, -1, sizeof(head));
+    tot = 0;
+    Ntot = 0;
+    node[Ntot++].clear();
+}
+int main() {
+    int u, v, w;
+    while (scanf("%d", &n) != EOF) {
+        init();
+        for (int i = 0; i < n - 1; ++i) {
+            scanf("%d%d%d", &u, &v, &w);
+            addedge(u, v, w);
+        }
+        dfs(0, -1, 0);
+
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+            insert(dis[i]);
+            ans = max(ans, find(dis[i]));
+        }
+        printf("%d\n", ans);
+    }
+    return 0;
+}

@@ -19,79 +19,79 @@
 #include<algorithm>
 using namespace std;
 #define LL __int64
-const int N=25;
-struct FS{
-	LL x,y;
-	FS(){}
-	FS(LL _x,LL _y){
-		x=_x;
-		y=_y;
+const int N = 25;
+struct FS {
+	LL x, y;
+	FS() {}
+	FS(LL _x, LL _y) {
+		x = _x;
+		y = _y;
 	}
-	FS hj(){
-		LL div=__gcd(x,y);
-		x/=div;
-		y/=div;
+	FS hj() {
+		LL div = __gcd(x, y);
+		x /= div;
+		y /= div;
 	}
-	FS operator + (const FS &tmp){
-		LL fz=x*tmp.y+tmp.x*y,
-		   fm=y*tmp.y;
-		if(fz==0) return FS(0,1);
-		LL div=__gcd(fz,fm);
-		return FS(fz/div,fm/div);
+	FS operator + (const FS &tmp) {
+		LL fz = x * tmp.y + tmp.x * y,
+		   fm = y * tmp.y;
+		if (fz == 0) return FS(0, 1);
+		LL div = __gcd(fz, fm);
+		return FS(fz / div, fm / div);
 	}
-}B[N],a[N];
+} B[N], a[N];
 LL C[N][N];
-void init(){
-	for(int i=0;i<N;++i)
-		C[i][0]=C[i][i]=1;
-	for(int i=2;i<N;++i)
-		for(int j=1;j<N;++j)
-			C[i][j]=C[i-1][j]+C[i-1][j-1];
-	B[0]=FS(1,1);
-	for(int i=1;i<N;++i){
-		FS tmp=FS(0,1),add;
-		for(int j=0;j<i;++j){
-			add=B[j];
-			add.x*=C[i+1][j];
-			tmp=tmp+add;
+void init() {
+	for (int i = 0; i < N; ++i)
+		C[i][0] = C[i][i] = 1;
+	for (int i = 2; i < N; ++i)
+		for (int j = 1; j < N; ++j)
+			C[i][j] = C[i - 1][j] + C[i - 1][j - 1];
+	B[0] = FS(1, 1);
+	for (int i = 1; i < N; ++i) {
+		FS tmp = FS(0, 1), add;
+		for (int j = 0; j < i; ++j) {
+			add = B[j];
+			add.x *= C[i + 1][j];
+			tmp = tmp + add;
 		}
-		if(tmp.x) tmp.y*=-(i+1);
+		if (tmp.x) tmp.y *= -(i + 1);
 		tmp.hj();
-		B[i]=tmp;
+		B[i] = tmp;
 	}
 }
-int main(){
+int main() {
 	init();
 	//for(int i=0;i<10;++i){
 	//	cout<<B[i].x<<' '<<B[i].y<<endl;
 	//}
 	int k;
-	scanf("%d",&k);
-	LL M=k+1;
-	LL gcd=0,lcm;
-	a[0]=FS(0,1);
-	for(int i=1;i<=k+1;++i){
-		if(B[k+1-i].x==0){ a[i]=FS(0,1); continue; }
-		FS tmp=B[k+1-i];
-		tmp.x*=C[k+1][i];
+	scanf("%d", &k);
+	LL M = k + 1;
+	LL gcd = 0, lcm;
+	a[0] = FS(0, 1);
+	for (int i = 1; i <= k + 1; ++i) {
+		if (B[k + 1 - i].x == 0) { a[i] = FS(0, 1); continue; }
+		FS tmp = B[k + 1 - i];
+		tmp.x *= C[k + 1][i];
 		tmp.hj();
-		if(gcd==0) lcm=gcd=tmp.y;
-		a[i]=tmp;
+		if (gcd == 0) lcm = gcd = tmp.y;
+		a[i] = tmp;
 	}
-	a[k]=a[k]+FS(k+1,1);
+	a[k] = a[k] + FS(k + 1, 1);
 	//for(int i=1;i<=k+1;++i){
 	//	cout<<a[i].x<<' '<<a[i].y<<endl;
 	//}
-	for(int i=2;i<=k+1;++i){
-		if(a[i].x==0) continue;
-		lcm=lcm*a[i].y/__gcd(lcm,a[i].y);
+	for (int i = 2; i <= k + 1; ++i) {
+		if (a[i].x == 0) continue;
+		lcm = lcm * a[i].y / __gcd(lcm, a[i].y);
 	}
 	//cout<<lcm<<endl;
-	if(lcm<0) lcm=-lcm;
-	M*=lcm;
-	printf("%d",M);
-	for(int i=k+1;i>=0;--i){
-		printf(" %d",a[i].x*lcm/a[i].y);
+	if (lcm < 0) lcm = -lcm;
+	M *= lcm;
+	printf("%d", M);
+	for (int i = k + 1; i >= 0; --i) {
+		printf(" %d", a[i].x * lcm / a[i].y);
 	}
 	puts("");
 	return 0;

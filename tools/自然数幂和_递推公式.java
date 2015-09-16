@@ -21,51 +21,51 @@ import java.util.Scanner;
 
 public class Main {
 	static final int N = 105;
-	static final BigInteger _one=BigInteger.valueOf(-1);
+	static final BigInteger _one = BigInteger.valueOf(-1);
 	static BigInteger[][] C = new BigInteger[N][N];
-	static BigInteger[] ans=new BigInteger[N];
-	static BigInteger[] n1k1=new BigInteger[N];
-	
+	static BigInteger[] ans = new BigInteger[N];
+	static BigInteger[] n1k1 = new BigInteger[N];
+
 	static void predo() {
-		for(int i=0;i<N;++i)
-			C[i][0]=C[i][i]=BigInteger.ONE;
-		for(int i=2;i<N;++i)
-			for(int j=1;j<i;++j)
-				C[i][j]=C[i-1][j].add(C[i-1][j-1]);
+		for (int i = 0; i < N; ++i)
+			C[i][0] = C[i][i] = BigInteger.ONE;
+		for (int i = 2; i < N; ++i)
+			for (int j = 1; j < i; ++j)
+				C[i][j] = C[i - 1][j].add(C[i - 1][j - 1]);
 	}
-	
-	static void init(BigInteger n,int k){
-		for(int i=0;i<=k;++i)
-			ans[i]=_one;
-		n1k1[0]=n.add(BigInteger.ONE);
-		for(int i=1;i<=k;++i)
-			n1k1[i]=n1k1[i-1].multiply(n.add(BigInteger.ONE));
+
+	static void init(BigInteger n, int k) {
+		for (int i = 0; i <= k; ++i)
+			ans[i] = _one;
+		n1k1[0] = n.add(BigInteger.ONE);
+		for (int i = 1; i <= k; ++i)
+			n1k1[i] = n1k1[i - 1].multiply(n.add(BigInteger.ONE));
 	}
-	
-	static BigInteger gao(BigInteger n,int k){
-		if(!ans[k].equals(_one))
+
+	static BigInteger gao(BigInteger n, int k) {
+		if (!ans[k].equals(_one))
 			return ans[k];
-		if(k==1)
-			ans[k]=n.add(BigInteger.ONE).multiply(n).divide(BigInteger.valueOf(2));
-		else{
-			ans[k]=n1k1[k].subtract(n.add(BigInteger.ONE));
-			for(int i=2;i<=k;++i)
-				ans[k]=ans[k].subtract(C[k+1][i].multiply(gao(n,k-i+1)));
-			ans[k]=ans[k].divide(BigInteger.valueOf(k+1));
+		if (k == 1)
+			ans[k] = n.add(BigInteger.ONE).multiply(n).divide(BigInteger.valueOf(2));
+		else {
+			ans[k] = n1k1[k].subtract(n.add(BigInteger.ONE));
+			for (int i = 2; i <= k; ++i)
+				ans[k] = ans[k].subtract(C[k + 1][i].multiply(gao(n, k - i + 1)));
+			ans[k] = ans[k].divide(BigInteger.valueOf(k + 1));
 		}
 		return ans[k];
 	}
-	
+
 	public static void main(String[] args) {
 		predo();
 		Scanner in = new Scanner(System.in);
 		BigInteger n;
 		int k;
-		while (in.hasNext()){
-			n=in.nextBigInteger();
-			k=in.nextInt();
-			init(n,k);
-			System.out.println(gao(n,k));
+		while (in.hasNext()) {
+			n = in.nextBigInteger();
+			k = in.nextInt();
+			init(n, k);
+			System.out.println(gao(n, k));
 		}
 	}
 }

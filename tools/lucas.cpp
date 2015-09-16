@@ -5,15 +5,15 @@
   则：
   C(n,m) = pe(i=0~k,C(a[i],b[i]))%p 其中pe表示连乘符号。
  */
-LL lucas(int n,int m,int MOD){
-	if(n<m) return 0;	//注意
-	LL ret=1;
-	while(n && m){
-		LL a=n%MOD,b=m%MOD;
-		if(a<b) return 0;
-		ret=ret*C(a,b,MOD)%MOD;
-		n/=MOD;
-		m/=MOD;
+LL lucas(int n, int m, int MOD) {
+	if (n < m) return 0;	//注意
+	LL ret = 1;
+	while (n && m) {
+		LL a = n % MOD, b = m % MOD;
+		if (a < b) return 0;
+		ret = ret * C(a, b, MOD) % MOD;
+		n /= MOD;
+		m /= MOD;
 	}
 	return ret;
 }

@@ -10,16 +10,16 @@ using namespace std;
 const int Max = 1000000;
 bool is_pri[Max];
 int pri[Max], tot;
-void get_pri(int n){
+void get_pri(int n) {
 	tot = 0;
 	memset(is_pri, 1, sizeof(bool) * (n + 1));
 	is_pri[0] = is_pri[1] = 0;
-	for(int i = 2; i <= n; ++i)
-		if(is_pri[i]){
-			if(n / i < i) break;
-			for(int j = i * i; j <= n; j += i) is_pri[j] = false;
+	for (int i = 2; i <= n; ++i)
+		if (is_pri[i]) {
+			if (n / i < i) break;
+			for (int j = i * i; j <= n; j += i) is_pri[j] = false;
 		}
-	for(int i = 2; i <= n; ++i) if(is_pri[i]) pri[tot++] = i;
+	for (int i = 2; i <= n; ++i) if (is_pri[i]) pri[tot++] = i;
 }
 //O(n)
 //void get_pri(int n){
@@ -33,14 +33,14 @@ void get_pri(int n){
 //		}
 //	}
 //}
-int main(){
+int main() {
 	double st = clock(), en;
-	get_pri(Max-1);
-	for(int i = 0; i < tot; ++i){
-		cout<<pri[i]<<' ';
+	get_pri(Max - 1);
+	for (int i = 0; i < tot; ++i) {
+		cout << pri[i] << ' ';
 	}
-	cout<<endl;
+	cout << endl;
 	en = clock();
-	cerr<<double(en - st) / CLOCKS_PER_SEC<<endl;
+	cerr << double(en - st) / CLOCKS_PER_SEC << endl;
 	return 0;
 }

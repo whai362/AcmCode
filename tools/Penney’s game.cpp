@@ -25,83 +25,83 @@
 #include<cstdio>
 using namespace std;
 #define LL long long
-const int N=100050;
-LL aa[N/50],bb[N/50],ab[N/50],ba[N/50];
+const int N = 100050;
+LL aa[N / 50], bb[N / 50], ab[N / 50], ba[N / 50];
 int next[N];
-void getNext(char T[],int len){
-	int i,j;
-	i=0;
-	j=next[0]=-1;
-	while(i<len){
-		if(j==-1 || T[i]==T[j]) next[++i]=++j;
-		else j=next[j];
+void getNext(char T[], int len) {
+	int i, j;
+	i = 0;
+	j = next[0] = -1;
+	while (i < len) {
+		if (j == -1 || T[i] == T[j]) next[++i] = ++j;
+		else j = next[j];
 	}
 }
-void deal(char S[],char T[],int slen,int tlen,LL res[]){
-	for(int i=0;i<=max(slen/50,tlen/50);++i) res[i]=0;
-	int i=0,j=0;
-	if(slen>=tlen) i+=slen-tlen;
-	else j+=tlen-slen;
-	getNext(T,tlen);
-	while(i<slen){
-		if(j==-1 || S[i]==T[j]){
+void deal(char S[], char T[], int slen, int tlen, LL res[]) {
+	for (int i = 0; i <= max(slen / 50, tlen / 50); ++i) res[i] = 0;
+	int i = 0, j = 0;
+	if (slen >= tlen) i += slen - tlen;
+	else j += tlen - slen;
+	getNext(T, tlen);
+	while (i < slen) {
+		if (j == -1 || S[i] == T[j]) {
 			++i; ++j;
-			if(i==slen && j!=0){
-				int bl=(j-1)/50;
-				int mv=(j-1)%50;
-				res[bl]|=(1LL)<<mv;
+			if (i == slen && j != 0) {
+				int bl = (j - 1) / 50;
+				int mv = (j - 1) % 50;
+				res[bl] |= (1LL) << mv;
 				--i;
-				j=next[j-1];
+				j = next[j - 1];
 			}
 		}
-		else j=next[j];
+		else j = next[j];
 	}
 }
-char A[N],B[N];
-void print(LL a[],int len){
-	for(int i=0;i<len;++i){
-		int bl=i/50;
-		int mv=i%50;
-		cout<<(a[bl]&(1LL<<mv))<<' ';
+char A[N], B[N];
+void print(LL a[], int len) {
+	for (int i = 0; i < len; ++i) {
+		int bl = i / 50;
+		int mv = i % 50;
+		cout << (a[bl] & (1LL << mv)) << ' ';
 	}
-	cout<<endl;
+	cout << endl;
 }
-void sub(LL a[],LL b[],int alen,int blen){
-	int lim=max(alen/50,blen/50);
-	int c=0;
-	for(int i=0;i<=lim;++i){
-		LL tmp=a[i]-b[i]-c;
-		if(tmp<0){ c=1,tmp+=(1LL)<<50; }
-		else c=0;
-		a[i]=tmp;
+void sub(LL a[], LL b[], int alen, int blen) {
+	int lim = max(alen / 50, blen / 50);
+	int c = 0;
+	for (int i = 0; i <= lim; ++i) {
+		LL tmp = a[i] - b[i] - c;
+		if (tmp < 0) { c = 1, tmp += (1LL) << 50; }
+		else c = 0;
+		a[i] = tmp;
 	}
 }
-int n,m;
-int cmp(LL a[],LL b[],int alen,int blen){
-	int lim=max(alen/50,blen/50);
-	int ret=0;
-	for(int i=lim;i>=0;--i){
-		if(a[i]>b[i]){ ret=1; break; }
-		if(a[i]<b[i]){ ret=-1;break; }
+int n, m;
+int cmp(LL a[], LL b[], int alen, int blen) {
+	int lim = max(alen / 50, blen / 50);
+	int ret = 0;
+	for (int i = lim; i >= 0; --i) {
+		if (a[i] > b[i]) { ret = 1; break; }
+		if (a[i] < b[i]) { ret = -1; break; }
 	}
 	return ret;
 }
-void gao(){
-	int fa,fb;
-	sub(bb,ba,m,m);
-	sub(aa,ab,n,n);
-	int ans=cmp(bb,aa,m,n);
-	if(ans==0) puts("Equal");
-	else if(ans==1) puts("Hamlet");
+void gao() {
+	int fa, fb;
+	sub(bb, ba, m, m);
+	sub(aa, ab, n, n);
+	int ans = cmp(bb, aa, m, n);
+	if (ans == 0) puts("Equal");
+	else if (ans == 1) puts("Hamlet");
 	else puts("Laertes");
 }
-int main(){
-	while(scanf("%d%d",&n,&m) && (n||m)){
-		scanf("%s%s",A,B);
-		deal(A,A,n,n,aa);
-		deal(B,B,m,m,bb);
-		deal(A,B,n,m,ab);
-		deal(B,A,m,n,ba);
+int main() {
+	while (scanf("%d%d", &n, &m) && (n || m)) {
+		scanf("%s%s", A, B);
+		deal(A, A, n, n, aa);
+		deal(B, B, m, m, bb);
+		deal(A, B, n, m, ab);
+		deal(B, A, m, n, ba);
 		//print(aa,n);
 		//print(ab,n);
 		//print(bb,m);

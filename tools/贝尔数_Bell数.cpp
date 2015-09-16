@@ -32,36 +32,36 @@ Bell三角形的构造方法：
 N[p] = (p^p - 1) / (p - 1)
 
 4. Bell数预处理
-LL T[55],B[55];
-void get_bell(int n,int mod){
-    B[0]=1;
-    B[1]=1;
-    T[0]=1;
-    for(int i=2;i<=n;++i){
-        T[i-1]=B[i-1];
-        for(int j=i-2;j>=0;--j)
-            T[j]=(T[j]+T[j+1])%mod;
-        B[i]=T[0];
-    }
+LL T[55], B[55];
+void get_bell(int n, int mod) {
+	B[0] = 1;
+	B[1] = 1;
+	T[0] = 1;
+	for (int i = 2; i <= n; ++i) {
+		T[i - 1] = B[i - 1];
+		for (int j = i - 2; j >= 0; --j)
+			T[j] = (T[j] + T[j + 1]) % mod;
+		B[i] = T[0];
+	}
 }
 
 5. 利用同余性质求大Bell数的模值
 //求B[n]%mod
 //要先预处理前50项Bell数，当然可以更多
 //vis每次调用前都要清空
-map<int,LL> vis;
-LL bell_mod(int n,int mod){
-	LL ret=vis[n];
-	if(ret) return ret;
-	if(n<=50) return B[n];	//改
-	LL k=0;
-	LL P=1;
-	while(P<n){
-		P=P*mod;
+map<int, LL> vis;
+LL bell_mod(int n, int mod) {
+	LL ret = vis[n];
+	if (ret) return ret;
+	if (n <= 50) return B[n];	//改
+	LL k = 0;
+	LL P = 1;
+	while (P < n) {
+		P = P * mod;
 		++k;
 	}
-	P/=mod;
+	P /= mod;
 	--k;
-	return vis[n]=(k*bell_mod(n-P,mod)+bell_mod(n-P+1,mod))%mod;
+	return vis[n] = (k * bell_mod(n - P, mod) + bell_mod(n - P + 1, mod)) % mod;
 }
 

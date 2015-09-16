@@ -4,11 +4,14 @@
   每一个正整数n都可以写成若干个素数的幂和1的和，其lcm最大。所以我们只需要考虑：
   n = p[1]^a1 + p[2]^a2 + ... + p[t]^at + 1 + ... + 1
   这种拆分就可以了。
+
+  兰道函数定义：
+  对于所有非负整数n，g(n)是n的所有整数分拆之中的最大的最小公倍数。
  */
 import java.math.BigInteger;
 import java.util.*;
 
-public class Main{
+public class Main {
 	static final int N = 2005;
 	static boolean prime[] = new boolean[N];
 	static int p[] = new int[N];
@@ -16,55 +19,55 @@ public class Main{
 	static BigInteger ans[] = new BigInteger[N];
 	static int k;
 
-	static void isprime(){
+	static void isprime() {
 		k = 1;
-		int i,j;
-		Arrays.fill(prime,true);
-		for(i=2;i<N;i++){
-			if(prime[i]){
+		int i, j;
+		Arrays.fill(prime, true);
+		for (i = 2; i < N; i++) {
+			if (prime[i]) {
 				p[k++] = i;
-				for(j=i+i;j<N;j+=i){
+				for (j = i + i; j < N; j += i) {
 					prime[j] = false;
 				}
 			}
 		}
 	}
 
-	static BigInteger max(BigInteger a,BigInteger b){
-		if(a.compareTo(b) == 1) return a;
+	static BigInteger max(BigInteger a, BigInteger b) {
+		if (a.compareTo(b) == 1) return a;
 		else return b;
 	}
 
-	static void Work(){
-		for(int i=0;i<N;i++)
-			for(int j=0;j<k;j++)
+	static void Work() {
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < k; j++)
 				dp[i][j] = BigInteger.ONE;
-		for(int i=1;i<k;i++)
+		for (int i = 1; i < k; i++)
 			dp[2][i] = BigInteger.valueOf(2);
-		for(int i=3;i<N;i++){
-			for(int j=1;j<k;j++){
-				dp[i][j] = dp[i][j-1];
+		for (int i = 3; i < N; i++) {
+			for (int j = 1; j < k; j++) {
+				dp[i][j] = dp[i][j - 1];
 				int tmp = p[j];
-				while(i >= tmp){
-					dp[i][j] = max(dp[i][j],dp[i-tmp][j-1].multiply(BigInteger.valueOf(tmp)));
+				while (i >= tmp) {
+					dp[i][j] = max(dp[i][j], dp[i - tmp][j - 1].multiply(BigInteger.valueOf(tmp)));
 					tmp *= p[j];
 				}
 			}
 		}
 		ans[0] = ans[1] = BigInteger.ONE;
 		ans[2] = BigInteger.valueOf(2);
-		for(int i=3;i<N;i++){
+		for (int i = 3; i < N; i++) {
 			ans[i] = BigInteger.ZERO;
-			for(int j=1;j<k;j++)
-				ans[i] = max(ans[i],dp[i][j]);
+			for (int j = 1; j < k; j++)
+				ans[i] = max(ans[i], dp[i][j]);
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		isprime();
 		Work();
 		Scanner cin = new Scanner(System.in);
-		while(cin.hasNext()){
+		while (cin.hasNext()) {
 			int n = cin.nextInt();
 			System.out.println(ans[n]);
 		}

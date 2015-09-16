@@ -1,0 +1,11 @@
+#include <iostream>
+#include <cstdio>
+#include <map>
+using namespace std;
+int main() {
+	int T;
+	cin>>n;
+	while(T--) {
+		gets
+	}
+}

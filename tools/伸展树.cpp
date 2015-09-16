@@ -31,7 +31,7 @@ using namespace std;
 const int N = 1e5 + 5;
 const int INF = 0x3f3f3f3f;
 struct Splay {
-	struct Node{
+	struct Node {
 		int fa, ch[2];
 		bool rev;
 		int val, add, maxx, size;
@@ -49,23 +49,23 @@ struct Splay {
 	}
 
 	void down(int x) {
-		if(x == 0) return ;
-		if(node[x].add) {
-			if(LS(x)) {
+		if (x == 0) return ;
+		if (node[x].add) {
+			if (LS(x)) {
 				node[LS(x)].val += node[x].add;
 				node[LS(x)].maxx += node[x].add;
 				node[LS(x)].add += node[x].add;
 			}
-			if(RS(x)) {
+			if (RS(x)) {
 				node[RS(x)].val += node[x].add;
 				node[RS(x)].maxx += node[x].add;
 				node[RS(x)].add += node[x].add;
 			}
 			node[x].add = 0;
 		}
-		if(node[x].rev) {
-			if(LS(x)) node[LS(x)].rev ^= 1;
-			if(RS(x)) node[RS(x)].rev ^= 1;
+		if (node[x].rev) {
+			if (LS(x)) node[LS(x)].rev ^= 1;
+			if (RS(x)) node[RS(x)].rev ^= 1;
 			swap(LS(x), RS(x));
 			node[x].rev = 0;
 		}
@@ -76,7 +76,7 @@ struct Splay {
 		int ffx = node[fx].fa;
 		node[fx].ch[!kind] = node[x].ch[kind];
 		node[node[x].ch[kind]].fa = fx;
-		
+
 		node[x].ch[kind] = fx;
 		node[fx].fa = x;
 
@@ -86,28 +86,28 @@ struct Splay {
 	}
 
 	void splay(int x, int goal) {
-		while(node[x].fa != goal) {
+		while (node[x].fa != goal) {
 			int fx = node[x].fa;
 			int ffx = node[fx].fa;
 			down(ffx); down(fx); down(x);
 			bool rotate_x = (LS(fx) == x);
 			bool rotate_fx = (LS(ffx) == fx);
-			if(ffx == goal) rotate(x, rotate_x);
+			if (ffx == goal) rotate(x, rotate_x);
 			else {
-				if(rotate_x == rotate_fx) rotate(fx, rotate_fx);
+				if (rotate_x == rotate_fx) rotate(fx, rotate_fx);
 				else rotate(x, rotate_x);
 				rotate(x, rotate_fx);
 			}
 		}
 		up(x);
-		if(goal == 0) root = x;
+		if (goal == 0) root = x;
 	}
 
 	int select(int pos) {
 		int u = root;
 		down(u);
-		while(node[LS(u)].size != pos) {
-			if(pos < node[LS(u)].size)
+		while (node[LS(u)].size != pos) {
+			if (pos < node[LS(u)].size)
 				u = LS(u);
 			else {
 				pos -= node[LS(u)].size + 1;
@@ -139,8 +139,8 @@ struct Splay {
 	}
 
 	int build(int L, int R) {
-		if(L > R) return 0;
-		if(L == R) return L;
+		if (L > R) return 0;
+		if (L == R) return L;
 		int mid = (L + R) >> 1;
 		int r_L, r_R;
 		LS(mid) = r_L = build(L, mid - 1);
@@ -154,9 +154,9 @@ struct Splay {
 		node[0].init(-INF); node[0].size = 0;
 		node[1].init(-INF);
 		node[n + 2].init(-INF);
-		for(int i = 2; i <= n + 1; ++i)
+		for (int i = 2; i <= n + 1; ++i)
 			node[i].init(0);
-		
+
 		root = build(1, n + 2);
 		node[root].fa = 0;
 
@@ -169,18 +169,18 @@ int main() {
 	int n, m;
 	scanf("%d%d", &n, &m);
 	splay_tree.init(n);
-	for(int i = 0; i < m; ++i) {
+	for (int i = 0; i < m; ++i) {
 		int op, l, r, v;
 		scanf("%d", &op);
-		if(op == 1) {
+		if (op == 1) {
 			scanf("%d%d%d", &l, &r, &v);
 			splay_tree.update(l, r, v);
-		} else if(op == 2) {
+		} else if (op == 2) {
 			scanf("%d%d", &l, &r);
 			splay_tree.reverse(l, r);
 		} else {
 			scanf("%d%d", &l, &r);
-			printf("%d\n",splay_tree.query(l, r));
+			printf("%d\n", splay_tree.query(l, r));
 		}
 	}
 	return 0;

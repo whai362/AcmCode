@@ -120,12 +120,12 @@ LL get_phi(LL x) {
 //好写但效率稍微慢点的方法
 LL get_phi(LL x) {
 	LL ret = 1;
-	for(LL i = 2; i * i <= x; ++i)
-		if(x % i == 0) {
+	for (LL i = 2; i * i <= x; ++i)
+		if (x % i == 0) {
 			ret = ret * (i - 1);
 			x /= i;
-			while(x % i == 0) x /= i, ret *= i;
+			while (x % i == 0) x /= i, ret *= i;
 		}
-	if(x > 1) ret = ret * (x - 1);
+	if (x > 1) ret = ret * (x - 1);
 	return ret;
 }

@@ -1,72 +1,74 @@
+/*hdu 5418
+  题意：
+  给出一个n个点，m条边的无向图，问从点1出发，经过每个点至少一次的最小花费。
+  限制：
+  0 <= n <= 15
+ */
 #include<cstdio>
-#include<cstring>
-#include<string>
-#include<algorithm>
-#include<cmath>
 #include<iostream>
+#include<cstring>
 using namespace std;
-int d[17][17],n,m,dp[1<<17][17];
-const int INF=0x3f3f3f3f;
-void floyd(){
-	for(int k=0;k<n;k++)
-		for(int i=0;i<n;i++) {
-			if(d[i][k] == INF) continue;
-			for(int j=0;j<n;j++){
-				if(d[k][j] == INF) continue;
-				if(d[i][k]+d[k][j]<d[i][j])
-					d[i][j]=d[i][k]+d[k][j];
+
+const int N = 17;
+const int INF = 0x3f3f3f3f;
+
+int dis[N][N];
+int dp[1 << N][N];
+
+void floyd(int n) {
+	for (int k = 0; k < n; k++)
+		for (int i = 0; i < n; i++) {
+			if (dis[i][k] == INF) continue;
+			for (int j = 0; j < n; j++) {
+				if (dis[k][j] == INF) continue;
+				if (dis[i][k] + dis[k][j] < dis[i][j])
+					dis[i][j] = dis[i][k] + dis[k][j];
 			}
 		}
 }
-int DP(){
-	if(n==0) return 0;
-	memset(dp,0,sizeof(dp));
-	int ans=INF;
-	for(int i=0;i<(1<<n);i++)
-		for(int j=1;j<n+1;j++)
-			if(i==(1<<(j-1)))
-				dp[i][j]=d[0][j];
-			else if(i&(1<<(j-1))){		
-				dp[i][j]=INF;
-				for(int k=1;k<n+1;k++)
-					if(k!=j&&(i&(1<<(k-1))))
-						dp[i][j]=min(dp[i^(1<<(j-1))][k]+d[k][j],dp[i][j]);
+int DP(int n) {
+	if (n == 1)
+		return 0;
+	int ans = INF;
+	for (int i = 0; i < (1 << (n - 1)); ++i)
+		for (int j = 1; j < n; ++j)
+			if (i == (1 << (j - 1)))
+				dp[i][j] = dis[0][j];
+			else if (i & (1 << (j - 1))) {
+				dp[i][j] = INF;
+				for (int k = 1; k < n; ++k)
+					if (k != j && (i & (1 << (k - 1))))
+						dp[i][j] = min(dp[i ^ (1 << (j - 1))][k] + dis[k][j],
+								dp[i][j]);
 			}
-	for(int i=1;i<n+1;i++){
-		ans=min(ans,dp[(1<<n)-1][i]+d[i][0]);
+	for (int i = 1; i < n; ++i) {
+		ans = min(ans, dp[(1 << (n - 1)) - 1][i] + dis[i][0]);
 	}
 	return ans;
 }
-int main(){
+
+void init(int n, int m) {
+	memset(dis, 0x3f, sizeof(dis));
+	memset(dp, 0, sizeof(dp));
+	for (int i = 0; i < n; ++i)
+		dis[i][i] = 0;
+}
+
+int main() {
 	int T;
 	scanf("%d", &T);
-	while(T--) {
+	while (T--) {
+		int n, m;
 		scanf("%d%d", &n, &m);
-		memset(d, 0x3f, sizeof(d));
-		for(int i = 0; i < n; ++i) {
-			d[i][i] = 0;
-		}
-		for(int i = 0; i < m; ++i) {
+		init(n, m);
+		for (int i = 0; i < m; ++i) {
 			int u, v, c;
 			scanf("%d%d%d", &u, &v, &c);
 			--u, --v;
-			d[u][v] = d[v][u] = min(d[u][v], c);
+			dis[u][v] = dis[v][u] = min(dis[u][v], c);
 		}
-		//for(int i = 0; i < n; ++i) {
-		//	for(int j = 0; j < n; ++j) {
-		//		cout<<d[i][j]<<' ';
-		//	}
-		//	cout<<endl;
-		//}
-		floyd();
-		//for(int i = 0; i < n; ++i) {
-		//	for(int j = 0; j < n; ++j) {
-		//		cout<<d[i][j]<<' ';
-		//	}
-		//	cout<<endl;
-		//}
-		--n;
-		printf("%d\n",DP());
+		floyd(n);
+		printf("%d\n", DP(n));
 	}
 	return 0;
 }

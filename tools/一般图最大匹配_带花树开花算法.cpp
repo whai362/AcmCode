@@ -17,7 +17,7 @@ const int MAX_V = 405;
 
 // 并查集维护
 int fa[MAX_V];
-int getFa(int x) { 
+int getFa(int x) {
 	return fa[x] == x ? x : fa[x] = getFa(fa[x]);
 }
 void merge(int a, int b) {
@@ -71,7 +71,7 @@ void aug(int s) {
 	for (int i = 0; i < V; i++) // 每个阶段都要重新标记
 		next[i] = -1, fa[i] = i, mark[i] = 0, vis[i] = -1;
 	mark[s] = 1;
-	Q[0] = s; rear = 1; 
+	Q[0] = s; rear = 1;
 	for (int front = 0; match[s] == -1 && front < rear; front++) {
 		int x = Q[front]; // 队列Q中的点都是S型的
 		for (int i = 0; i < (int)e[x].size(); i++) {
@@ -108,68 +108,68 @@ void aug(int s) {
 }
 
 bool g[MAX_V][MAX_V];
-const int N=45;
+const int N = 45;
 char str[N][N];
 int mp[N][N];
-int dx[]={-1,1,0,0};
-int dy[]={0,0,-1,1};
+int dx[] = { -1, 1, 0, 0};
+int dy[] = {0, 0, -1, 1};
 
-int h,w;
-bool ok(int x,int y){
-	if(x>=0 && x<h && y>=0 && y<w && str[x][y]=='*')
+int h, w;
+bool ok(int x, int y) {
+	if (x >= 0 && x < h && y >= 0 && y < w && str[x][y] == '*')
 		return true;
 	return false;
 }
-void init(){
-	memset(g,0,sizeof(g));
-	for(int i=0;i<MAX_V;++i) e[i].clear();
+void init() {
+	memset(g, 0, sizeof(g));
+	for (int i = 0; i < MAX_V; ++i) e[i].clear();
 }
-void add_edge(int u,int v){
-	if(g[u][v]) return ;
+void add_edge(int u, int v) {
+	if (g[u][v]) return ;
 	e[u].push_back(v);
 	e[v].push_back(u);
-	g[u][v]=g[v][u]=1;
+	g[u][v] = g[v][u] = 1;
 }
-int gao(){	//增广匹配，求最大匹配
-	int ret=0;
-	memset(match,-1,sizeof(match));
-	for(int i=0;i<V;++i)
-		if(match[i]==-1) aug(i);
-	for(int i=0;i<V;++i)
-		if(match[i]!=-1) ++ret;
+int gao() {	//增广匹配，求最大匹配
+	int ret = 0;
+	memset(match, -1, sizeof(match));
+	for (int i = 0; i < V; ++i)
+		if (match[i] == -1) aug(i);
+	for (int i = 0; i < V; ++i)
+		if (match[i] != -1) ++ret;
 	return ret;
 }
 int main() {
 	int T;
-	scanf("%d",&T);
-	while(T--){
+	scanf("%d", &T);
+	while (T--) {
 		init();
-		scanf("%d%d",&h,&w);
-		for(int i=0;i<h;++i)
-			scanf("%s",str[i]);
-		V=0;
-		for(int i=0;i<h;++i)
-			for(int j=0;j<w;++j){
-				if(str[i][j]=='*') mp[i][j]=V++;
-				else mp[i][j]=-1;
+		scanf("%d%d", &h, &w);
+		for (int i = 0; i < h; ++i)
+			scanf("%s", str[i]);
+		V = 0;
+		for (int i = 0; i < h; ++i)
+			for (int j = 0; j < w; ++j) {
+				if (str[i][j] == '*') mp[i][j] = V++;
+				else mp[i][j] = -1;
 			}
-		for(int i=0;i<h;++i)
-			for(int j=0;j<w;++j){
-				if(mp[i][j]!=-1){
-					int u=mp[i][j],v;
-					for(int k=0;k<4;++k){
-						int tmpx=i+dx[k];
-						int tmpy=j+dy[k];
-						if(ok(tmpx,tmpy)){
-							v=mp[tmpx][tmpy];
-							add_edge(u,v);
+		for (int i = 0; i < h; ++i)
+			for (int j = 0; j < w; ++j) {
+				if (mp[i][j] != -1) {
+					int u = mp[i][j], v;
+					for (int k = 0; k < 4; ++k) {
+						int tmpx = i + dx[k];
+						int tmpy = j + dy[k];
+						if (ok(tmpx, tmpy)) {
+							v = mp[tmpx][tmpy];
+							add_edge(u, v);
 						}
 					}
 				}
 			}
-		int ans=gao();
-		ans=V-ans/2;
-		printf("%d\n",ans);
+		int ans = gao();
+		ans = V - ans / 2;
+		printf("%d\n", ans);
 	}
 	return 0;
 }

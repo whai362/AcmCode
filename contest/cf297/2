@@ -1,0 +1,70 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+#include<queue>
+#include<cstring>
+using namespace std;
+struct Dt{
+	int x,y;
+	Dt(){}
+	Dt(int _x,int _y){ x=_x; y=_y; }
+};
+const int N=2005;
+char str[N][N];
+int n,m;
+bool vis[N][N];
+int dx[]={-1,1,0,0};
+int dy[]={0,0,-1,1};
+bool ok(int x,int y){
+	if(x>=0 && x<n && y>=0 && y<m && str[x][y]=='.' && vis[x][y]==0)
+		return true;
+	return false;
+}
+void gao(int x,int y){
+	int l=y,r=y,u=x,d=x;
+	queue<Dt> q;
+	q.push(Dt(x,y));
+	vis[x][y]=1;
+	while(!q.empty()){
+		Dt now=q.front();
+		q.pop();
+		for(int i=0;i<4;++i){
+			int tmpx=now.x+dx[i];
+			int tmpy=now.y+dy[i];
+			if((u<=tmpx && tmpx<=d && l<=tmpy && tmpy<=r && vis[tmpx][tmpy]==0) 
+				|| ok(tmpx,tmpy)){
+				l=min(tmpy,l);
+				r=max(tmpy,r);
+				u=min(tmpx,u);
+				d=max(tmpx,d);
+				q.push(Dt(tmpx,tmpy));
+				vis[tmpx][tmpy]=1;
+			}
+		}
+	}
+	//cout<<l<<' '<<r<<' '<<u<<' '<<d<<endl;
+	for(int i=u;i<=d;++i)
+		for(int j=l;j<=r;++j){
+			str[i][j]='.';
+			vis[i][j]=1;
+		}
+}
+int main(){
+	scanf("%d%d",&n,&m);
+	for(int i=0;i<n;++i)
+		scanf("%s",str[i]);
+	//for(int t=0;t<4;++t){
+	//	memset(vis,0,sizeof(vis));
+		for(int i=0;i<n;++i){
+			for(int j=0;j<m;++j){
+				if(str[i][j]=='.' && vis[i][j]==0){
+					gao(i,j);
+				}
+			}
+		}
+	//}
+	for(int i=0;i<n;++i)
+		puts(str[i]);
+	return 0;
+}

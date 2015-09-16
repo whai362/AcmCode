@@ -1,3 +1,17 @@
+/*bzoj 3224
+  题意：
+  您需要写一种数据结构（可参考题目标题），来维护一些数，其中需要提供以下操作：
+  1. 插入x数
+  2. 删除x数(若有多个相同的数，因只删除一个)
+  3. 查询x数的排名(若有多个相同的数，因输出最小的排名)
+  4. 查询排名为x的数
+  5. 求x的前驱(前驱定义为小于x，且最大的数)
+  6. 求x的后继(后继定义为大于x，且最小的数)
+  限制：
+  n的数据范围：n<=100000
+  每个数的数据范围：[-1e7,1e7]
+ */
+
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -14,7 +28,11 @@ struct Treap {
 		int val, cnt, rnd, size;
 	} node[N];
 
-	int tot;
+	int root, tot;
+	void init() {
+		//root一开始是0，插入一个元素后都是1
+		root = tot = 0;
+	}
 
 	void up(int x) {
 		node[x].size = node[LS(x)].size + node[RS(x)].size + node[x].cnt;
@@ -114,22 +132,23 @@ struct Treap {
 } treap;
 
 int main() {
-	int n, root = 0;
+	int n;
 	scanf("%d", &n);
 	int op, x;
+	treap.init();
 	for(int i = 1; i <= n; ++i) {
 		scanf("%d%d", &op, &x);
-		if(op == 1) treap.insert(root, x);
-		else if(op == 2) treap.del(root, x);
-		else if(op == 3) printf("%d\n", treap.query_rank(root, x));
-		else if(op == 4) printf("%d\n", treap.query_num(root, x));
+		if(op == 1) treap.insert(treap.root, x);
+		else if(op == 2) treap.del(treap.root, x);
+		else if(op == 3) printf("%d\n", treap.query_rank(treap.root, x));
+		else if(op == 4) printf("%d\n", treap.query_num(treap.root, x));
 		else if(op == 5) {
 			int ans = 0;
-			treap.query_pre(root, x, ans);
+			treap.query_pre(treap.root, x, ans);
 			printf("%d\n", treap.node[ans].val);
 		} else {
 			int ans = 0;
-			treap.query_nxt(root, x, ans);
+			treap.query_nxt(treap.root, x, ans);
 			printf("%d\n", treap.node[ans].val);
 		}
 	}

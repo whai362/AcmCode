@@ -1,0 +1,91 @@
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+#define PB push_back
+#define LL long long
+const int N=13000;
+int a[20];
+vector<int> tab[N];
+const int M=65537;
+int cnt8[M];
+int A[10],A_cnt;
+
+bool ok(string str){
+	int L=0,R=0;
+	for(int i=0;i<4;++i){
+		L+=A[i]*(i+1);
+	}
+	for(int i=4;i<8;++i){
+		R+=A[i]*(i-3);
+	}
+	if(L==R) return true;
+	return false;
+}
+
+void gao(int n){
+	for(int i=0;i<n;++i){
+		for(int j=i+1;j<n;++j){
+			for(int k=j+1;k<n;++k){
+				for(int l=k+1;l<n;++l){
+					int tmp=a[i]*4+a[j]*3+a[k]*2+a[l];
+					int st =(1<<i) | (1<<j) | (1<<k) | (1<<l);
+					tab[tmp].PB(st);
+				}
+			}
+		}
+	}
+	for(int i=0;i<N;++i){
+		for(int j=0;j<tab[i].size();++j){
+			for(int k=j+1;k<tab[i].size();++k){
+				int tmp = tab[i][j] | tab[i][k];
+				int cnt=0;
+				for(int l=0;l<16;++l){
+					if(tmp & (1<<l)) ++cnt;
+				}
+				if(cnt!=8) continue;
+				++cnt8[tmp];
+			}
+		}
+	}
+	cout<<"!"<<endl;
+	LL ans=0;
+	int cnt=0;
+	for(int i=0;i<N;++i){
+		if(cnt8[i]==0) continue;
+		LL bei=cnt8[i];
+		A_cnt=0;
+		++cnt;
+		for(int j=0;j<16;++j){
+			if(i & (1<<j)) continue;
+			A[A_cnt++]=a[j];
+		}
+		//cout<<A_cnt<<endl;
+		//string str="01234567";
+		//LL cc=0;
+		//if(ok(str)) ++cc; 
+		//while(next_permutation(str.begin(),str.end())){
+		//	if(ok(str)) ++cc;
+		//}
+		//ans+=cc*bei;
+	}
+	cout<<cnt<<endl;
+	printf("%lld\n",ans);
+}
+void init(){
+	memset(cnt8,0,sizeof(cnt8));
+	for(int i=0;i<N;++i){
+		tab[i].clear();
+	}
+}
+int main(){
+	while(scanf("%d",&a[0]) && a[0]){
+		init();
+		for(int i=1;i<16;++i)
+			scanf("%d",&a[i]);
+		gao(16);
+	}
+	return 0;
+}

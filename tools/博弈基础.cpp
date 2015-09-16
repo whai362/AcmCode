@@ -9,7 +9,7 @@
 
   2. 必败点(P点)：前一个选手(Previous player)将取胜的位置称为必败点。
 
-  3. 必胜点(N点)：下一个选手(Next player)将取胜的位置称为必胜点。 
+  3. 必胜点(N点)：下一个选手(Next player)将取胜的位置称为必胜点。
 
   二. 必败/必胜点属性：
   1. 所有终结点是必败点(P点);
@@ -40,40 +40,40 @@
 #include<cstdio>
 #include<cstring>
 using namespace std;
-const int N=1005;
+const int N = 1005;
 bool dp[N];
-int n,m;
-bool win(int x){
-	for(int i=1;i<=m;++i){
-		int tmpx=x-i;
-		if(tmpx>=0 && dp[tmpx]==0) return true;
-	}
-	return false;
+int n, m;
+bool win(int x) {
+  for (int i = 1; i <= m; ++i) {
+    int tmpx = x - i;
+    if (tmpx >= 0 && dp[tmpx] == 0) return true;
+  }
+  return false;
 }
-bool fail(int x){
-	for(int i=1;i<=m;++i){
-		int tmpx=x-i;
-		if(tmpx<0) continue;
-		if(dp[tmpx]!=1) return false;
-	}
-	return true;
+bool fail(int x) {
+  for (int i = 1; i <= m; ++i) {
+    int tmpx = x - i;
+    if (tmpx < 0) continue;
+    if (dp[tmpx] != 1) return false;
+  }
+  return true;
 }
-void gao(int n,int m){
-	memset(dp,0,sizeof(dp));
-	dp[0]=0;
-	for(int i=1;i<=n;++i){
-		if(win(i)) dp[i]=1;
-		else if(fail(i)) dp[i]=0;
-	}
-	if(dp[n]) puts("first");
-	else puts("second");
+void gao(int n, int m) {
+  memset(dp, 0, sizeof(dp));
+  dp[0] = 0;
+  for (int i = 1; i <= n; ++i) {
+    if (win(i)) dp[i] = 1;
+    else if (fail(i)) dp[i] = 0;
+  }
+  if (dp[n]) puts("first");
+  else puts("second");
 }
-int main(){
-	int T;
-	scanf("%d",&T);
-	while(T--){
-		scanf("%d%d",&n,&m);
-		gao(n,m);
-	}
-	return 0;
+int main() {
+  int T;
+  scanf("%d", &T);
+  while (T--) {
+    scanf("%d%d", &n, &m);
+    gao(n, m);
+  }
+  return 0;
 }

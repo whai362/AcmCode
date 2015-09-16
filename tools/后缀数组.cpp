@@ -42,12 +42,12 @@ void build_sa(int *S, int *sa) {
 int lcp[N];
 void build_lcp(int *S, int *sa, int *lcp) {
 	int h = 0;
-	for(int i = 0; i < n; ++i) {
+	for (int i = 0; i < n; ++i) {
 		int j = sa[rank[i] - 1];
-		if(h > 0) --h;
-		for(; j + h < n && i + h < n; ++h) {
-			if(S[j + h] != S[i + h]) break;
+		if (h > 0) --h;
+		for (; j + h < n && i + h < n; ++h) {
+			if (S[j + h] != S[i + h]) break;
 		}
 		lcp[rank[i] - 1] = h;
 	}
-}	
+}

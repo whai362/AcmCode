@@ -19,37 +19,37 @@
  */
 
 //利用定义预处理
-const int N=1e5+5;
+const int N = 1e5 + 5;
 int mu[N];
 //O(nlog(n))
-void getMu(){
-	for(int i=1;i<N;++i){
-		int target=i==1?1:0;
-		int delta=target-mu[i];
-		mu[i]=delta;
-		for(int j=2*i;j<N;j+=i)
-			mu[j]+=delta;
+void getMu() {
+	for (int i = 1; i < N; ++i) {
+		int target = i == 1 ? 1 : 0;
+		int delta = target - mu[i];
+		mu[i] = delta;
+		for (int j = 2 * i; j < N; j += i)
+			mu[j] += delta;
 	}
 }
 
 //素数筛法预处理
-const int N=1e5+5;
-int mu[N],pri[N],pcnt;
+const int N = 1e5 + 5;
+int mu[N], pri[N], pcnt;
 bool vis[N];
-void getMu(){
-	memset(vis,0,sizeof(vis));
-	mu[1]=1;
-	pcnt=0;
-	for(int i=2;i<N;++i){
-		if(!vis[i]){
-			pri[pcnt++]=i;
-			mu[i]=-1;
+void getMu() {
+	memset(vis, 0, sizeof(vis));
+	mu[1] = 1;
+	pcnt = 0;
+	for (int i = 2; i < N; ++i) {
+		if (!vis[i]) {
+			pri[pcnt++] = i;
+			mu[i] = -1;
 		}
-		for(int j=0;j<pcnt && i*pri[j]<N;++j){
-			vis[i*pri[j]]=1;
-			if(i%pri[j]) mu[i*pri[j]]=-mu[i];
-			else{
-				mu[i*pri[j]]=0;
+		for (int j = 0; j < pcnt && i * pri[j] < N; ++j) {
+			vis[i * pri[j]] = 1;
+			if (i % pri[j]) mu[i * pri[j]] = -mu[i];
+			else {
+				mu[i * pri[j]] = 0;
 				break;
 			}
 		}

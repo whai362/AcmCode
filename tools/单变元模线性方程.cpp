@@ -31,42 +31,42 @@
 #include<vector>
 using namespace std;
 #define LL __int64
-LL Ext_gcd(LL a,LL b,LL &x,LL &y){
-	if(b==0){ x=1,y=0; return a; }
-	LL ret=Ext_gcd(b,a%b,y,x);
-	y-=a/b*x;
+LL Ext_gcd(LL a, LL b, LL &x, LL &y) {
+	if (b == 0) { x = 1, y = 0; return a; }
+	LL ret = Ext_gcd(b, a % b, y, x);
+	y -= a / b * x;
 	return ret;
 }
 //ax%n=b,求出%n范围内得到所有解,这道题用不上
-vector<LL> line_mod_equ(LL a,LL b,LL n){
-	LL x,y;
-	LL d=Ext_gcd(a,n,x,y);
+vector<LL> line_mod_equ(LL a, LL b, LL n) {
+	LL x, y;
+	LL d = Ext_gcd(a, n, x, y);
 	vector<LL> ans;
 	ans.clear();
-	if(b%d==0){
-		x=(x%n+n)%n;
-		ans.push_back(x*(b/d)%(n/d));
-		for(LL i=1;i<d;++i)
-			ans.push_back((ans[0]+i*n/d)%n);
+	if (b % d == 0) {
+		x = (x % n + n) % n;
+		ans.push_back(x * (b / d) % (n / d));
+		for (LL i = 1; i < d; ++i)
+			ans.push_back((ans[0] + i * n / d) % n);
 	}
-	for(int i=0;i<ans.size();++i){
-		cout<<ans[i]<<' ';
+	for (int i = 0; i < ans.size(); ++i) {
+		cout << ans[i] << ' ';
 	}
-	cout<<endl;
+	cout << endl;
 	return ans;
 }
-int main(){
-	LL a,b,c,k;
-	while(scanf("%I64d%I64d%I64d%I64d",&a,&b,&c,&k) && (a||b||c||k)){
-		k=(1LL<<k);
-		a=((b-a)%k+k)%k;
-		LL x,y;
-		LL d=Ext_gcd(c,k,x,y);
-		if(a%d) puts("FOREVER");
-		else{
-			x=(a/d*x%(k/d)+(k/d))%(k/d);
+int main() {
+	LL a, b, c, k;
+	while (scanf("%I64d%I64d%I64d%I64d", &a, &b, &c, &k) && (a || b || c || k)) {
+		k = (1LL << k);
+		a = ((b - a) % k + k) % k;
+		LL x, y;
+		LL d = Ext_gcd(c, k, x, y);
+		if (a % d) puts("FOREVER");
+		else {
+			x = (a / d * x % (k / d) + (k / d)) % (k / d);
 			//line_mod_equ(c,a,k);
-			printf("%I64d\n",x);
+			printf("%I64d\n", x);
 		}
 	}
 	return 0;

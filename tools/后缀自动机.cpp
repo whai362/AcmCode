@@ -31,7 +31,7 @@ struct SAM {
 			ans = 0;
 		}
 	} node[2 * N];
-	
+
 	int tot;
 	int new_node() {
 		node[++tot].init();
@@ -48,37 +48,37 @@ struct SAM {
 	void add(int x) {
 		int p = last;
 		int np = new_node(); node[np].val = node[p].val + 1;
-		while(p && node[p].ch[x] == 0)
+		while (p && node[p].ch[x] == 0)
 			node[p].ch[x] = np, p = node[p].fa;
-		if(p == 0)
+		if (p == 0)
 			node[np].fa = root;
 		else {
 			int q = node[p].ch[x];
-			if(node[p].val + 1 == node[q].val)
+			if (node[p].val + 1 == node[q].val)
 				node[np].fa = q;
 			else {
 				int nq = new_node(); node[nq].val = node[p].val + 1;
 				memcpy(node[nq].ch, node[q].ch, sizeof(node[nq].ch));
 				node[nq].fa = node[q].fa;
 				node[q].fa = node[np].fa = nq;
-				while(p && node[p].ch[x] == q)
+				while (p && node[p].ch[x] == q)
 					node[p].ch[x] = nq, p = node[p].fa;
 			}
 		}
 		last = np;
 	}
 	void debug() {
-		for(int i = 1; i <= tot; ++i) {
+		for (int i = 1; i <= tot; ++i) {
 			printf("id=%d, fa=%d, step=%d, ch=[ ", i, node[i].fa, node[i].val);
-			for(int j = 0; j < 26; ++j) {
-				if(node[i].ch[j])
-					printf("%c,%d ", j+'a', node[i].ch[j]);
+			for (int j = 0; j < 26; ++j) {
+				if (node[i].ch[j])
+					printf("%c,%d ", j + 'a', node[i].ch[j]);
 			}
 			puts("]");
 		}
 	}
 	void gao(int);
-}sam;
+} sam;
 
 char str[N];
 
@@ -96,45 +96,45 @@ void init() {
 int que[2 * N], fr, ta;
 
 void SAM::gao(int n) {
-	for(int i = 1; i <= tot; ++i) {
+	for (int i = 1; i <= tot; ++i) {
 		++du[node[i].fa];
 	}
 	int tmp = root;
-	for(int i = 0; i < n; ++i) {
+	for (int i = 0; i < n; ++i) {
 		tmp = node[tmp].ch[str[i] - 'a'];
 		cnt[tmp] = 1;
 	}
 	fr = ta = 0;
-	for(int i = 1; i <= tot; ++i) {
-		if(du[i] == 0) {
+	for (int i = 1; i <= tot; ++i) {
+		if (du[i] == 0) {
 			que[ta++] = i;
 		}
 	}
-	while(fr != ta) {
+	while (fr != ta) {
 		int now = que[fr++];
 		--du[node[now].fa];
 		cnt[node[now].fa] += cnt[now];
-		if(du[node[now].fa] == 0) {
+		if (du[node[now].fa] == 0) {
 			que[ta++] = node[now].fa;
 		}
 	}
-	
-	for(int i = 2; i <= tot; ++i) {
+
+	for (int i = 2; i <= tot; ++i) {
 		ans[node[i].val] = max(ans[node[i].val], cnt[i]);
 	}
-	for(int i = n - 1; i >= 1; --i) {
+	for (int i = n - 1; i >= 1; --i) {
 		ans[i] = max(ans[i], ans[i + 1]);
 	}
-	for(int i = 1; i <= n; ++i) {
+	for (int i = 1; i <= n; ++i) {
 		printf("%d\n", ans[i]);
 	}
 }
 
 int main() {
-	while(gets(str)) {
+	while (gets(str)) {
 		int n = strlen(str);
 		init();
-		for(int i = 0; i < n; ++i)
+		for (int i = 0; i < n; ++i)
 			sam.add(str[i] - 'a');
 		//sam.debug();
 		sam.gao(n);

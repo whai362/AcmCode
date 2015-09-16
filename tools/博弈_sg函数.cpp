@@ -9,38 +9,38 @@
 
 //求单个sg函数值
 int sg[MAXN];
-int get_sg(int x, int n){
-	if(sg[x]!=-1)
+int get_sg(int x, int n) {
+	if (sg[x] != -1)
 		return sg[x];
-	bool vis[105]={0};
-	for(int i=0;i<n;++i){
+	bool vis[105] = {0};
+	for (int i = 0; i < n; ++i) {
 		int tmp = a[i]; //tmp是转移的下一个状态的步数
-		if(x >= tmp){
+		if (x >= tmp) {
 			sg[x - tmp] = get_sg(x - tmp, n);
 			vis[sg[x - tmp]] = 1;
 		}
 	}
-	for(int i=0;;++i)
-		if(!vis[i]) return sg[x]=i;
+	for (int i = 0;; ++i)
+		if (!vis[i]) return sg[x] = i;
 }
-void init(){
-	memset(sg,-1,sizeof(sg));
-	sg[0]=0;
+void init() {
+	memset(sg, -1, sizeof(sg));
+	sg[0] = 0;
 }
 
 //预处理sg值
-void get_sg(){
-	sg[0]=0;
-	for(int i=1;i<N;++i){
+void get_sg() {
+	sg[0] = 0;
+	for (int i = 1; i < N; ++i) {
 		set<int> s;
-		for(int j=0;j<10;++j){
-			int tmp=(1<<j); //tmp是转移的下一个状态的步数
-			if(i >= tmp)
+		for (int j = 0; j < 10; ++j) {
+			int tmp = (1 << j); //tmp是转移的下一个状态的步数
+			if (i >= tmp)
 				s.insert(sg[i - tmp]);
 		}
-		int g=0;
-		while(s.count(g)!=0) ++g;
-		sg[i]=g;
+		int g = 0;
+		while (s.count(g) != 0) ++g;
+		sg[i] = g;
 	}
 }
 
@@ -61,60 +61,36 @@ void get_sg(){
 #include<cstring>
 #include<set>
 using namespace std;
-const int N=1005;
-const int M=105;
+const int N = 1005;
+const int M = 105;
 int sg[N];
 
-/*int get_sg(int x){
-	if(sg[x]!=-1)
-		return sg[x];
-	bool vis[M];
-	memset(vis,0,sizeof(vis));
-
-	for(int i=0;i<10;++i){
-		int tmp = (1<<i);
-		if(x >= tmp){
-			sg[x - tmp] = get_sg(x - tmp);
-			vis[sg[x - tmp]] = 1;
-		}
-	}
-	for(int i=0;;++i)
-		if(!vis[i]) return i;
-}
-void get_sg(){
-	sg[0]=0;
-	for(int i=1;i<=1000;++i){
-		sg[i]=get_sg(i);
-	}
-}*/
-
-void get_sg(){
-	sg[0]=0;
-	for(int i=1;i<N;++i){
+void get_sg() {
+	sg[0] = 0;
+	for (int i = 1; i < N; ++i) {
 		set<int> s;
-		for(int j=0;j<10;++j){
-			int tmp=(1<<j);
-			if(i >= tmp)
+		for (int j = 0; j < 10; ++j) {
+			int tmp = (1 << j);
+			if (i >= tmp)
 				s.insert(sg[i - tmp]);
 		}
-		int g=0;
-		while(s.count(g)!=0) ++g;
-		sg[i]=g;
+		int g = 0;
+		while (s.count(g) != 0) ++g;
+		sg[i] = g;
 	}
 }
 
-void init(){
-	memset(sg,-1,sizeof(sg));
+void init() {
+	memset(sg, -1, sizeof(sg));
 }
 
-int main(){
+int main() {
 	init();
-	
 	get_sg();
 
 	int n;
-	while(scanf("%d",&n)!=EOF){
-		if(sg[n]==0)
+	while (scanf("%d", &n) != EOF) {
+		if (sg[n] == 0)
 			puts("Cici");
 		else
 			puts("Kiki");
