@@ -5,7 +5,9 @@
   2. 删边;
   3. 求在某状态下两点之间的联通状态。
   限制：
-  n <= 10000; m <= 2000000; 保证任意一个时刻图都没有环;
+  n <= 10000; m <= 2000000
+  思路：
+  lct
  */
 #include <iostream>
 #include <cstdio>
@@ -30,7 +32,7 @@ struct LCT {
 	}
 
 	void down(int x) {
-		if (node[x].rev) {
+		if(node[x].rev) {
 			node[LS(x)].rev ^= 1;
 			node[RS(x)].rev ^= 1;
 			swap(LS(x), RS(x));
@@ -43,8 +45,7 @@ struct LCT {
 		int ffx = node[fx].fa;
 		node[fx].ch[!kind] = node[x].ch[kind];
 		node[node[x].ch[kind]].fa = fx;
-
-		if (!is_root(fx))
+		if(!is_root(fx))
 			node[ffx].ch[RS(ffx) == fx] = x;
 		node[x].fa = ffx;
 
@@ -57,18 +58,18 @@ struct LCT {
 	void splay(int x) {
 		ds_top = -1;
 		down_stack[++ds_top] = x;
-		for (int i = x; !is_root(i); i = node[i].fa)
+		for(int i = x; !is_root(i); i = node[i].fa)
 			down_stack[++ds_top] = node[i].fa;
-		for (int i = ds_top; i >= 0 ; --i) down(down_stack[i]);
+		for(int i = ds_top; i >= 0 ; --i) down(down_stack[i]);
 
-		while (!is_root(x)) {
+		while(!is_root(x)) {
 			int fx = node[x].fa;
 			int ffx = node[fx].fa;
 			bool rotate_x = (LS(fx) == x);
 			bool rotate_fx = (LS(ffx) == fx);
-			if (is_root(fx)) rotate(x, rotate_x);
+			if(is_root(fx)) rotate(x, rotate_x);
 			else {
-				if (rotate_x == rotate_fx) rotate(fx, rotate_fx);
+				if(rotate_x == rotate_fx) rotate(fx, rotate_fx);
 				else rotate(x, rotate_x);
 				rotate(x, rotate_fx);
 			}
@@ -77,7 +78,7 @@ struct LCT {
 
 	void access(int x) {
 		int last = 0;
-		while (x) {
+		while(x) {
 			splay(x);
 			RS(x) = last;
 			last = x;
@@ -87,11 +88,10 @@ struct LCT {
 
 	int find(int x) {
 		access(x); splay(x);
-		while (LS(x)) x = LS(x);
+		while(LS(x)) x = LS(x);
 		return x;
 	}
 
-	//access(x); splay(x); 后x在根的位置，此时x只有左子树，没有右子树，打翻转标记就是使得左子树变到右子树上。
 	void make_root(int x) {
 		access(x); splay(x);
 		node[x].rev ^= 1;
@@ -108,7 +108,7 @@ struct LCT {
 		node[x].fa = y;
 	}
 	void init(int n) {
-		for (int i = 0; i <= n; ++i)
+		for(int i = 0; i <= n; ++i)
 			node[i].init();
 	}
 } lct;
@@ -117,18 +117,19 @@ int main() {
 	int n, m;
 	scanf("%d%d", &n, &m);
 	lct.init(n);
-	for (int i = 0; i < m; ++i) {
+	for(int i = 0; i < m; ++i) {
 		char op[10];
 		int x, y;
 		scanf("%s%d%d", op, &x, &y);
-		if (op[0] == 'Q') {
+		if(op[0] == 'Q') {
 			int fx = lct.find(x);
 			int fy = lct.find(y);
-			if (fx == fy) puts("Yes");
+			if(fx == fy) puts("Yes");
 			else puts("No");
 		}
-		else if (op[0] == 'C') lct.link(x, y);
+		else if(op[0] == 'C') lct.link(x, y);
 		else lct.cut(x, y);
 	}
 	return 0;
 }
+
