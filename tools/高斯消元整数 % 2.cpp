@@ -17,7 +17,7 @@ struct Gauss {
 				swap(f[i][j], f[k][j]);
 			for(int j = 0; j < n; ++j)
 				if(i != j && f[j][c])
-					for(int k = 0; k <= n; ++k)
+					for(int k = 0; k <= m; ++k) //
 						f[j][k] ^= f[i][k];
 			++i;
 		}
@@ -34,3 +34,27 @@ struct Gauss {
 		memset(f, 0, sizeof(f));
 	}
 }g;
+
+//枚举自由变元
+void gao() {
+	int maxx = (1<<f_tot);
+	int var = m; //变元个数
+	for(int x = 0; x < maxx; ++x) {
+		int cnt = 0;
+		for(int i = 0; i < f_tot; ++i) { //枚举自由变元
+			if(x & (1 << i)) {
+				g.x[g.f_x[i]] = 1;
+			} else {
+				g.x[g.f_x[i]] = 0;
+			}
+		}
+		for(int i = var - 1 - f_tot; i >= 0; --i) { //自由变元影响解
+			int tmp = g.f[i][var];
+			for(int j = i + 1; j < var; ++j) {
+				if(g.f[i][j])
+					tmp ^= g.x[j];
+			}
+			x[i] = tmp;
+		}
+	}
+}

@@ -17,7 +17,7 @@ struct Gauss {
 				swap(f[i][j], f[k][j]);
 			for(int j = 0; j < n; ++j)
 				if(i != j && f[j][c])
-					for(int k = 0; k <= n; ++k)
+					for(int k = 0; k <= m; ++k) //
 						f[j][k] ^= f[i][k];
 			++i;
 		}

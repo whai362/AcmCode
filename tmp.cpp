@@ -1,52 +1,47 @@
 #include <iostream>
 #include <cstdio>
+#include <map>
+#include <algorithm>
 #define LL __int64
 using namespace std;
 
+const int MOD = 1000000007;
+const int N = 1e5 + 5;
+map<int, int> cnt;
 
-LL inv(LL a, LL m) {
-	LL p = 1, q = 0, b = m, c, d;
-	while (b > 0) {
-		c = a / b;
-		d = a; a = b; b = d % b;
-		d = p; p = q; q = d - c * q;
-	}
-	return p < 0 ? p + m : p;
-}
-
-const int MOD = 5;
-const int N = 15;
-LL f[N], ny[N];
-
-void predo() {
-	f[0] = ny[0] = 1;
-	for(int i = 1; i < N; ++i) {
-		f[i] = f[i - 1] * i % MOD;
-		ny[i] = inv(f[i], MOD);
-	}
-}
-
-LL C(int n, int m) {
-	if(m > n) return 0;
-	return f[n] * ny[m] % MOD * ny[n - m] % MOD;
-}
-
-LL lucas(int n, int m, int MOD) {
-	if (n < m) return 0;	//зЂвт
+LL a_b_MOD_c(LL a,LL b,LL mod){
 	LL ret = 1;
-	while (n && m) {
-		LL a = n % MOD, b = m % MOD;
-		//cout<<a<<' '<<b<<endl;
-		if (a < b) return 0;
-		ret = ret * C(a, b) % MOD;
-		n /= MOD;
-		m /= MOD;
+	a %= mod;
+	while(b){
+		if(b & 1) ret = ret * a % mod;
+		a = a * a % mod;
+		b >>= 1;
 	}
 	return ret;
 }
 
+int a[N];
+
 int main() {
-	predo();
-	//cout<<C(2, 1)<<endl;
-	cout<<lucas(9, 5, 5)<<endl;
+	int T;
+	scanf("%d", &T);
+	while(T--) {
+		int n;
+		scanf("%d", &n);
+		for(int i = 0; i < n; ++i) {
+			scanf("%d", &a[i]);
+			++cnt[a[i]];
+		}
+		sort(a, a + n);
+		int m = unique(a, a + n) - a;
+		LL ans = 0;
+
+		for(int i = 0; i < m; ++i) {
+			int A = cnt[a[i]];
+			int B = n - A;
+			cout<<a[i]<<' '<<(a_b_MOD_c(2, n, MOD) - a_b_MOD_c(2, B, MOD) + MOD) % MOD<<endl;
+			ans = (ans + a[i] * (a_b_MOD_c(2, n, MOD) - a_b_MOD_c(2, B, MOD) + MOD) % MOD) % MOD;
+		}
+		cout<<ans<<endl;
+	}
 }

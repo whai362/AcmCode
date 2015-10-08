@@ -57,7 +57,6 @@ n皇后快速解法
 圆的反演变换
 网络赛看楼的题
 拓扑排序(个数),字典序最大 !
-Palindromic Tree——回文树【处理一类回文串问题的强力工具】
 新trie !
 顺序通过指定点
 稳定婚姻问题 http://www.cnblogs.com/vongang/archive/2013/03/10/2952978.html
