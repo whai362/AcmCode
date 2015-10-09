@@ -1,23 +1,38 @@
 /*hust 1017
-   题意：给定一个由0和1组成的矩阵，是否能找到一个行的集合，使得集合中每一列都恰好包含一个1。
+  题意：
+  给定一个由0和1组成的矩阵，是否能找到一个行的集合，使得集合中每一列都恰好包含一个1。
+  思路：
+  精确覆盖
 */
-#include<iostream>
-#include<cstdio>
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <set>
+#include <map>
+
 using namespace std;
 
-//调用Dance
-//ansd等于-1表示没有覆盖方案，等于其他表示有覆盖方案
-//ans[]保存覆盖所需要的部分
-const int maxnode = 100010;
-const int MaxM = 1010;
-const int MaxN = 1010;
+#define LL __int64
+#define PB push_back
+#define P pair<int, int>
+#define X first
+#define Y second
+
+//ans_cnt = -1 表示没有覆盖方案
+const int MAXN = 1010;
+const int MAXM = 1010;
+const int N = MAXN * MAXM;
 struct DLX {
 	int n, m, size;
-	int U[maxnode], D[maxnode], R[maxnode], L[maxnode], Row[maxnode], Col[maxnode];
-	int H[MaxN], S[MaxM];
-	int ansd, ans[MaxN];	//ansd表示覆盖所需要的数量，ans保存覆盖所需要的部分
+	int U[N], D[N], R[N], L[N], row[N], col[N];
+	int H[MAXN], S[MAXM];
+	int ans[MAXN], ans_cnt;	//ans_cnt表示覆盖所需要的数量，ans保存覆盖所需要的部分
 	void init(int _n, int _m) {
-		ansd = -1;
+		ans_cnt = -1;
 		n = _n;
 		m = _m;
 		for (int i = 0; i <= m; i++) {
@@ -31,9 +46,9 @@ struct DLX {
 		for (int i = 1; i <= n; i++)
 			H[i] = -1;
 	}
-	void Link(int r, int c) {
-		++S[Col[++size] = c];
-		Row[size] = r;
+	void link(int r, int c) {
+		++S[col[++size] = c];
+		row[size] = r;
 		D[size] = D[c];
 		U[D[c]] = size;
 		U[size] = c;
@@ -52,22 +67,22 @@ struct DLX {
 			for (int j = R[i]; j != i; j = R[j]) {
 				U[D[j]] = U[j];
 				D[U[j]] = D[j];
-				--S[Col[j]];
+				--S[col[j]];
 			}
 	}
 	void resume(int c) {
 		for (int i = U[c]; i != c; i = U[i])
 			for (int j = L[i]; j != i; j = L[j])
-				++S[Col[U[D[j]] = D[U[j]] = j]];
+				++S[col[U[D[j]] = D[U[j]] = j]];
 		L[R[c]] = R[L[c]] = c;
 	}
-	void Dance(int d) {
+	void dance(int d) {
 		//剪枝下
-		//if(ansd != -1 && ansd <= d)return;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
+		//if(ans_cnt != -1 && ans_cnt <= d) return;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
 		if (R[0] == 0) {
-			//if(ansd == -1)ansd = d;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
-			//else if(d < ansd)ansd = d;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
-			ansd = d;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个去掉
+			//if(ans_cnt == -1) ans_cnt = d; //改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
+			//else if(d < ans_cnt) ans_cnt = d; //改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
+			ans_cnt = d; //改，根据题目而定，如果要求用最小的东西覆盖，则把这个去掉
 			return;
 		}
 		int c = R[0];
@@ -76,36 +91,36 @@ struct DLX {
 				c = i;
 		remove(c);
 		for (int i = D[c]; i != c; i = D[i]) {
-			ans[d] = Row[i];
-			for (int j = R[i]; j != i; j = R[j])remove(Col[j]);
-			Dance(d + 1);
-			if (ansd != -1) return ;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个去掉
-			for (int j = L[i]; j != i; j = L[j])resume(Col[j]);
+			ans[d] = row[i];
+			for (int j = R[i]; j != i; j = R[j]) remove(col[j]);
+			dance(d + 1);
+			if (ans_cnt != -1) return ;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个去掉
+			for (int j = L[i]; j != i; j = L[j]) resume(col[j]);
 		}
 		resume(c);
 	}
-};
-DLX g;
+}dlx;
 
 int main() {
 	int n, m;
-	while (scanf("%d%d", &n, &m) == 2) {
-		g.init(n, m);
-		for (int i = 1; i <= n; i++) {
-			int num, j;
-			scanf("%d", &num);
-			while (num--) {
+	while(scanf("%d%d", &n, &m) != EOF) {
+		dlx.init(n, m);
+		for(int i = 1; i <= n; ++i) {
+			int c, j;
+			scanf("%d", &c);
+			while(c--) {
 				scanf("%d", &j);
-				g.Link(i, j);
+				dlx.link(i, j);
 			}
 		}
-		g.Dance(0);
-		if (g.ansd == -1)printf("NO\n");
+		dlx.dance(0);
+		if(dlx.ans_cnt == -1) puts("NO");
 		else {
-			printf("%d", g.ansd);
-			for (int i = 0; i < g.ansd; i++)
-				printf(" %d", g.ans[i]);
-			printf("\n");
+			printf("%d", dlx.ans_cnt);
+			for(int i = 0; i < dlx.ans_cnt; ++i) {
+				printf(" %d", dlx.ans[i]);
+			}
+			puts("");
 		}
 	}
 	return 0;

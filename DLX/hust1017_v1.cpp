@@ -1,8 +1,9 @@
-/*======================================================
-# Author: whai
-# Last modified: 2015-10-08 15:25
-# Filename: hust1017_v1.cpp
-======================================================*/
+/*hust 1017
+  题意：
+  给定一个由0和1组成的矩阵，是否能找到一个行的集合，使得集合中每一列都恰好包含一个1。
+  思路：
+  精确覆盖
+*/
 #include <iostream>
 #include <cstdio>
 #include <vector>
@@ -21,6 +22,7 @@ using namespace std;
 #define X first
 #define Y second
 
+//ans_cnt = -1 表示没有覆盖方案
 const int MAXN = 1010;
 const int MAXM = 1010;
 const int N = MAXN * MAXM;
