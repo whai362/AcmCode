@@ -60,7 +60,7 @@ struct DLX{
     }
 	void Dance(int d){
         //剪枝下
-        //if(ansd != -1 && ansd <= d)return;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
+        //if(ansd != -1 && ansd <= d) return;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
         if(R[0] == 0){
             //if(ansd == -1)ansd = d;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上
             //else if(d < ansd)ansd = d;	//改，根据题目而定，如果要求用最小的东西覆盖，则把这个加上

@@ -130,6 +130,8 @@ POJ1228(稳定凸包问题)
 高级数据结构 splay, lct(bzoj 2631), treap
 基础算法 三分 整体二分 cdq分治 DLX
 
+莫队 km
+
 题目：
 leetcode
 kuangbin 专题
