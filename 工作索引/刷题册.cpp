@@ -1,6 +1,6 @@
 算法：
+康托展开
 hdu 4737
-曼哈顿最小距离生成树
 可持久化线段树
 rope
 整体二分
@@ -61,7 +61,6 @@ n皇后快速解法
 顺序通过指定点
 稳定婚姻问题 http://www.cnblogs.com/vongang/archive/2013/03/10/2952978.html
 最大密集子图
-康托展开
 自然数幂和取模问题
 广义Fibonacci数列找循环节
 拉格朗日插值法解决多项式拟合 http://hi.baidu.com/aekdycoin/item/44eefa2e5630300a72863edc
