@@ -1,4 +1,8 @@
 算法：
+线性基
+树，图论，数论
+最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html !
+生成树计数 !
 康托展开
 hdu 4737
 可持久化线段树
@@ -67,7 +71,6 @@ n皇后快速解法
 牛顿插值法解决单位间隔抽样的多项式拟合(1) http://hi.baidu.com/aekdycoin/item/2d8749e74fb6b83e4ddcafd8
 高斯消元（判断是否有解，快） !
 树上的博弈
-最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html !
 http://tieba.baidu.com/p/3487637350
 仙人掌图，树 !
 插值法
@@ -76,7 +79,6 @@ NTT
 最小表示法 (关于字符串的) !
 归并排序求逆序对,置换群
 http://hihocoder.com/contest/challenge8/problem/2
-生成树计数 !
 http://blog.csdn.net/jiangyuze831/article/details/43450387 拟阵+线性基
 树剖+splay hdu 5173, http://www.tsinsen.com/A1354
 leagal path 如tools
@@ -123,11 +125,10 @@ POJ1228(稳定凸包问题)
 
 强化训练专题：
 插头dp
-网络流
-连通性 强连通分量分解
+连通性 强连通分量分解 网络流 匹配 费用流
 字符串 ac自动机，sam，sa
 高级数据结构 splay, lct(bzoj 2631), treap
-基础算法 三分 整体二分 cdq分治 DLX
+基础算法 三分 整体二分 cdq分治 DLX 莫队
 
 莫队 km
 

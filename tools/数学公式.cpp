@@ -93,9 +93,29 @@ trick n = 4
 
 21. 光线在球壁反射回原点，反射n次的入射角度有phi(n + 1)种
 
-22. 一些常见的数列：
-bell三角形
-斯特林数
-卡特兰数
-那罗延数
-默慈金数
+22. 在长度为n的0/1串中，相邻两个数不为1的情况的个数为斐波那契数
+
+//update by whai 2015-10-31
+23. sigma(phi(d), d | n) = n
+
+24. 小于n的所有与n互质的数的和 = n * phi(n) / 2
+
+25. phi(x) % 2 == 0 , x > 2;
+
+26. 比x小和x互质的数成对出现
+
+27. f(x) = (1 - abs(x - i) + abs(abs(x - i) - 1))是一个类似开关的函数，当x = i时，f(x) = 2, else f(x) = 0
+
+28. 1~n中和m互质的数的个数 = phi(m) * n / m
+
+29. n % k + m % k >= k 等价于 floor((n + m) / k) - floor(n / k) - floor(m / k) = 1
+
+30. sigma(k = 1~n) phi(k) * floor(n / k) 等价于 sigma(i = 1~n) sigma(k | i) phi(k) 等价于 sigma(i = 1~n) i
+
+31. 类似f[i] = a * f[i - 1] + b的递推式构造快速幂的时候要注意a = 1时不能使用费马小定理，a != 1时，可以使用
+
+31. 辅助角公式acosx+bsinx=√(a^2+b^2)sin(x+tanb/a)
+
+32. sigma(d | n, phi(d)) = n
+
+33. 区间[1, n]与n互质的数的和 = n * phi(n) / 2;

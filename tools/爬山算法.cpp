@@ -40,7 +40,8 @@ int main() {
 		double temp = 1e5; //初始温度, 根据题目修改
 		while (temp > 0.02) { //0.02为温度的下限, 若温度temp达到下限, 则停止搜索
 			double x = 0, y = 0;
-			for (int i = 0; i < n; ++i) { //计算步长的规则，根据题目而定，参考模拟退火模板
+			//如果步长没有办法取，就随机 = double(rand() - RAND_MAX / 2) / (RAND_MAX / 2);
+			for (int i = 0; i < n; ++i) { //计算步长的规则，根据题目而定，参考模拟退火模板 
 				x += (p[i].x - x0) / dis((Pt) {x0, y0}, p[i]);
 				y += (p[i].y - y0) / dis((Pt) {x0, y0}, p[i]);
 			}
