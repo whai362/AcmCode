@@ -1,6 +1,6 @@
 /*======================================================
 # Author: whai
-# Last modified: 2015-11-10 21:19
+# Last modified: 2015-11-14 19:39
 # Filename: bl.cpp
 ======================================================*/
 #include <iostream>
@@ -23,18 +23,11 @@ using namespace std;
 #define X first
 #define Y second
 
-int cnt[100];
-
 int main() {
-	int n, m;
-	cin>>n>>m;
-	int ans = 0;
-	for(int i = 1; i <= n; ++i) {
-		for(int j = 1; j <= m; ++j) {
-			ans += (__gcd(i, j) - 1) * 2 + 1;
-		}
+	int a = 0;
+	while(a < 1000) {
+		a += 7;
+		cout<<a<<endl;
 	}
-	cout<<ans<<endl;
 	return 0;
 }
-

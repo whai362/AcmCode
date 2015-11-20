@@ -1,7 +1,7 @@
 /*======================================================
 # Author: whai
-# Last modified: 2015-11-10 21:19
-# Filename: bl.cpp
+# Last modified: 2015-11-14 20:00
+# Filename: b.cpp
 ======================================================*/
 #include <iostream>
 #include <cstdio>
@@ -23,18 +23,22 @@ using namespace std;
 #define X first
 #define Y second
 
-int cnt[100];
+void gao(int x, int k) {
+	Matrix a = Matrix(1, 10);
+	for(int i = 1; i < 10; ++i) {
+		a.a[0][i] = 1;
+	}
+
+}
 
 int main() {
-	int n, m;
-	cin>>n>>m;
-	int ans = 0;
-	for(int i = 1; i <= n; ++i) {
-		for(int j = 1; j <= m; ++j) {
-			ans += (__gcd(i, j) - 1) * 2 + 1;
-		}
+	int T;
+	scanf("%d", &T);
+	while(T--) {
+		int l, r, k;
+		LL ans = (gao(r, k) - gao(l - 1, k) + MOD) % MOD;
+		cout<<ans<<endl;
 	}
-	cout<<ans<<endl;
 	return 0;
 }
 

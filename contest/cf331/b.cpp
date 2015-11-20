@@ -1,7 +1,7 @@
 /*======================================================
 # Author: whai
-# Last modified: 2015-11-10 21:19
-# Filename: bl.cpp
+# Last modified: 2015-11-16 00:47
+# Filename: b.cpp
 ======================================================*/
 #include <iostream>
 #include <cstdio>
@@ -23,18 +23,37 @@ using namespace std;
 #define X first
 #define Y second
 
-int cnt[100];
+const int N = 2 * 1e5 + 5;
 
-int main() {
-	int n, m;
-	cin>>n>>m;
-	int ans = 0;
-	for(int i = 1; i <= n; ++i) {
-		for(int j = 1; j <= m; ++j) {
-			ans += (__gcd(i, j) - 1) * 2 + 1;
-		}
-	}
-	cout<<ans<<endl;
-	return 0;
+int a[N];
+
+int _abs(int x) {
+	if(x < 0) return -x;
+	return x;
 }
 
+void gao(int n) {
+	LL ans = _abs(a[0]);
+	int now = a[0];
+	for(int i = 1; i < n; ++i) {
+		if(a[i] > now) {
+			ans += (LL)a[i] - now;
+		} else {
+			ans += (LL)now - a[i];
+		}
+		now = a[i];
+	}
+	cout<<ans<<endl;
+}
+
+int main() {
+	int n;
+	while(scanf("%d", &n) != EOF) {
+		for(int i = 0; i < n; ++i) {
+			scanf("%d", &a[i]);
+		}
+
+		gao(n);
+	}
+	return 0;
+}

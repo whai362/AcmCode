@@ -1,5 +1,6 @@
 算法：
 线性基
+昨天原根那道题
 树，图论，数论
 最小方差生成树 http://zimpha.is-programmer.com/posts/70232.html !
 生成树计数 !

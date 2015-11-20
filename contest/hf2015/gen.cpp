@@ -1,7 +1,7 @@
 /*======================================================
 # Author: whai
-# Last modified: 2015-11-10 21:19
-# Filename: bl.cpp
+# Last modified: 2015-11-14 16:34
+# Filename: gen.cpp
 ======================================================*/
 #include <iostream>
 #include <cstdio>
@@ -23,18 +23,15 @@ using namespace std;
 #define X first
 #define Y second
 
-int cnt[100];
-
 int main() {
-	int n, m;
-	cin>>n>>m;
-	int ans = 0;
-	for(int i = 1; i <= n; ++i) {
-		for(int j = 1; j <= m; ++j) {
-			ans += (__gcd(i, j) - 1) * 2 + 1;
+	int T = 0;
+	for(int n = 1; n <= 100; ++n) {
+		for(int m = 1; m <= n + 5; ++m) {
+			cout<<n<<' '<<m<<' '<<2<<endl;
+			++T;
 		}
 	}
-	cout<<ans<<endl;
+	cout<<T<<endl;
 	return 0;
 }
 

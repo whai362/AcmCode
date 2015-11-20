@@ -119,3 +119,8 @@ trick n = 4
 32. sigma(d | n, phi(d)) = n
 
 33. 区间[1, n]与n互质的数的和 = n * phi(n) / 2;
+
+34.
+对于x^k % p = y
+先求出p的原根d，对同余式两边取对数得：
+k * log d(x) % p - 1 = log d(y)
