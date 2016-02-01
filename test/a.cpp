@@ -1,91 +1,65 @@
-#include<iostream>
-#include<cstdio>
+/*题解：
+  由于字符串长度不超过100，且文字的行数不超过100，所以可以暴力判断，判断一组的时间复杂度为100 * 100，然后100组的时间复杂度为1e6，在1s的时间内可以解决。
+  其中对于忽略大小写的选项，只要统一转化为小写字符判断即可。
+ */
+
+#include <iostream>
+#include <cstdio>
+#include <cstring>
 using namespace std;
-#define LL __int64
-const int N=1e6+5;
-const int MOD=20100713;
-struct Matrix
-{
-    LL a[3][3];	//
-    int n,m;
-    Matrix(int _n=0,int _m=0,LL val=0)
-    {
-        n=_n; m=_m;
-        for(int i=0;i<n;i++)
-            for(int j=0;j<m;j++)
-                a[i][j]=(i==j?val:0);
-    }
-    void print()
-    {
-        for(int i=0;i<n;i++,puts(""))
-            for(int j=0;j<m;j++)
-                cout<<a[i][j]<<' ';
-        puts("");
-    }
-    Matrix operator *(Matrix tmp)
-    {
-        Matrix ret(n,tmp.m);
-        for(int i=0;i<n;i++)
-            for(int j=0;j<tmp.m;j++)
-                for(int k=0;k<m;k++)
-                    ret.a[i][j]=(ret.a[i][j]+a[i][k]*tmp.a[k][j])%MOD;	//
-        return ret;
-    }
-    Matrix operator ^(LL b)
-    {
-        Matrix ret(n,m,1),base=(*this);
-        while(b)
-        {
-            if(b&1) ret=ret*base;
-            b>>=1;
-            base=base*base;
-        }
-        return ret;
-    }
-};
-LL a[N],b[N];
-void init(){
-	a[0]=1;
-	for(int i=1;i<N;++i){
-		a[i]=a[i-1]*i%MOD;
-		if(i==1) b[i]=0;
-		else b[i-1]=a[i-2]*(i-1)*(i-1)%MOD;
+
+const int N = 105;
+
+char word[N];
+char text[N];
+
+//把字符串里的字符统一转换成小写的
+void to_lowercase(char *str) {
+	int len = strlen(str);
+	for(int i = 0; i < len; ++i) {
+		if(str[i] >= 'A' && str[i] <= 'Z') {
+			str[i] = str[i] - 'A' + 'a';
+		}
 	}
-	//for(int i=0;i<6;++i){
-	//	cout<<a[i]<<' '<<b[i]<<endl;
-	//}
-	//cout<<endl;
-}
-//输入输出外挂
-void In(int &x){
-	char ch;
-	while (ch = getchar(),ch < '0' || ch > '9');
-	x = ch - '0';
-	while (ch = getchar(),ch >= '0' && ch <= '9') x = x * 10 + ch - '0';
 }
 
-void Out(int x){
-	if(x>9)
-        Out(x/10);
-    putchar(x%10+'0');
+//判断字符串text是否包含字符串word
+bool ok(char *text, int op) {
+	char tmp[N];
+	int text_len = strlen(text);
+	for(int i = 0; i < text_len; ++i) {
+		tmp[i] = text[i];
+	}
+	if(op == 0) to_lowercase(tmp);	//判断是否要忽略大小写
+
+	//判断包含关系
+	int word_len = strlen(word);
+	for(int i = 0; i <= text_len - word_len; ++i) {
+		int flag = 1;
+		for(int j = 0; j < word_len; ++j) {
+			if(word[j] != tmp[i + j]) {
+				flag = 0;
+				break;
+			}
+		}
+		if(flag) return true;
+	}
+	return false;
 }
-int main(){
-	init();
-	int T;
-	//scanf("%d",&T);
-	In(T);
-	while(T--){
-		int n,k;
-		//scanf("%d%d",&n,&k);
-		In(n); In(k);
-		Matrix m0=Matrix(1,2),p=Matrix(2,2);
-		m0.a[0][0]=a[k]; m0.a[0][1]=b[k];
-		p.a[0][0]=k+1; p.a[1][0]=1; p.a[1][1]=k;
-		p=p^(n-k-1);
-		m0=m0*p;
-		//m0.print();
-		//printf("%I64d\n",m0.a[0][0]);
-		Out((int)m0.a[0][0]);
+
+int main() {
+	int op, n;
+	scanf("%s", word);
+	scanf("%d", &op);
+	scanf("%d", &n);
+
+	if(op == 0) to_lowercase(word);	//判断是否要忽略大小写
+
+	for(int i = 0; i < n; ++i) {
+		scanf("%s", text);
+		if(ok(text, op)) {
+			printf("%s\n", text);
+		}
 	}
 	return 0;
 }

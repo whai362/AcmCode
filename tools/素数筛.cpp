@@ -7,9 +7,9 @@
 #include <ctime>
 using namespace std;
 #define LL __int64
-const int Max = 1000000;
-bool is_pri[Max];
-int pri[Max], tot;
+const int N = 1000000;
+bool is_pri[N];
+int pri[N], tot;
 void get_pri(int n) {
 	tot = 0;
 	memset(is_pri, 1, sizeof(bool) * (n + 1));
@@ -35,7 +35,7 @@ void get_pri(int n) {
 //}
 int main() {
 	double st = clock(), en;
-	get_pri(Max - 1);
+	get_pri(N - 1);
 	for (int i = 0; i < tot; ++i) {
 		cout << pri[i] << ' ';
 	}

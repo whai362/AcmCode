@@ -1,39 +1,23 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
+#include <iostream>
+#include <cstdio>
 using namespace std;
-const int N=5*1e5+5;
-char str[N];
-int len;
-bool ok(int x,int k){
-	int cnt=0;
-	for(int i=0;i<len;++i){
-		if(str[i]=='1'){
-			++cnt;
-			i=i+x-1;
-		}
-	}
-	return (cnt<=k);
-}
-int main(){
-	int T;
-	scanf("%d",&T);
-	while(T--){
-		int n,k;
-		scanf("%d%d",&n,&k);
-		scanf("%s",str);
-		len=strlen(str);
-		//cout<<ok(1,k)<<endl;
-		int l=0,r=n,mid=(1+n)>>1;
-		while(l<r){
-			if(ok(mid,k))
-				r=mid;
-			else
-				l=mid+1;
-			mid=(l+r)>>1;
-			//cout<<l<<' '<<r<<endl;
-		}
-		printf("%d\n",l);
-	}
+
+int main() {
+	//整型的输出
+	int a = 123;
+	cout<<a<<endl;
+	printf("%d\n", a);
+
+	//长整型的输出
+	long long b = 12345678910LL;
+	__int64 c = 12345678911LL;
+	cout<<b<<' '<<c<<endl;
+	printf("%lld %I64d\n", b, c);
+
+	//字符串输出
+	char str[] = "asdas sadas";
+	cout<<str<<endl;
+	printf("%s", str);
+	
 	return 0;
 }
